@@ -12,7 +12,51 @@ class Login extends Component {
     }
 
     render() {
-        return <div>Hello Login</div>;
+        return (
+            <div className="login-background">
+                <div className="login-container">
+                    <div className="login-content row">
+                        <div className="col-12 text-login">Login</div>
+                        <div className="col-12 form-group login-input">
+                            <label>Username:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter Your User name "
+                            ></input>
+                        </div>
+                        <div className="col-12 form-group login-input">
+                            <label>Password:</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Enter Your Password"
+                            ></input>
+                        </div>
+
+                        <div className="col-12">
+                            <button className="btn-login">Login</button>
+                        </div>
+
+                        <div className="col-12">
+                            <span className="forgot-password">
+                                Forgot Your Password
+                            </span>
+                        </div>
+
+                        <div className="col-12 text-center mt-3">
+                            <span className="text-other-login">
+                                Or Login With:
+                            </span>
+                        </div>
+                        <div className="col-12 social-login">
+                            <i className="fab fa-google-plus-g "></i>
+                            <i className="fab fa-facebook-f "></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 
