@@ -7,4 +7,8 @@ const handleLoginApi = (userEmail, userPassword) => {
     });
 };
 
-export { handleLoginApi };
+const getAllUsers = (inputId) => {
+    //template string
+    return axios.get(`api/getAllUsers?id=${inputId}`);
+};
+export { handleLoginApi, getAllUsers };
