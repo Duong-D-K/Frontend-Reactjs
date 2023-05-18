@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers, createNewUserService } from "../../services/userService";
+import { getAllUsers, createNewUserService, deleteUserSerive } from "../../services/userService";
 import ModalUser from "./ModalUser";
+import { emitter } from "../../utils/emitter"
 
 class UserManage extends Component {
     constructor(props) {
@@ -56,7 +57,24 @@ class UserManage extends Component {
                 await this.getAllUserFromReact();
                 this.setState({
                     isOpenModalUser: false,
-                })
+                });
+
+                emitter.emit("EVENT_CLEAR_MODAL_DATA");//clear modal 
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    handleDeleteUser = async (user) => {
+        try {
+            let response = await deleteUserSerive(user.id);
+
+            if (response && response.errCode === 0) {
+                await this.getAllUserFromReact();
+            }
+            else {
+                alert(response.errMessage);
             }
         } catch (e) {
             console.log(e);
@@ -64,7 +82,6 @@ class UserManage extends Component {
     }
 
     render() {
-        console.log(this.state);
         let arrUsers = this.state.arrUser;
         return (
             <div className="user-container">
@@ -101,7 +118,7 @@ class UserManage extends Component {
                                         <td>
                                             <button className="btn-edit"><i className="fas fa-edit"></i>
                                             </button>
-                                            <button className="btn-delete"><i className="fas fa-trash-alt"></i>
+                                            <button className="btn-delete" onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -110,7 +127,7 @@ class UserManage extends Component {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div >
         );
     }
 }
