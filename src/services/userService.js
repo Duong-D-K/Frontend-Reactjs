@@ -7,7 +7,7 @@ const handleLoginApi = (userEmail, userPassword) => {
     });
 };
 
-const getAllUsers = (inputId) => {
+const getAllUsersService = (inputId) => {
     //template string
     return axios.get(`/api/get-All-Users?id=${inputId}`);
 };
@@ -21,4 +21,9 @@ const deleteUserSerive = (id) => {
         data: { id: id }
     });
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserSerive };
+
+const editUserService = (data) => {
+    return axios.put(`/api/edit-User`, data);
+}
+
+export { handleLoginApi, getAllUsersService, createNewUserService, deleteUserSerive, editUserService };
