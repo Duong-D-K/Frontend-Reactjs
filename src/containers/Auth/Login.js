@@ -72,31 +72,19 @@ class Login extends Component {
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter Your User name "
-                                onChange={(event) =>
-                                    this.handleOnChangeUsername(event)
-                                }
+                                onChange={(event) => this.handleOnChangeUsername(event)}
                             ></input>
                         </div>
                         <div className="col-12 form-group login-input">
                             <label>Password:</label>
                             <div className="custom-input-password">
                                 <input
-                                    type={
-                                        this.state.isShowPassword
-                                            ? "text"
-                                            : "password"
-                                    }
+                                    type={this.state.isShowPassword ? "text" : "password"}
                                     className="form-control"
                                     placeholder="Enter Your Password"
-                                    onChange={(event) =>
-                                        this.handleOnChangePassword(event)
-                                    }
+                                    onChange={(event) => this.handleOnChangePassword(event)}
                                 ></input>
-                                <span
-                                    onClick={() => {
-                                        this.handleShowHidePassword();
-                                    }}
-                                >
+                                <span onClick={() => { this.handleShowHidePassword(); }}>
                                     <i
                                         className={
                                             this.state.isShowPassword
@@ -111,18 +99,14 @@ class Login extends Component {
                         <div className="col-12" style={{ color: "red" }}>
                             {this.state.errMessage}
                         </div>
-
                         <div className="col-12">
                             <button
                                 className="btn-login"
-                                onClick={() => {
-                                    this.handleLogin();
-                                }}
+                                onClick={() => { this.handleLogin(); }}
                             >
                                 Login
                             </button>
                         </div>
-
                         <div className="col-12">
                             <span className="forgot-password">
                                 Forgot Your Password
