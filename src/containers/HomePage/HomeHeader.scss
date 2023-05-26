@@ -13,11 +13,11 @@
             display: flex;
             align-items: center;
             .header-logo {
-                height: 100%;
+                height: 116%;
                 width: 100%;
                 cursor: pointer;
                 transform: scale(0.5, 0.5);
-                margin-left: -45px;
+                margin-left: -100px;
             }
             i {
                 font-size: 25px;
@@ -137,7 +137,7 @@
 
     .content-down {
         height: 35%;
-        padding-bottom: 100px;
+        padding-bottom: 67px;
         display: flex;
         align-items: flex-end;
         justify-content: center;
@@ -149,22 +149,148 @@
             justify-content: center;
             .option-child {
                 width: 130px;
-                .icon-child {
-                    background: white;
-                    width: 40px;
-                    height: 40px;
-                    padding: 10px;
+                // .icon-child {
+                //     background: white;
+                //     width: 40px;
+                //     height: 40px;
+                //     padding: 10px;
+                //     border-radius: 50%;
+                //     text-align: center;
+                //     margin: 0 auto;
+                //     i {
+                //         color: #49bce2;
+                //         font-size: 20px;
+                //     }
+                // }
+                .icon-child1 {
+                    background: url("../../assets/images/homeheader/khamchuyenkhoa.png");
+                    background-color: #fff;
                     border-radius: 50%;
-                    text-align: center;
-                    margin: 0 auto;
-                    i {
-                        color: #49bce2;
-                        font-size: 20px;
-                    }
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child2 {
+                    background: url("../../assets/images/homeheader/khamtuxa.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child3 {
+                    background: url("../../assets/images/homeheader/khamtongquat.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child4 {
+                    background: url("../../assets/images/homeheader/xetnghiemyhoc.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child5 {
+                    background: url("../../assets/images/homeheader/suckhoetinhthan.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child6 {
+                    background: url("../../assets/images/homeheader/khamnhakhoa.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child7 {
+                    background: url("../../assets/images/homeheader/goiphauthuat.jpg");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child8 {
+                    background: url("../../assets/images/homeheader/sanphamyte.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .icon-child9 {
+                    background: url("../../assets/images/homeheader/baitestsuckhoe.png");
+                    background-color: #fff;
+                    border-radius: 50%;
+                    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    width: 50px;
+                    height: 50px;
+                    margin: 2px auto;
+                    background-size: 32px;
+                    background-repeat: no-repeat;
+                    background-position: center;
                 }
                 .text-child {
-                    font-size: 17px;
-                    font-weight: 600;
+                    font-size: 16px;
+                    font-weight: 570;
                     cursor: pointer;
                     &:hover {
                         color: #49bce2;

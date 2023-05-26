@@ -19,8 +19,11 @@
         "child2": "Remote Examination",
         "child3": "General Examination",
         "child4": "Medical Tests",
-        "child5": "Mental health",
-        "child6": "Dental Examination"
+        "child5": "Mental Health",
+        "child6": "Dental Examination",
+        "child7": "Surgery Package",
+        "child8": "Medical Products",
+        "child9": "Health Test"
     },
 
     "common": {
