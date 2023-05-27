@@ -6,6 +6,12 @@
         background: #f5f5f5;
     }
 
+    &.section-about {
+        height: 500px !important;
+        border-top: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
     .section-body {
         .section-customize {
             cursor: pointer;
@@ -98,7 +104,7 @@
 //reset slick slider css
 .slick-prev {
     left: -60px !important;
-    z-index: 1000 !important;
+    z-index: 1 !important;
     height: 48px !important;
     width: 44px !important;
     background: #fff !important;
@@ -116,7 +122,7 @@
 }
 .slick-next {
     right: -45px !important;
-    z-index: 1000 !important;
+    z-index: 1 !important;
     height: 48px !important;
     width: 44px !important;
     background: #fff !important;
@@ -124,5 +130,38 @@
 
     &:hover {
         background: #eceaea !important ;
+    }
+}
+
+.home-footer {
+    text-align: center;
+    padding-top: 8px;
+    a {
+        text-decoration: unset;
+    }
+}
+
+.section-about {
+    padding: 0 100px;
+    .section-about-header {
+        padding: 20px 10px;
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .section-about-content {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        .content-left {
+            width: 60%;
+        }
+        .content-right {
+            width: 40%;
+            p {
+                text-align: justify;
+                font-style: italic;
+                padding-top: 15px;
+            }
+        }
     }
 }

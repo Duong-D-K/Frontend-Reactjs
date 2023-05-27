@@ -61,39 +61,39 @@ class HomeHeader extends Component {
                     <div className="content-down">
                         <div className="options">
                             <div className="option-child">
-                                <div className="icon-child1"></div>
+                                <div className="icon-child icon-child1"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child1"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child2"></div>
+                                <div className="icon-child icon-child2"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child2"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child3"></div>
+                                <div className="icon-child icon-child3"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child3"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child4"></div>
+                                <div className="icon-child icon-child4"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child4"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child5"></div>
+                                <div className="icon-child icon-child5"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child5"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child6"></div>
+                                <div className="icon-child icon-child6"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child6"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child7"></div>
+                                <div className="icon-child icon-child7"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child7"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child8"></div>
+                                <div className="icon-child icon-child8"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child8"></FormattedMessage></div>
                             </div>
                             <div className="option-child">
-                                <div className="icon-child9"></div>
+                                <div className="icon-child icon-child9"></div>
                                 <div className="text-child"><FormattedMessage id="content-down.child9"></FormattedMessage></div>
                             </div>
 
