@@ -28,7 +28,7 @@
     },
     "menu": {
         "admin": {
-            "manage-user": "Users System",
+            "manage-user": "Users",
             "manage-doctor": "Manage Doctors",
             "manage-admin": "Manage Admin",
             "crud": "CRUD User",
@@ -40,5 +40,18 @@
             "handbook": "Handbooks",
             "manage-handbook": "Manage Handbooks"
         }
+    },
+    "manage-user": {
+        "add": "Add A New User",
+        "password": "Password",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "Phone Number",
+        "address": "Address",
+        "gender": "Gender",
+        "position": "Postion",
+        "role": "Role",
+        "image": "Image",
+        "save": "Save"
     }
 }

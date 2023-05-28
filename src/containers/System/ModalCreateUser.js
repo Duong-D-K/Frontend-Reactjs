@@ -90,7 +90,7 @@ class ModalCreateUser extends Component {
                                 type='text'
                                 onChange={(event) => { this.handleOnChangeInput(event, "email"); }}
                                 value={this.state.email}
-                            ></input>
+                            />
                         </div>
 
                         <div className="input-container">
@@ -98,8 +98,8 @@ class ModalCreateUser extends Component {
                             <input
                                 type="password"
                                 onChange={(event) => { this.handleOnChangeInput(event, "password"); }}
-                                value={this.state.password}>
-                            </input>
+                                value={this.state.password} />
+
                         </div>
                         <div className="input-container">
                             <label>First Name</label>
@@ -107,7 +107,7 @@ class ModalCreateUser extends Component {
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "firstName"); }}
                                 value={this.state.firstName}
-                            ></input>
+                            />
                         </div>
                         <div className="input-container">
                             <label>Last Name</label>
@@ -115,15 +115,15 @@ class ModalCreateUser extends Component {
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "lastName"); }}
                                 value={this.state.lastName}
-                            ></input>
+                            />
                         </div>
                         <div className="input-container max-width-input">
                             <label>Address</label>
                             <input
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "address"); }}
-                                value={this.state.address}>
-                            </input>
+                                value={this.state.address} />
+
                         </div>
                     </div>
                 </ModalBody>

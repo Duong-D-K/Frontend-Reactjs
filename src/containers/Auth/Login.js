@@ -73,7 +73,7 @@ class Login extends Component {
                                 className="form-control"
                                 placeholder="Enter Your User name "
                                 onChange={(event) => this.handleOnChangeUsername(event)}
-                            ></input>
+                            />
                         </div>
                         <div className="col-12 form-group login-input">
                             <label>Password:</label>
@@ -83,7 +83,7 @@ class Login extends Component {
                                     className="form-control"
                                     placeholder="Enter Your Password"
                                     onChange={(event) => this.handleOnChangePassword(event)}
-                                ></input>
+                                />
                                 <span onClick={() => { this.handleShowHidePassword(); }}>
                                     <i
                                         className={
