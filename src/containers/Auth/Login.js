@@ -4,9 +4,9 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 
 import "./Login.scss";
-import { FormattedMessage } from "react-intl";
+// import { FormattedMessage } from "react-intl";
 import { handleLoginApi } from "../../services/userService";
-import { userLoginSuccess } from "../../store/actions/userActions";
+// import { userLoginSuccess } from "../../store/actions/userActions";
 
 class Login extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class Login extends Component {
             if (data && data.errCode !== 0) {
                 this.setState({ errMessage: data.message });
             }
-            if (data && data.errCode == 0) {
+            if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user);
             }
         } catch (error) {
