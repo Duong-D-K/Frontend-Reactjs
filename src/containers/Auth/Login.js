@@ -141,8 +141,7 @@ const mapDispatchToProps = (dispatch) => {
         // adminLoginSuccess: (adminInfo) =>
         //     dispatch(actions.adminLoginSuccess(adminInfo)),
         // userLoginFail: () => dispatch(actions.adminLoginFail()),
-        userLoginSuccess: (userInfo) =>
-            dispatch(actions.userLoginSuccess(userInfo)),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
     };
 };
 

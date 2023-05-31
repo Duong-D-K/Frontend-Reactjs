@@ -1,6 +1,6 @@
 import actionTypes from "./actionTypes";
-import { getAllCodesSerivce } from "../../services/userService";
-//gender
+import { getAllCodesSerivce, createNewUserService } from "../../services/userService";
+//import gender
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
         try {
@@ -25,9 +25,9 @@ export const fetchGenderSuccess = (genderData) => ({
     data: genderData,
 });
 export const fetchGenderFailed = () => ({
-    type: actionTypes.FETCH_GENDER_FAILED,
+    type: actionTypes.FETCH_GENDER_FAIL,
 });
-//position
+//import position
 export const fetchPostionStart = () => {
     return async (dispatch, getState) => {
         try {
@@ -50,9 +50,9 @@ export const fetchpPositionSuccess = (positionData) => ({
     data: positionData,
 });
 export const fetchPostionFailed = () => ({
-    type: actionTypes.FETCH_POSITION_FAILED,
+    type: actionTypes.FETCH_POSITION_FAIL,
 });
-//role
+//import role
 export const fetchRoleStart = () => {
     return async (dispatch, getState) => {
         try {
@@ -75,5 +75,32 @@ export const fetchpRoleSuccess = (roleData) => ({
     data: roleData,
 });
 export const fetchRoleFailed = () => ({
-    type: actionTypes.FETCH_ROLE_FAILED,
+    type: actionTypes.FETCH_ROLE_FAIL,
 });
+//check validate
+export const createNewUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await createNewUserService(data);
+
+            console.log("check", response);
+
+            if (response && response.errCode === 0) {
+                dispatch(createNewUserSucceed());
+            } else {
+                dispatch(createNewUserFailed());
+            }
+        } catch (e) {
+            dispatch(createNewUserFailed());
+
+            console.log("Create New User Failed", e);
+        }
+    }
+}
+export const createNewUserSucceed = () => ({
+    type: actionTypes.CREATE_USER_SUCCEED,
+});
+
+export const createNewUserFailed = () => ({
+    type: actionTypes.CREATE_USER_FAIL,
+})
