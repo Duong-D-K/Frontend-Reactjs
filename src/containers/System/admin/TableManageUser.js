@@ -23,6 +23,11 @@ class TableManageUser extends Component {
         }
     }
 
+    handleEditUser = (user) => {
+        this.props.handleEditUserFromParentsKey(user);
+
+    }
+
     handleDeleteUser = (user) => {
         this.props.deleteUserStartRedux(user.id);
     }
@@ -37,7 +42,11 @@ class TableManageUser extends Component {
                         <th>Email</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Phone Number</th>
                         <th>Address</th>
+                        <th>Gender</th>
+                        <th>Position</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                     {arrUsers && arrUsers.length > 0 && arrUsers.map((item, index) => {
@@ -46,9 +55,15 @@ class TableManageUser extends Component {
                                 <td>{item.email}</td>
                                 <td>{item.firstName}</td>
                                 <td>{item.lastName}</td>
+                                <td>{item.phoneNumber}</td>
                                 <td>{item.address}</td>
+                                <td>{item.gender}</td>
+                                <td>{item.position}</td>
+                                <td>{item.role}</td>
                                 <td>
-                                    <button className="btn-edit"
+                                    <button
+                                        className="btn-edit"
+                                        onClick={() => this.handleEditUser(item)}
                                     >
                                         <i className="fas fa-edit"></i>
                                     </button>
