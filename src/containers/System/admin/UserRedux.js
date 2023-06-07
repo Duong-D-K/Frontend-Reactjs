@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import { LANGUAGES, CRUD_ACTIONS } from "../../../utils";
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import Lightbox from 'react-image-lightbox';
@@ -73,20 +73,23 @@ class UserRedux extends Component {
                 avatar: "",
 
                 action: CRUD_ACTIONS.CREATE,
+                previewImgUrl: "",
             })
         }
     }
 
-    handleOnChangeImage = (event) => {
+    handleOnChangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0];
 
         if (file) {
+            let base64 = await CommonUtils.getBase64(file);
+
             let objectUrl = URL.createObjectURL(file);
 
             this.setState({
                 previewImgUrl: objectUrl,
-                avatar: file,
+                avatar: base64,
             });
         }
     }
@@ -120,7 +123,7 @@ class UserRedux extends Component {
         return true;
     }
 
-    handleSaveUser = () => {
+    handleCreateUser = () => {
         let isValid = this.checkValidateInput();
 
         let { action } = this.state;//let action = this.state.action;
@@ -140,11 +143,12 @@ class UserRedux extends Component {
                     gender: this.state.gender,
                     role: this.state.role,
                     position: this.state.position,
+                    avatar: this.state.avatar,
                 });
             }
         }
         if (action === CRUD_ACTIONS.UPDATE) {
-            //fire redux edit user
+            //fire redux update user
             this.props.updateUserRedux({
                 id: this.state.id,
                 email: this.state.email,
@@ -156,13 +160,16 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 role: this.state.role,
                 position: this.state.position,
+                avatar: this.state.avatar,
             });
         }
     }
 
     handleEditUserFromParents = (user) => {
-        console.log("check handle edit user from parents", user);
-
+        let imageBase64;
+        if (user.image) {
+            imageBase64 = new Buffer(user.image, "base64").toString("binary");
+        }
         this.setState({
             id: user.id,
             email: user.email,
@@ -176,8 +183,9 @@ class UserRedux extends Component {
             role: user.roleId,
             avatar: "",
 
+            previewImgUrl: imageBase64,
             action: CRUD_ACTIONS.UPDATE,
-        });
+        })
     }
 
     render() {
@@ -318,7 +326,7 @@ class UserRedux extends Component {
                             <div className="col-12 my-3">
                                 <button
                                     className={this.state.action === CRUD_ACTIONS.UPDATE ? "btn btn-warning" : "btn btn-primary"}
-                                    onClick={() => { this.handleSaveUser() }}
+                                    onClick={() => { this.handleCreateUser() }}
                                 >
                                     {this.state.action === CRUD_ACTIONS.UPDATE ?
                                         <FormattedMessage id="manage-user.edit" />
