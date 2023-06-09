@@ -50,7 +50,7 @@ class UserManage extends Component {
     getAllUsers = async () => {
         let response = await getAllUsersService("ALL");
 
-        if (response && response.errCode === 0) {
+        if (response && response.code === 0) {
             this.setState({
                 arrUser: response.users,
             });
@@ -61,8 +61,8 @@ class UserManage extends Component {
         try {
             let response = await createNewUserService(data);
 
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage);
+            if (response && response.code !== 0) {
+                alert(response.message);
             } else {
                 await this.getAllUsers();
                 this.setState({
@@ -80,11 +80,11 @@ class UserManage extends Component {
         try {
             let response = await deleteUserSerive(user.id);
 
-            if (response && response.errCode === 0) {
+            if (response && response.code === 0) {
                 await this.getAllUsers();
             }
             else {
-                alert(response.errMessage);
+                alert(response.message);
             }
         } catch (e) {
             console.log(e);
@@ -95,12 +95,12 @@ class UserManage extends Component {
         try {
             let response = await editUserService(user);
 
-            if (response && response.errCode === 0) {
+            if (response && response.code === 0) {
                 this.setState({ isOpenEditModalUser: false });
 
                 await this.getAllUsers();
             } else {
-                alert(response.errMessage);
+                alert(response.message);
             }
         } catch (e) {
             console.log(e);

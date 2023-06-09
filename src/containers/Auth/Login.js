@@ -37,10 +37,10 @@ class Login extends Component {
                 this.state.userName,
                 this.state.password
             );
-            if (data && data.errCode !== 0) {
+            if (data && data.code !== 0) {
                 this.setState({ errMessage: data.message });
             }
-            if (data && data.errCode === 0) {
+            if (data && data.code === 0) {
                 this.props.userLoginSuccess(data.user);
             }
         } catch (error) {

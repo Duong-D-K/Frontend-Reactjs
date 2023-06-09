@@ -44,20 +44,20 @@ class UserRedux extends Component {
         if (prevProps.genderRedux !== this.props.genderRedux) {
             this.setState({
                 genderArray: this.props.genderRedux,
-                gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].key : ""
+                gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].keyMap : "",
             })
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             this.setState({
                 positionArray: this.props.positionRedux,
-                position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].key : ""
-            })
+                position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].keyMap : "",
+            }, () => console.log(this.props.positionRedux))
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             this.setState({
                 roleArray: this.props.roleRedux,
-                role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].key : ""
-            })
+                role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].keyMap : "",
+            }, () => console.log(this.props.roleRedux))
         }
         if (prevProps.users !== this.props.users) {
             this.setState({
@@ -67,9 +67,9 @@ class UserRedux extends Component {
                 lastName: "",
                 phoneNumber: "",
                 address: "",
-                gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].key : "",
-                position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].key : "",
-                role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].key : "",
+                gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].keyMap : "",
+                position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].keyMap : "",
+                role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].keyMap : "",
                 avatar: "",
 
                 action: CRUD_ACTIONS.CREATE,
@@ -269,7 +269,7 @@ class UserRedux extends Component {
                                 >
                                     {genders && genders.length > 0 && genders.map((item, index) => {
                                         return (
-                                            <option key={index} value={item.key}>
+                                            <option key={index} value={item.keyMap}>
                                                 {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                             </option>
                                         );
@@ -285,7 +285,7 @@ class UserRedux extends Component {
                                 >
                                     {positions && positions.length > 0 && positions.map((item, index) => {
                                         return (
-                                            <option key={index} value={item.key}>
+                                            <option key={index} value={item.keyMap}>
                                                 {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                             </option>
                                         );
@@ -301,7 +301,7 @@ class UserRedux extends Component {
                                 >
                                     {roles && roles.length > 0 && roles.map((item, index) => {
                                         return (
-                                            <option key={index} value={item.key}>
+                                            <option key={index} value={item.keyMap}>
                                                 {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                             </option>
                                         );
