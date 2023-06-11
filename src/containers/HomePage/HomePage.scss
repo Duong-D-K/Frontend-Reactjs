@@ -133,6 +133,9 @@
     }
 }
 
+.slick-disabled {
+    display: none !important; //khi bắt đầu hoặc khi đến cuối slick sẽ không còn dấu next
+}
 .home-footer {
     text-align: center;
     padding-top: 8px;

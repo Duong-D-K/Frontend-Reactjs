@@ -54,5 +54,9 @@
         "image": "Image",
         "create": "Create User",
         "edit": "Save Change"
+    },
+    "homepage": {
+        "prominent-doctor": "Prominent Doctors",
+        "more-info": "More Infomation"
     }
 }

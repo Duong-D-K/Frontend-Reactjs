@@ -54,5 +54,9 @@
         "image": "Hình ảnh",
         "create": "Tạo người dùng",
         "edit": "Lưu thay đổi"
+    },
+    "homepage": {
+        "prominent-doctor": "Bác Sĩ Nổi Bật",
+        "more-info": "Xem Thêm"
     }
 }
