@@ -3,6 +3,7 @@ import {
     getAllCodesSerivce, createNewUserService,
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
+    getAllDoctorsService, saveDoctorInfoSerivce,
 
 } from "../../services/userService";
 import { toast } from "react-toastify";
@@ -230,6 +231,64 @@ export const fetchTopDoctorsStart = (data) => {
             dispatch({
                 type: actionTypes.FETCH_TOP_DOCTORS_FAIL,
                 data: "",
+            });
+        }
+    }
+}
+//fetch all doctors
+export const fetchAllDoctors = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllDoctorsService();
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTORS_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTORS_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.FETCH_ALL_DOCTORS_FAIL,
+                data: "",
+            });
+        }
+    }
+}
+//save doctor info
+export const saveDoctorInfo = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await saveDoctorInfoSerivce(data);
+
+            if (response && response.code === 0) {
+                toast.success("Save Doctor Info Successfully!!");
+
+                dispatch({
+                    type: actionTypes.SAVE_DOCTOR_INFO_SUCCEED,
+                });
+            } else {
+                toast.error("Save Doctor Info Failed!!");
+
+                dispatch({
+                    type: actionTypes.SAVE_DOCTOR_INFO_FAIL,
+
+                });
+            }
+        } catch (e) {
+            toast.error("Save Doctor Info Failed!!");
+
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.SAVE_DOCTOR_INFO_FAIL,
             });
         }
     }

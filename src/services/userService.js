@@ -33,6 +33,14 @@ const getAllCodesSerivce = (inputType) => {
 const getTopDoctorsService = (limit) => {
     return axios.get(`/api/top-doctors-home?limit=${limit}`);
 }
+
+const getAllDoctorsService = () => {
+    return axios.get(`/api/get-all-doctors`);
+}
+
+const saveDoctorInfoSerivce = (data) => {
+    return axios.post(`/api/save-doctor-info`, data);
+}
 export {
     handleLoginApi,
     getAllUsersService,
@@ -41,4 +49,6 @@ export {
     editUserService,
     getAllCodesSerivce,
     getTopDoctorsService,
+    getAllDoctorsService,
+    saveDoctorInfoSerivce,
 };
