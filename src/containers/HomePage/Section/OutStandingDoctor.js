@@ -82,7 +82,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadTopDoctors: () => dispatch(actions.fetchTopDoctorsStart()),
+        loadTopDoctors: () => dispatch(actions.fetchTopDoctors()),
     };
 };
 

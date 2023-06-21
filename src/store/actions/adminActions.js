@@ -9,7 +9,7 @@ import {
 import { toast } from "react-toastify";
 
 //import gender
-export const fetchGenderStart = () => {
+export const fetchGender = () => {
     return async (dispatch, getState) => {
         try {
             dispatch({ type: actionTypes.FETCH_GENDER_START });
@@ -17,74 +17,75 @@ export const fetchGenderStart = () => {
             let response = await getAllCodesSerivce("gender");
 
             if (response && response.code === 0) {
-                dispatch(fetchGenderSucceed(response.data));
+                dispatch({
+                    type: actionTypes.FETCH_GENDER_SUCCEED,
+                    data: response.data,
+                });
+
             } else {
-                dispatch(fetchGenderFail());
+                dispatch({
+                    type: actionTypes.FETCH_GENDER_FAIL,
+                });
             }
         } catch (e) {
-            dispatch(fetchGenderFail());
+            dispatch({
+                type: actionTypes.FETCH_GENDER_FAIL,
+            });
 
             console.log("Fetch Gender Fail", e);
         }
     }
 }
-export const fetchGenderSucceed = (genderData) => ({
-    type: actionTypes.FETCH_GENDER_SUCCEED,
-    data: genderData,
-});
-export const fetchGenderFail = () => ({
-    type: actionTypes.FETCH_GENDER_FAIL,
-});
 //import position
-export const fetchPostionStart = () => {
+export const fetchPostion = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllCodesSerivce("position");
 
             if (response && response.code === 0) {
-                dispatch(fetchpPositionSucceed(response.data));
+                dispatch({
+                    type: actionTypes.FETCH_POSITION_SUCCEED,
+                    data: response.data,
+                });
             } else {
-                dispatch(fetchPostionFail());
+                dispatch({
+                    type: actionTypes.FETCH_POSITION_FAIL,
+                });
             }
         } catch (e) {
-            dispatch(fetchPostionFail());
+            dispatch({
+                type: actionTypes.FETCH_POSITION_FAIL,
+            });
 
-            console.log("fetchPostionStart", e);
+            console.log("fetchPostion", e);
         }
     }
 }
-export const fetchpPositionSucceed = (positionData) => ({
-    type: actionTypes.FETCH_POSITION_SUCCEED,
-    data: positionData,
-});
-export const fetchPostionFail = () => ({
-    type: actionTypes.FETCH_POSITION_FAIL,
-});
 //import role
-export const fetchRoleStart = () => {
+export const fetchRole = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllCodesSerivce("role");
 
             if (response && response.code === 0) {
-                dispatch(fetchpRoleSucceed(response.data));
+                dispatch({
+                    type: actionTypes.FETCH_ROLE_SUCCEED,
+                    data: response.data,
+                });
             } else {
-                dispatch(fetchRoleFail());
+                dispatch({
+                    type: actionTypes.FETCH_ROLE_FAIL,
+                });
             }
         } catch (e) {
-            dispatch(fetchRoleFail());
+            dispatch({
+                type: actionTypes.FETCH_ROLE_FAIL,
+            });
 
-            console.log("fetchGenderStart", e);
+            console.log("fetchGender", e);
         }
     }
 }
-export const fetchpRoleSucceed = (roleData) => ({
-    type: actionTypes.FETCH_ROLE_SUCCEED,
-    data: roleData,
-});
-export const fetchRoleFail = () => ({
-    type: actionTypes.FETCH_ROLE_FAIL,
-});
 //create new user
 export const createNewUser = (data) => {
     return async (dispatch, getState) => {
@@ -93,42 +94,49 @@ export const createNewUser = (data) => {
 
             if (response && response.code === 0) {
 
-                dispatch(createNewUserSucceed());
+                dispatch({
+                    type: actionTypes.CREATE_USER_SUCCEED,
+                });
                 toast.success("Create User Successfully!!");
 
-                dispatch(fetchAllUsersStart());
+                dispatch(fetchAllUsers());
             } else {
-                dispatch(createNewUserFail());
+                dispatch({
+                    type: actionTypes.CREATE_USER_FAIL,
+                });
                 alert(response.message);
             }
         } catch (e) {
-            dispatch(createNewUserFail());
+            dispatch({
+                type: actionTypes.CREATE_USER_FAIL,
+            });
 
             alert("Create New User Fail", e);
         }
     }
 }
-export const createNewUserSucceed = () => ({
-    type: actionTypes.CREATE_USER_SUCCEED,
-});
-export const createNewUserFail = () => ({
-    type: actionTypes.CREATE_USER_FAIL,
-})
 //fetch all users
-export const fetchAllUsersStart = () => {
+export const fetchAllUsers = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllUsersService("ALL");
 
             if (response && response.code === 0) {
-                dispatch(fetchAllUsersSucceed(response.users.reverse()));//reverse helps descending column
+                dispatch({
+                    type: actionTypes.FETCH_ALL_USERS_SUCCEED,
+                    users: response.users.reverse(),//reverse helps descending column
+                });
             } else {
-                dispatch(fetchAllUsersFail());
+                dispatch({
+                    type: actionTypes.FETCH_ALL_USERS_FAIL,
+                });
 
                 toast.error("Fetch Users Unsuccessfully!!");
             }
         } catch (e) {
-            dispatch(fetchAllUsersFail());
+            dispatch({
+                type: actionTypes.FETCH_ALL_USERS_FAIL,
+            });
 
             toast.error("Fetch Users Unsuccessfully!!");
 
@@ -136,32 +144,30 @@ export const fetchAllUsersStart = () => {
         }
     }
 }
-export const fetchAllUsersSucceed = (data) => ({
-    type: actionTypes.FETCH_ALL_USERS_SUCCEED,
-    users: data,
-})
-export const fetchAllUsersFail = () => ({
-    type: actionTypes.FETCH_ALL_USERSFAIL,
-
-})
 //update a user
-export const updateUserStart = (data) => {
+export const updateUser = (data) => {
     return async (dispatch, getState) => {
         let response = await editUserService(data);
         try {
             if (response && response.code === 0) {
-                dispatch(updateUserSucceed());
+                dispatch({
+                    type: actionTypes.UPDATE_USER_SUCCEED,
+                });
 
                 toast.success(response.message);
 
-                dispatch(fetchAllUsersStart());
+                dispatch(fetchAllUsers());
             } else {
-                dispatch(updateUserFail());
+                dispatch({
+                    type: actionTypes.UPDATE_USER_FAIL,
+                });
 
                 toast.error(response.message);
             }
         } catch (e) {
-            dispatch(updateUserFail());
+            dispatch({
+                type: actionTypes.UPDATE_USER_FAIL,
+            });
 
             toast.error(response.message);
 
@@ -169,14 +175,8 @@ export const updateUserStart = (data) => {
         }
     }
 }
-export const updateUserSucceed = () => ({
-    type: actionTypes.UPDATE_USER_SUCCEED,
-})
-export const updateUserFail = () => ({
-    type: actionTypes.UPDATE_USER_FAIL,
-})
 //delete user
-export const deleteUserStart = (userId) => {
+export const deleteUser = (userId) => {
     return async (dispatch, getState) => {
         try {
             let response = await deleteUserSerive(userId);
@@ -184,33 +184,32 @@ export const deleteUserStart = (userId) => {
             console.log(response);
 
             if (response && response.code === 0) {
-                dispatch(deleteUserSucceed());
+                dispatch({
+                    type: actionTypes.DELETE_USER_SUCCEED,
+                });
 
                 toast.success(response.message);
 
-                dispatch(fetchAllUsersStart());
+                dispatch(fetchAllUsers());
             } else {
-                dispatch(deleteUserFail());
+                dispatch({
+                    type: actionTypes.DELETE_USER_FAIL,
+                });
 
                 toast.error(response.message);
             }
         } catch (e) {
-            dispatch(deleteUserFail());
+            dispatch({
+                type: actionTypes.DELETE_USER_FAIL,
+            });
 
             console.log("Delete User Fail", e);
         }
     }
 }
-export const deleteUserSucceed = (data) => ({
-    type: actionTypes.DELETE_USERS_SUCCEED,
-})
-export const deleteUserFail = () => ({
-    type: actionTypes.DELETE_USERS_FAIL,
-})
 //fetch top doctors
-export const fetchTopDoctorsStart = (data) => {
+export const fetchTopDoctors = (data) => {
     return async (dispatch, getState) => {
-
         try {
             let response = await getTopDoctorsService(10);
 

@@ -45,7 +45,7 @@ class TableManageUser extends Component {
     }
 
     handleDeleteUser = (user) => {
-        this.props.deleteUserStartRedux(user.id);
+        this.props.deleteUserRedux(user.id);
     }
 
     render() {
@@ -75,8 +75,8 @@ class TableManageUser extends Component {
                                     <td>{item.phoneNumber}</td>
                                     <td>{item.address}</td>
                                     <td>{item.gender}</td>
-                                    <td>{item.position}</td>
-                                    <td>{item.role}</td>
+                                    <td>{item.positionId}</td>
+                                    <td>{item.roleId}</td>
                                     <td>
                                         <button
                                             className="btn-edit"
@@ -111,8 +111,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-        deleteUserStartRedux: (id) => { dispatch(actions.deleteUserStart(id)) },
+        fetchUserRedux: () => dispatch(actions.fetchAllUsers()),
+        deleteUserRedux: (id) => { dispatch(actions.deleteUser(id)) },
     };
 };
 

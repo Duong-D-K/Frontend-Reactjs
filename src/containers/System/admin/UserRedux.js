@@ -35,9 +35,9 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        this.props.getGenderStart();
-        this.props.getPositonStart();
-        this.props.getRoleStart();
+        this.props.getGenderRedux();
+        this.props.getPositonRedux();
+        this.props.getRoleRedux();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -45,19 +45,19 @@ class UserRedux extends Component {
             this.setState({
                 genderArray: this.props.genderRedux,
                 gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].keyMap : "",
-            })
+            });
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             this.setState({
                 positionArray: this.props.positionRedux,
                 position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].keyMap : "",
-            }, () => console.log(this.props.positionRedux))
+            });
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             this.setState({
                 roleArray: this.props.roleRedux,
                 role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].keyMap : "",
-            }, () => console.log(this.props.roleRedux))
+            });
         }
         if (prevProps.users !== this.props.users) {
             this.setState({
@@ -74,7 +74,7 @@ class UserRedux extends Component {
 
                 action: CRUD_ACTIONS.CREATE,
                 previewImgUrl: "",
-            })
+            });
         }
     }
 
@@ -92,12 +92,6 @@ class UserRedux extends Component {
                 avatar: base64,
             });
         }
-    }
-
-    openPreviewImage = () => {
-        this.setState({
-            isOpen: true,
-        });
     }
 
     onChangeInput = (event, id) => {
@@ -133,7 +127,7 @@ class UserRedux extends Component {
                 return;
             } else {
                 //fire redux create user
-                this.props.createNewUser({
+                this.props.createNewUserRedux({
                     email: this.state.email,
                     password: this.state.password,
                     firstName: this.state.firstName,
@@ -185,7 +179,7 @@ class UserRedux extends Component {
 
             previewImgUrl: imageBase64,
             action: CRUD_ACTIONS.UPDATE,
-        })
+        }, console.log("hihi", this.state.gender));
     }
 
     render() {
@@ -198,6 +192,7 @@ class UserRedux extends Component {
 
         let { email, password, firstName, lastName, phoneNumber, address, gender, position, role } = this.state;
 
+        console.log(gender);
 
         return (
             <div className="user-redux-cotainer">
@@ -267,6 +262,7 @@ class UserRedux extends Component {
                                     onChange={(event) => { this.onChangeInput(event, "gender") }}
                                     value={gender}
                                 >
+
                                     {genders && genders.length > 0 && genders.map((item, index) => {
                                         return (
                                             <option key={index} value={item.keyMap}>
@@ -317,7 +313,9 @@ class UserRedux extends Component {
                                     <label className="label-upload" htmlFor="previewImg">Tải Ảnh<i className="fas fa-upload"></i></label>
                                     <div className="prev-image"
                                         style={{ backgroundImage: `url(${this.state.previewImgUrl})` }}
-                                        onClick={() => { this.openPreviewImage() }}
+                                        onClick={() => {
+                                            this.setState({ isOpen: true });
+                                        }}
                                     >
 
                                     </div>
@@ -373,12 +371,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getGenderStart: () => dispatch(actions.fetchGenderStart()),
-        getPositonStart: () => dispatch(actions.fetchPostionStart()),
-        getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        createNewUser: (data) => { dispatch(actions.createNewUser(data)) },
-        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-        updateUserRedux: (data) => dispatch(actions.updateUserStart(data)),
+        getGenderRedux: () => dispatch(actions.fetchGender()),
+        getPositonRedux: () => dispatch(actions.fetchPostion()),
+        getRoleRedux: () => dispatch(actions.fetchRole()),
+
+        createNewUserRedux: (data) => { dispatch(actions.createNewUser(data)) },
+        fetchUserRedux: () => dispatch(actions.fetchAllUsers()),
+        updateUserRedux: (data) => dispatch(actions.updateUser(data)),
     };
 };
 
