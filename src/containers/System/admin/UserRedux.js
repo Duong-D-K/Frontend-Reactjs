@@ -179,7 +179,7 @@ class UserRedux extends Component {
 
             previewImgUrl: imageBase64,
             action: CRUD_ACTIONS.UPDATE,
-        }, console.log("hihi", this.state.gender));
+        });
     }
 
     render() {
@@ -331,7 +331,6 @@ class UserRedux extends Component {
                                         :
                                         <FormattedMessage id="manage-user.create" />
                                     }
-
                                 </button>
                             </div>
                             <div className="col-12 mb-5">

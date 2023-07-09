@@ -8,6 +8,7 @@ const initialState = {
     users: [],
     topDoctors: [],
     allDoctors: [],
+    doctor: [],
 
 };
 
@@ -86,9 +87,17 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 allDoctors: [],
             };
-
-
-
+        //get doctor by id
+        case actionTypes.GET_DOCTOR_BY_ID_SUCCEED:
+            return {
+                ...state,
+                doctor: action.data,
+            };
+        case actionTypes.GET_DOCTOR_BY_ID_FAIL:
+            return {
+                ...state,
+                doctor: "",
+            };
 
 
         default:

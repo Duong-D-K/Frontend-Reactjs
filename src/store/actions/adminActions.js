@@ -4,6 +4,7 @@ import {
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
     getAllDoctorsService, saveDoctorInfoSerivce,
+    getDoctorByIdService,
 
 } from "../../services/userService";
 import { toast } from "react-toastify";
@@ -268,13 +269,13 @@ export const saveDoctorInfo = (data) => {
             let response = await saveDoctorInfoSerivce(data);
 
             if (response && response.code === 0) {
-                toast.success("Save Doctor Info Successfully!!");
+                toast.success(response.message);
 
                 dispatch({
                     type: actionTypes.SAVE_DOCTOR_INFO_SUCCEED,
                 });
             } else {
-                toast.error("Save Doctor Info Failed!!");
+                toast.error(response.message);
 
                 dispatch({
                     type: actionTypes.SAVE_DOCTOR_INFO_FAIL,
@@ -284,10 +285,39 @@ export const saveDoctorInfo = (data) => {
         } catch (e) {
             toast.error("Save Doctor Info Failed!!");
 
-            console.log("Fech Top Doctors Error", e);
+            console.log("Save Doctor Error", e);
 
             dispatch({
                 type: actionTypes.SAVE_DOCTOR_INFO_FAIL,
+            });
+        }
+    }
+}
+//get doctor by id
+export const getDoctorById = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getDoctorByIdService(id);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_DOCTOR_BY_ID_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_DOCTOR_BY_ID_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            toast.error("Save Doctor Info Failed!!");
+
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.GET_DOCTOR_BY_ID_FAIL,
+                data: "",
             });
         }
     }

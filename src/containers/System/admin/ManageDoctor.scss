@@ -34,4 +34,20 @@
             background-color: aquamarine;
         }
     }
+
+    .create-content-doctor {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        border-radius: 3px;
+        outline: none;
+        border: none;
+        padding: 5px;
+        background-color: rgb(63, 57, 125);
+        cursor: pointer;
+        color: white;
+
+        &:hover {
+            background-color: rgb(255, 105, 203);
+        }
+    }
 }

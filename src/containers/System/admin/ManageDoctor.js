@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { LANGUAGES } from "../../../utils";
+import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
+import { getDoctorByIdService } from "../../../services/userService";
 import "./ManageDoctor.scss";
 import * as actions from "../../../store/actions";
 import MarkdownIt from 'markdown-it';
@@ -18,8 +19,11 @@ class ManageDoctor extends Component {
             contentHTML: "",
             selectedDoctor: "",
             description: "",
-            listDoctors: "",
 
+            listDoctors: [],
+            doctor: "",
+
+            hasDataYet: false,
         };
     }
 
@@ -45,19 +49,19 @@ class ManageDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.doctors !== this.props.doctors) {
-            let dataSelect = this.buildDataInputSelect(this.props.doctors);
+        if (prevProps.doctorList !== this.props.doctorList) {
+            let dataSelect = this.buildDataInputSelect(this.props.doctorList);
 
             this.setState({
                 listDoctors: dataSelect,
-            })
+            });
         }
         if (prevProps.language !== this.props.language) {
-            let dataSelect = this.buildDataInputSelect(this.props.doctors);
+            let dataSelect = this.buildDataInputSelect(this.props.doctorList);
 
             this.setState({
                 listDoctors: dataSelect,
-            })
+            });
         }
     }
     handleEditorChange = ({ html, text }) => {
@@ -67,15 +71,41 @@ class ManageDoctor extends Component {
         })
     }
     handleSaveContentMarkdown = () => {
+        let { hasDataYet } = this.state;
+
         this.props.saveDoctorInfo({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
             doctorId: this.state.selectedDoctor.value,
+
+            action: hasDataYet === true ? CRUD_ACTIONS.UPDATE : CRUD_ACTIONS.CREATE,
         });
     }
-    handleChange = (selectedDoctor) => {
-        this.setState({ selectedDoctor });
+    handleChange = async (selectedDoctor) => {
+        this.setState({ selectedDoctor: selectedDoctor });
+
+        let response = await getDoctorByIdService(selectedDoctor.value);
+
+        if (response && response.code === 0 && response.data && response.data.Markdown) {
+            let markdown = response.data.Markdown;
+
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+
+                hasDataYet: true,
+            });
+        } else {
+            this.setState({
+                contentHTML: "",
+                contentMarkdown: "",
+                description: "",
+
+                hasDataYet: false,
+            })
+        }
     };
     handleOnChangeDesc = event => {
         this.setState({
@@ -83,6 +113,8 @@ class ManageDoctor extends Component {
         })
     }
     render() {
+        let { hasDataYet } = this.state;
+
         return (
             <div className="manage-doctor-container">
                 <div className="manage-doctor-title">
@@ -111,13 +143,15 @@ class ManageDoctor extends Component {
                     <MdEditor
                         style={{ height: '500px' }}
                         renderHTML={text => mdParser.render(text)}
-                        onChange={this.handleEditorChange} />
+                        onChange={this.handleEditorChange}
+                        value={this.state.contentMarkdown}
+                    />
                 </div>
                 <button
-                    className="save-content-doctor"
+                    className={hasDataYet === true ? "save-content-doctor" : "create-content-doctor"}
                     onClick={() => this.handleSaveContentMarkdown()}
                 >
-                    Lưu Thông Tin
+                    {hasDataYet === true ? <span>Lưu Thông Tin</span> : <span>Tạo Thông Tin</span>}
                 </button>
             </div >
         );
@@ -127,7 +161,8 @@ class ManageDoctor extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
-        doctors: state.admin.allDoctors,
+        doctorList: state.admin.allDoctors,
+        doctor: state.admin.doctor,
     };
 };
 
@@ -135,6 +170,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllDoctors: () => { dispatch(actions.fetchAllDoctors()) },
         saveDoctorInfo: (data) => { dispatch(actions.saveDoctorInfo(data)) },
+        getDoctorById: (id) => { dispatch(actions.getDoctorById(id)) },
     };
 };
 
