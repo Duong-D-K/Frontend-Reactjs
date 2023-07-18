@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
-
+import { FormattedMessage } from "react-intl";
 import 'react-markdown-editor-lite/lib/index.css';
 import { LANGUAGES } from "../../../utils";
 
@@ -45,14 +45,14 @@ class TableManageUser extends Component {
                     <tbody>
                         <tr>
                             <th>Email</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Phone Number</th>
-                            <th>Address</th>
-                            <th>Gender</th>
-                            <th>Position</th>
-                            <th>Role</th>
-                            <th>Action</th>
+                            <th><FormattedMessage id="manage-user.firstName" /></th>
+                            <th><FormattedMessage id="manage-user.lastName" /></th>
+                            <th><FormattedMessage id="manage-user.phoneNumber" /></th>
+                            <th><FormattedMessage id="manage-user.address" /></th>
+                            <th><FormattedMessage id="manage-user.gender" /></th>
+                            <th><FormattedMessage id="manage-user.position" /></th>
+                            <th><FormattedMessage id="manage-user.role" /></th>
+                            <th><FormattedMessage id="manage-user.action" /></th>
                         </tr>
                         {usersList && usersList.length > 0 && usersList.map((item, index) => {
                             return (

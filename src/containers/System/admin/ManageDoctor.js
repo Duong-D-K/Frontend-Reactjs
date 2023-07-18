@@ -7,7 +7,8 @@ import * as actions from "../../../store/actions";
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import Select from 'react-select';;
+import Select from 'react-select';
+import { FormattedMessage } from "react-intl";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);//convert from html to text
 
@@ -70,12 +71,14 @@ class ManageDoctor extends Component {
             });
         }
     }
+
     handleEditorChange = ({ html, text }) => {
         this.setState({
             contentMarkdown: text,
             contentHTML: html,
         })
     }
+
     handleSaveContentMarkdown = () => {
         let { hasDataYet } = this.state;
 
@@ -116,11 +119,13 @@ class ManageDoctor extends Component {
 
 
     };
+
     handleOnChangeDesc = event => {
         this.setState({
             description: event.target.value,
         })
     }
+
     render() {
         let { hasDataYet } = this.state;
 
@@ -149,11 +154,11 @@ class ManageDoctor extends Component {
         return (
             <div className="manage-doctor-container">
                 <div className="manage-doctor-title">
-                    Tạo Thêm Thông Tin Bác Sĩ
+                    <FormattedMessage id="manage-doctor.title" />
                 </div>
                 <div className="more-info mb-4">
                     <div className="content-left form-group">
-                        <label>Chọn Bác Sĩ</label>
+                        <label><FormattedMessage id="manage-doctor.select-doctor" /></label>
                         <Select
                             value={this.state.selectedDoctor}
                             onChange={this.handleChange}
@@ -161,7 +166,7 @@ class ManageDoctor extends Component {
                         />
                     </div>
                     <div className="content-right">
-                        <label>Thông Tin Giới Thiệu</label>
+                        <label><FormattedMessage id="manage-doctor.intro" /></label>
                         <textarea
                             className="form-control" rows="4"
                             onChange={(event) => this.handleOnChangeDesc(event)}

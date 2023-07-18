@@ -197,7 +197,9 @@ class UserRedux extends Component {
         return (
             <div className="user-redux-cotainer">
                 <div className="title">
-                    <div className="text-center">User Redux Duong Duy Khanh</div>
+                    <div className="text-center">
+                        <FormattedMessage id="manage-user.title" />
+                    </div>
                 </div>
 
                 <div className="user-redux-body">

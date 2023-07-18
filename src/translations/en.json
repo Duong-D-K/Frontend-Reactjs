@@ -41,10 +41,12 @@
             "manage-handbook": "Handbooks' Management"
         },
         "doctor": {
-            "manage-schedule": "Doctor's Schedule Management"
+            "manage-schedule": "Doctors' Schedule Management"
         }
     },
     "manage-user": {
+        "title": "User Information Management",
+
         "add": "Add A New User",
         "password": "Password",
         "firstName": "First Name",
@@ -56,10 +58,23 @@
         "role": "Role",
         "image": "Image",
         "create": "Create User",
-        "edit": "Save Change"
+        "edit": "Save Change",
+
+        "action": "Action"
+    },
+    "manage-doctor": {
+        "title": "Doctor Information Management",
+        "select-doctor": "Select Doctor",
+        "intro": "Introduction"
     },
     "homepage": {
         "prominent-doctor": "Prominent Doctors",
         "more-info": "More Infomation"
+    },
+    "schedule-management": {
+        "title": "Manage Doctor's Examination Schedule",
+        "select-doctor": "Select A Doctor",
+        "select-date": "Select Date",
+        "save-info": "Save Infomation"
     }
 }

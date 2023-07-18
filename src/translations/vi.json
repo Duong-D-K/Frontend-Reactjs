@@ -45,21 +45,36 @@
         }
     },
     "manage-user": {
+        "title": "Quản Lý Thông Tin Người Dùng",
+
         "add": "Thêm Mới Người Dùng",
-        "password": "Mật khẩu",
+        "password": "Mật Khẩu",
         "firstName": "Tên",
         "lastName": "Họ",
-        "phoneNumber": "Số điện thoại",
-        "address": "Địa chỉ",
-        "gender": "Giới tính",
-        "position": "Chức danh",
-        "role": "Vai trò",
-        "image": "Hình ảnh",
-        "create": "Tạo người dùng",
-        "edit": "Lưu thay đổi"
+        "phoneNumber": "Số Điện Thoại",
+        "address": "Địa Chỉ",
+        "gender": "Giới Tính",
+        "position": "Chức Danh",
+        "role": "Vai Trò",
+        "image": "Hình Ảnh",
+        "create": "Tạo Người Dùng",
+        "edit": "Lưu Thay Đổi",
+
+        "action": "Thao Tác"
+    },
+    "manage-doctor": {
+        "title": "Quản Lý Thông Tin Bác Sĩ",
+        "select-doctor": "Chọn Bác Sĩ",
+        "intro": "Thông Tin Giới Thiệu"
     },
     "homepage": {
         "prominent-doctor": "Bác Sĩ Nổi Bật",
         "more-info": "Xem Thêm"
+    },
+    "schedule-management": {
+        "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",
+        "select-doctor": "Chọn Bác Sĩ",
+        "select-date": "Chọn Ngày",
+        "save-info": "Lưu Thông Tin"
     }
 }

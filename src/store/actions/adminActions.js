@@ -322,3 +322,30 @@ export const getDoctorById = (id) => {
         }
     }
 }
+//get allcode schedule hours
+export const getAllScheduleTime = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllCodesSerivce("TIME");
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALLCODE_SCHEDULE_TIME_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALLCODE_SCHEDULE_TIME_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.GET_ALLCODE_SCHEDULE_TIME_FAIL,
+                data: "",
+            });
+        }
+    }
+}
