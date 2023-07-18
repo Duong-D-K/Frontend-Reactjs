@@ -63,6 +63,12 @@ class ManageDoctor extends Component {
                 listDoctors: dataSelect,
             });
         }
+
+        if (prevProps.doctor !== this.props.doctor) {
+            this.setState({
+                doctor: this.props.doctor,
+            });
+        }
     }
     handleEditorChange = ({ html, text }) => {
         this.setState({
@@ -82,18 +88,17 @@ class ManageDoctor extends Component {
             action: hasDataYet === true ? CRUD_ACTIONS.UPDATE : CRUD_ACTIONS.CREATE,
         });
     }
+
     handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor: selectedDoctor });
 
         let response = await getDoctorByIdService(selectedDoctor.value);
 
         if (response && response.code === 0 && response.data && response.data.Markdown) {
-            let markdown = response.data.Markdown;
-
             this.setState({
-                contentHTML: markdown.contentHTML,
-                contentMarkdown: markdown.contentMarkdown,
-                description: markdown.description,
+                contentHTML: response.data.Markdown.contentHTML,
+                contentMarkdown: response.data.Markdown.contentMarkdown,
+                description: response.data.Markdown.description,
 
                 hasDataYet: true,
             });
@@ -106,6 +111,10 @@ class ManageDoctor extends Component {
                 hasDataYet: false,
             })
         }
+
+        // this.props.getDoctorById(selectedDoctor.value);
+
+
     };
     handleOnChangeDesc = event => {
         this.setState({
@@ -114,6 +123,28 @@ class ManageDoctor extends Component {
     }
     render() {
         let { hasDataYet } = this.state;
+
+        // let { doctor } = this.state;
+
+        // console.log("manage doctor check", doctor);
+
+        // if (doctor && doctor.Markdown) {
+        //     this.setState({
+        //         contentHTML: "",
+        //         contentMarkdown: "",
+        //         description: "",
+
+        //         hasDataYet: false,
+        //     })
+        // } else {
+        //     this.setState({
+        //         contentHTML: doctor.Markdown.contentHTML,
+        //         contentMarkdown: doctor.Markdown.contentMarkdown,
+        //         description: doctor.Markdown.description,
+
+        //         hasDataYet: true,
+        //     })
+        // }
 
         return (
             <div className="manage-doctor-container">

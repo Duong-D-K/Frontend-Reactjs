@@ -29,16 +29,19 @@
     "menu": {
         "admin": {
             "manage-user": "Người dùng",
-            "manage-doctor": "Quản lý bác sĩ",
+            "manage-doctor": "Quản Lý Thông Tin Bác Sĩ",
             "manage-admin": "Quản lý Admin",
             "crud": "CRUD User",
-            "crud-redux": "CRUD Redux",
+            "crud-redux": "Quản Lý Thông Tin Người Dùng",
             "clinic": "Phòng Khám",
-            "manage-clinic": "Quản lý phòng khám",
+            "manage-clinic": "Quản Lý Phòng Khám",
             "specialty": "Chuyên Khoa",
-            "manage-specialty": "Quản lý chuyên khoa",
+            "manage-specialty": "Quản Lý Chuyên Khoa",
             "handbook": "Cẩm Nang",
-            "manage-handbook": "Quản lý cẩm nang"
+            "manage-handbook": "Quản Lý Cẩm Nang"
+        },
+        "doctor": {
+            "manage-schedule": "Quản Lý Kế Hoạch Khám Bệnh"
         }
     },
     "manage-user": {

@@ -3,27 +3,14 @@ import { connect } from "react-redux";
 import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
 
-import MarkdownIt from 'markdown-it';
-import MdEditor from 'react-markdown-editor-lite';
-// import style manually
 import 'react-markdown-editor-lite/lib/index.css';
-
-// Register plugins if required
-// MdEditor.use(YOUR_PLUGINS_HERE);
-
-// Initialize a markdown parser
-const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-// Finish!
-function handleEditorChange({ html, text }) {
-    console.log('handleEditorChange', html, text);
-}
+import { LANGUAGES } from "../../../utils";
 
 class TableManageUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userRedux: [],
+            usersList: [],
         };
     }
 
@@ -34,7 +21,7 @@ class TableManageUser extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.users !== this.props.users) {
             this.setState({
-                userRedux: this.props.users,
+                usersList: this.props.users,
             })
         }
     }
@@ -49,8 +36,9 @@ class TableManageUser extends Component {
     }
 
     render() {
-        let arrUsers = this.state.userRedux;
+        let { usersList } = this.state;
 
+        let { language } = this.props;
         return (
             <>
                 <table id="TableManageUser">
@@ -66,7 +54,7 @@ class TableManageUser extends Component {
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
-                        {arrUsers && arrUsers.length > 0 && arrUsers.map((item, index) => {
+                        {usersList && usersList.length > 0 && usersList.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{item.email}</td>
@@ -74,9 +62,10 @@ class TableManageUser extends Component {
                                     <td>{item.lastName}</td>
                                     <td>{item.phoneNumber}</td>
                                     <td>{item.address}</td>
-                                    <td>{item.gender}</td>
-                                    <td>{item.positionId}</td>
-                                    <td>{item.roleId}</td>
+                                    <td>{language === LANGUAGES.VI ? item.genderData.valueVi : item.genderData.valueEn}</td>
+                                    <td>{language === LANGUAGES.VI ? item.positionData.valueVi : item.positionData.valueEn}</td>
+                                    <td>{language === LANGUAGES.VI ? item.roleData.valueVi : item.roleData.valueEn}</td>
+
                                     <td>
                                         <button
                                             className="btn-edit"
@@ -96,8 +85,6 @@ class TableManageUser extends Component {
                         }
                     </tbody>
                 </table>
-
-                <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
             </>
         );
     }
@@ -105,6 +92,8 @@ class TableManageUser extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        language: state.app.language,
+
         users: state.admin.users,
     };
 };
