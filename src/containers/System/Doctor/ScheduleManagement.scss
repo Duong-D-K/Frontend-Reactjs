@@ -15,9 +15,12 @@
         gap: 20px;
         flex-wrap: wrap;
 
-        button {
+        .btn-schedule {
             padding: 5px 15px;
             border: 1px solid rgb(42, 124, 34);
+            &.active {
+                background-color: orange;
+            }
         }
     }
     .btn-save-schedule {
