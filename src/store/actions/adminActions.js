@@ -3,8 +3,8 @@ import {
     getAllCodesSerivce, createNewUserService,
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
-    getAllDoctorsService, saveDoctorInfoSerivce,
-    getDoctorByIdService,
+    getAllDoctorsService, createDoctorInfoSerivce,
+    getDoctorByIdService, createBulkScheduleService,
 
 } from "../../services/userService";
 import { toast } from "react-toastify";
@@ -124,7 +124,7 @@ export const fetchAllUsers = () => {
 
             if (response && response.code === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_ALL_USERS_SUCCEED,
+                    type: actionTypes.GET_ALL_USERS_SUCCEED,
                     users: response.users.reverse(),//reverse helps descending column
                 });
             } else {
@@ -266,7 +266,7 @@ export const fetchAllDoctors = () => {
 export const saveDoctorInfo = (data) => {
     return async (dispatch, getState) => {
         try {
-            let response = await saveDoctorInfoSerivce(data);
+            let response = await createDoctorInfoSerivce(data);
 
             if (response && response.code === 0) {
                 toast.success(response.message);
@@ -346,6 +346,35 @@ export const getAllScheduleTime = () => {
                 type: actionTypes.GET_ALLCODE_SCHEDULE_TIME_FAIL,
                 data: "",
             });
+        }
+    }
+}
+//create bulk schedule
+export const createBulkSchedule = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await createBulkScheduleService(data);
+
+            if (response && response.code === 0) {
+
+                dispatch({
+                    type: actionTypes.CREATE_BULK_SCHEDULE_SUCCEED,
+                });
+                toast.success(response.message);
+
+                dispatch(getAllScheduleTime());
+            } else {
+                dispatch({
+                    type: actionTypes.CREATE_BULK_SCHEDULE_FAIL,
+                });
+                alert(response.message);
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.CREATE_BULK_SCHEDULE_FAIL,
+            });
+
+            alert("Create New User Fail", e);
         }
     }
 }

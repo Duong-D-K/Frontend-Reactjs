@@ -56,7 +56,7 @@ const adminReducer = (state = initialState, action) => {
                 roles: [],
             };
         //fetch all users
-        case actionTypes.FETCH_ALL_USERS_SUCCEED:
+        case actionTypes.GET_ALL_USERS_SUCCEED:
             return {
                 ...state,
                 users: action.users,

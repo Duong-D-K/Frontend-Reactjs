@@ -22,8 +22,8 @@ class ScheduleManagement extends Component {
         };
     }
     componentDidMount() {
-        this.props.fetchAllDoctors();
-        this.props.getAllScheduleTime();
+        this.props.fetchAllDoctorsRedux();
+        this.props.getAllScheduleTimeRedux();
     }
 
     buildDataInputSelect = (inputData) => {
@@ -95,7 +95,7 @@ class ScheduleManagement extends Component {
 
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { period, selectedDoctor, seletedDate } = this.state;
 
         let result = [];
@@ -109,7 +109,9 @@ class ScheduleManagement extends Component {
             return;
         }
 
-        let formattedDate = moment(seletedDate).format(dateFormat.SEND_TO_SERVER);
+        // let formattedDate = moment(seletedDate).format(dateFormat.SEND_TO_SERVER);
+        // let formattedDate = moment(seletedDate).unix();
+        let formattedDate = new Date(seletedDate).getTime();
 
         if (period && period.length > 0) {
             let selectedTime = period.filter(item => item.isSelected === true);//cho hết tất cả những phần tử được chọn vào trong mảng selectedTime
@@ -120,7 +122,7 @@ class ScheduleManagement extends Component {
 
                     object.doctorId = selectedDoctor.value;//value và label
                     object.date = formattedDate;
-                    object.time = item.keyMap;
+                    object.timeType = item.keyMap;
 
                     result.push(object);
                 })
@@ -130,7 +132,12 @@ class ScheduleManagement extends Component {
                 return;
             }
         }
-        console.log("check result", result);
+
+        let res = await this.props.createBulkScheduleRedux({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            formattedDate: formattedDate,
+        });
     }
 
     render() {
@@ -207,8 +214,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchAllDoctors: () => { dispatch(actions.fetchAllDoctors()) },
-        getAllScheduleTime: () => { dispatch(actions.getAllScheduleTime()) },
+        fetchAllDoctorsRedux: () => { dispatch(actions.fetchAllDoctors()) },
+        getAllScheduleTimeRedux: () => { dispatch(actions.getAllScheduleTime()) },
+        createBulkScheduleRedux: (data) => { dispatch(actions.createBulkSchedule(data)) },
     };
 };
 
