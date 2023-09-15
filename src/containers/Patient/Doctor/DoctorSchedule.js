@@ -13,6 +13,7 @@ class DoctorSchedule extends Component {
         this.state = {
             allDays: [],
             schedule: [],
+            allAvailableTime: [],
         }
     }
 
@@ -68,15 +69,24 @@ class DoctorSchedule extends Component {
 
             let response = await getScheduleByDateService(doctorId, date);
 
+
+            if (response && response.code === 0) {
+                this.setState({
+                    allAvailableTime: response.data ? response.data : [],
+                })
+            }
+
             console.log(response);
         }
     }
+
     render() {
-        let { allDays } = this.state;
+        let { allDays, allAvailableTime } = this.state;
+        let { language } = this.props;
 
         return (
             <>
-                <div className="doctor schedule-container">
+                <div className="doctor-schedule-container">
                     <div className="all-schedule">
                         <select onChange={(event) => this.handleOnChangeSelect(event)}>
                             {allDays && allDays.length > 0 && allDays.map((item, index) => {
@@ -92,9 +102,25 @@ class DoctorSchedule extends Component {
                         </select>
                     </div>
                     <div className="all-available-time">
-
+                        <div className="text-calendar">
+                            <i className="fas fa-calendar-alt">
+                                <span>Lịch Khám</span>
+                            </i>
+                        </div>
+                        <div className="time-content">
+                            {allAvailableTime && allAvailableTime.length > 0 ?
+                                allAvailableTime.map((item, index) => {
+                                    let diplayTime = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                    return (
+                                        <button key={index}>{diplayTime}</button>
+                                    );
+                                })
+                                :
+                                <div>Bác Sĩ Không Có Lịch Hẹn Trong Thời Gian Này, Vui Lòng Chọn Thời Gian Khác</div>
+                            }
+                        </div>
                     </div>
-                </div>
+                </div >
             </>
         );
     }
