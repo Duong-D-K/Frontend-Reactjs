@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "../../HomePage/HomeHeader";
+import * as actions from "../../../store/actions";
 import "./DetailDoctor.scss";
 import { getDoctorByIdService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
+import DoctorSchedule from "./DoctorSchedule";
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -17,23 +19,19 @@ class DetailDoctor extends Component {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
 
-            let response = await getDoctorByIdService(id);
-
-            if (response && response.code === 0) {
-                this.setState({
-                    detailDoctor: response.data,
-                });
-            }
+            await this.props.getDoctorByIdRedux(id);
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-
+        if (this.props.doctor !== prevProps.doctor) {
+            this.setState({
+                detailDoctor: this.props.doctor,
+            });
+        }
     }
 
     render() {
-        console.log("check", this.state.detailDoctor);
-
         let { detailDoctor } = this.state;
 
         let { language } = this.props;
@@ -67,7 +65,13 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                     <div className="doctor-schedule">
+                        <div className="content-left">
+                            <DoctorSchedule
+                                doctorIdFromParents={detailDoctor && detailDoctor.id ? detailDoctor.id : -1} />
+                        </div>
+                        <div className="content-right">
 
+                        </div>
                     </div>
                     <div className="doctor-detail-info">
                         {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML &&
@@ -87,11 +91,15 @@ class DetailDoctor extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
+        doctor: state.admin.doctor,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        getDoctorByIdRedux: (id) => { dispatch(actions.getDoctorById(id)) },
+
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailDoctor);

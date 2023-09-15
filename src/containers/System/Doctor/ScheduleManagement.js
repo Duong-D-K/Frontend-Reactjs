@@ -4,9 +4,8 @@ import "./ScheduleManagement.scss";
 import { FormattedMessage } from "react-intl";
 import Select from 'react-select';
 import * as actions from "../../../store/actions";
-import { CRUD_ACTIONS, LANGUAGES, dateFormat } from "../../../utils";
+import { LANGUAGES } from "../../../utils";
 import DatePicker from "../../../components/Input/DatePicker";
-import moment from "moment";
 import { toast } from "react-toastify";
 import _ from "lodash";
 
@@ -22,21 +21,27 @@ class ScheduleManagement extends Component {
         };
     }
     componentDidMount() {
-        this.props.fetchAllDoctorsRedux();
+        this.props.getAllDoctorsRedux();
         this.props.getAllScheduleTimeRedux();
     }
 
     buildDataInputSelect = (inputData) => {
         let result = [];
+
         let { language } = this.props;
+
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
+
                 let labelVi = `${item.lastName} ${item.firstName}`;
+
                 let labelEn = `${item.firstName} ${item.lastName}`;
 
                 object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+
                 object.value = item.id;
+
                 result.push(object);
             })
         }
@@ -214,7 +219,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchAllDoctorsRedux: () => { dispatch(actions.fetchAllDoctors()) },
+        getAllDoctorsRedux: () => { dispatch(actions.fetchAllDoctors()) },
         getAllScheduleTimeRedux: () => { dispatch(actions.getAllScheduleTime()) },
         createBulkScheduleRedux: (data) => { dispatch(actions.createBulkSchedule(data)) },
     };

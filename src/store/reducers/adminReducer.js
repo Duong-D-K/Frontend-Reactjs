@@ -10,6 +10,7 @@ const initialState = {
     allDoctors: [],
     doctor: [],
     allScheduleTime: [],
+    schedule: [],
 
 };
 
@@ -77,7 +78,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 topDoctors: [],
             };
-        //fetch all doctors
+        //get all doctors
         case actionTypes.FETCH_ALL_DOCTORS_SUCCEED:
             return {
                 ...state,
@@ -110,6 +111,20 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 allScheduleTime: "",
             };
+        //get schedule by date
+        case actionTypes.GET_SCHEDULE_BY_DATE_SUCCEED:
+            return {
+                ...state,
+                schedule: action.data,
+            };
+        case actionTypes.GET_SCHEDULE_BY_DATE_FAIL:
+            return {
+                ...state,
+                schedule: "",
+            };
+
+
+
 
         default:
             return state;

@@ -4,7 +4,7 @@ import {
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
     getAllDoctorsService, createDoctorInfoSerivce,
-    getDoctorByIdService, createBulkScheduleService,
+    getDoctorByIdService, createBulkScheduleService, getScheduleByDateService,
 
 } from "../../services/userService";
 import { toast } from "react-toastify";
@@ -375,6 +375,33 @@ export const createBulkSchedule = (data) => {
             });
 
             alert("Create New User Fail", e);
+        }
+    }
+}
+//get schedule by date
+export const getScheduleByDate = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getScheduleByDateService(doctorId, date);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_SCHEDULE_BY_DATE_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_SCHEDULE_BY_DATE_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            alert("Get Schedule By Date Failed!!");
+
+            dispatch({
+                type: actionTypes.GET_SCHEDULE_BY_DATE_FAIL,
+                data: "",
+            });
         }
     }
 }

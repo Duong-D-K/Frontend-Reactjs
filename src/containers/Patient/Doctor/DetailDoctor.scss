@@ -31,10 +31,26 @@
             }
         }
     }
+    .doctor-schedule {
+        margin: 0 100px;
+        display: flex;
+        height: 200px;
+        border: 1px solid red;
+
+        .content-left {
+            width: 50%;
+        }
+        .content-right {
+            width: 50%;
+        }
+    }
     .doctor-detail-info {
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
         background-color: #f9f9f9;
         padding: 10px 100px;
+    }
+    .doctor-comment {
+        height: 50px;
     }
 }
