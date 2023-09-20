@@ -6,6 +6,7 @@ import moment, { lang } from "moment/moment";
 import localization from "moment/locale/vi";
 import { LANGUAGES } from "../../../utils";
 import { getScheduleByDateService } from "../../../services/userService";
+import { FormattedMessage } from "react-intl";
 
 class DoctorSchedule extends Component {
     constructor(props) {
@@ -17,47 +18,62 @@ class DoctorSchedule extends Component {
         }
     }
 
-
-    setArrDays = language => {
+    getArrDays = language => {
         let allDays = [];
 
         for (let i = 0; i < 7; i++) {
             let object = {};
 
             if (language === LANGUAGES.VI) {
-                object.label = moment(new Date()).add(i, "days").format("dddd-DD/MM");
+                if (i === 0) {
+                    object.label = `Hôm Nay - ${moment(new Date()).format("DD/MM")}`;
+                } else {
+                    object.label = moment(new Date()).add(i, "days").format("dddd - DD/MM");
+                }
             } else {
-                object.label = moment(new Date()).add(i, "days").locale("en").format("ddd-DD/MM");
+                if (i === 0) {
+                    object.label = `Today - ${moment(new Date()).format("DD/MM")}`;
+                } else {
+                    object.label = moment(new Date()).add(i, "days").locale("en").format("ddd - DD/MM");
+                }
             }
 
             object.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
 
             allDays.push(object);
         }
+        return allDays;
+    }
 
+    async componentDidMount() {
+        let { language } = this.props;
 
-        // this.props.getScheduleByDateRedux(65, 1694707200000);
+        let allDays = this.getArrDays(language);
+
         this.setState({
             allDays: allDays,
         })
     }
 
-    componentDidMount() {
-        let { language } = this.props;
-
-        this.setArrDays(language);
-
-
-    }
-
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.schedule !== prevProps.schedule) {
+        // if (this.props.schedule !== prevProps.schedule) {
+        //     this.setState({
+        //         schedule: this.props.schedule,
+        //     })
+        // }
+        if (this.props.language !== prevProps.language) {
             this.setState({
-                schedule: this.props.schedule,
+                allDays: this.getArrDays(this.props.language),
             })
         }
-        if (this.props.language !== prevProps.language) {
-            this.setArrDays(this.props.language);
+        if (this.props.doctorIdFromParents !== prevProps.doctorIdFromParents) {
+            let allDays = this.getArrDays(this.props.language);
+
+            let response = await getScheduleByDateService(this.props.doctorIdFromParents, allDays[0].value);
+
+            this.setState({
+                allAvailableTime: response.data ? response.data : [],
+            })
         }
     }
 
@@ -69,19 +85,17 @@ class DoctorSchedule extends Component {
 
             let response = await getScheduleByDateService(doctorId, date);
 
-
             if (response && response.code === 0) {
                 this.setState({
                     allAvailableTime: response.data ? response.data : [],
                 })
             }
-
-            console.log(response);
         }
     }
 
     render() {
         let { allDays, allAvailableTime } = this.state;
+
         let { language } = this.props;
 
         return (
@@ -104,19 +118,32 @@ class DoctorSchedule extends Component {
                     <div className="all-available-time">
                         <div className="text-calendar">
                             <i className="fas fa-calendar-alt">
-                                <span>Lịch Khám</span>
+                                <span><FormattedMessage id="patient.detail-doctor.schedule" /></span>
                             </i>
                         </div>
                         <div className="time-content">
                             {allAvailableTime && allAvailableTime.length > 0 ?
-                                allAvailableTime.map((item, index) => {
-                                    let diplayTime = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
-                                    return (
-                                        <button key={index}>{diplayTime}</button>
-                                    );
-                                })
+                                <>
+                                    <div className="time-content-btns">
+                                        {
+                                            allAvailableTime.map((item, index) => {
+                                                let diplayTime = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                                return (
+                                                    <button key={index}>{diplayTime}</button>
+                                                );
+                                            })
+                                        }
+                                    </div>
+                                    <div className="book-free">
+                                        <span>
+                                            <FormattedMessage id="patient.detail-doctor.choose" />
+                                            <i className="far fa-hand-point-up"></i>
+                                            <FormattedMessage id="patient.detail-doctor.book-free" />
+                                        </span>
+                                    </div>
+                                </>
                                 :
-                                <div>Bác Sĩ Không Có Lịch Hẹn Trong Thời Gian Này, Vui Lòng Chọn Thời Gian Khác</div>
+                                <div className="no-schedule"><FormattedMessage id="patient.detail-doctor.no-schedule" /></div>
                             }
                         </div>
                     </div>

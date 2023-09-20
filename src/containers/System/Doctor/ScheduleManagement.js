@@ -149,6 +149,7 @@ class ScheduleManagement extends Component {
         let { period } = this.state;
 
         let { language } = this.props;
+
         return (
             <>
                 <div className="schedule-management-container">
