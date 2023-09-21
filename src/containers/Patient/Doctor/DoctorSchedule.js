@@ -13,7 +13,6 @@ class DoctorSchedule extends Component {
         super(props);
         this.state = {
             allDays: [],
-            schedule: [],
             allAvailableTime: [],
         }
     }
@@ -56,23 +55,21 @@ class DoctorSchedule extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        // if (this.props.schedule !== prevProps.schedule) {
-        //     this.setState({
-        //         schedule: this.props.schedule,
-        //     })
-        // }
         if (this.props.language !== prevProps.language) {
             this.setState({
                 allDays: this.getArrDays(this.props.language),
             })
         }
+
         if (this.props.doctorIdFromParents !== prevProps.doctorIdFromParents) {
             let allDays = this.getArrDays(this.props.language);
 
-            let response = await getScheduleByDateService(this.props.doctorIdFromParents, allDays[0].value);
+            await this.props.getScheduleByDateRedux(this.props.doctorIdFromParents, allDays[0].value);
+        }
 
+        if (this.props.schedule !== prevProps.schedule) {
             this.setState({
-                allAvailableTime: response.data ? response.data : [],
+                allAvailableTime: this.props.schedule ? this.props.schedule : [],
             })
         }
     }
@@ -83,13 +80,7 @@ class DoctorSchedule extends Component {
 
             let date = event.target.value;
 
-            let response = await getScheduleByDateService(doctorId, date);
-
-            if (response && response.code === 0) {
-                this.setState({
-                    allAvailableTime: response.data ? response.data : [],
-                })
-            }
+            await this.props.getScheduleByDateRedux(doctorId, date);
         }
     }
 

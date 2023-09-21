@@ -65,7 +65,9 @@
     "manage-doctor": {
         "title": "Doctor Information Management",
         "select-doctor": "Select Doctor",
-        "intro": "Introduction"
+        "intro": "Introduction",
+        "add": "Create Doctor",
+        "save": "Save Doctor"
     },
     "homepage": {
         "prominent-doctor": "Prominent Doctors",

@@ -372,12 +372,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getGenderRedux: () => dispatch(actions.fetchGender()),
-        getPositonRedux: () => dispatch(actions.fetchPostion()),
-        getRoleRedux: () => dispatch(actions.fetchRole()),
+        getGenderRedux: () => dispatch(actions.getGender()),
+        getPositonRedux: () => dispatch(actions.getPostion()),
+        getRoleRedux: () => dispatch(actions.getRole()),
 
         createNewUserRedux: (data) => { dispatch(actions.createNewUser(data)) },
-        fetchUserRedux: () => dispatch(actions.fetchAllUsers()),
+        fetchUserRedux: () => dispatch(actions.getAllUsers()),
         updateUserRedux: (data) => dispatch(actions.updateUser(data)),
     };
 };

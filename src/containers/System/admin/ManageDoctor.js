@@ -16,32 +16,44 @@ class ManageDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            //save to markdown
             contentMarkdown: "",
             contentHTML: "",
             selectedDoctor: "",
             description: "",
-
             listDoctors: [],
-            doctor: "",
-
             hasDataYet: false,
+
+            //save to doctor_information
+            listPrice: [],
+            listPayment: [],
+            listProvince: [],
+            selectedPrice: "",
+            selectedPayment: "",
+            selectedProvince: "",
+            clinicName: "",
+            clinicAddress: "",
+            note: "",
+
+            doctor: "",
         };
     }
 
     componentDidMount() {
-        this.props.fetchAllDoctors();
+        this.props.getAllDoctorsRedux();
+        this.props.getAllRequiredDoctorInfoRedux();
     }
 
-    buildDataInputSelect = (inputData) => {
+    buildDataInputSelect = (inputData, type) => {
         let result = [];
-        let { language } = this.props;
+
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
-                let labelVi = `${item.lastName} ${item.firstName}`;
-                let labelEn = `${item.firstName} ${item.lastName}`;
+                let labelVi = type === "USERS" ? `${item.lastName} ${item.firstName}` : item.valueVi;
+                let labelEn = type === "USERS" ? `${item.firstName} ${item.lastName}` : item.valueEn;
 
-                object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                object.label = this.props.language === LANGUAGES.VI ? labelVi : labelEn;
                 object.value = item.id;
                 result.push(object);
             })
@@ -51,7 +63,7 @@ class ManageDoctor extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.doctorList !== this.props.doctorList) {
-            let dataSelect = this.buildDataInputSelect(this.props.doctorList);
+            let dataSelect = this.buildDataInputSelect(this.props.doctorList, "USERS");
 
             this.setState({
                 listDoctors: dataSelect,
@@ -69,6 +81,22 @@ class ManageDoctor extends Component {
             this.setState({
                 doctor: this.props.doctor,
             });
+        }
+
+        if (this.props.allRequiredDoctorInfo !== prevProps.allRequiredDoctorInfo) {
+            let { responsePrice, responsePayment, responseProvince } = this.props.allRequiredDoctorInfo;
+
+            let dataSelectPrice = this.buildDataInputSelect(responsePrice);
+            let dataSelectPayment = this.buildDataInputSelect(responsePayment);
+            let dataSelectProvince = this.buildDataInputSelect(responseProvince);
+
+            console.log("check news", dataSelectPrice, dataSelectPayment, dataSelectProvince);
+
+            this.setState({
+                listPrice: dataSelectPrice,
+                listPayment: dataSelectPayment,
+                listProvince: dataSelectProvince,
+            })
         }
     }
 
@@ -114,10 +142,6 @@ class ManageDoctor extends Component {
                 hasDataYet: false,
             })
         }
-
-        // this.props.getDoctorById(selectedDoctor.value);
-
-
     };
 
     handleOnChangeDesc = event => {
@@ -129,28 +153,6 @@ class ManageDoctor extends Component {
     render() {
         let { hasDataYet } = this.state;
 
-        // let { doctor } = this.state;
-
-        // console.log("manage doctor check", doctor);
-
-        // if (doctor && doctor.Markdown) {
-        //     this.setState({
-        //         contentHTML: "",
-        //         contentMarkdown: "",
-        //         description: "",
-
-        //         hasDataYet: false,
-        //     })
-        // } else {
-        //     this.setState({
-        //         contentHTML: doctor.Markdown.contentHTML,
-        //         contentMarkdown: doctor.Markdown.contentMarkdown,
-        //         description: doctor.Markdown.description,
-
-        //         hasDataYet: true,
-        //     })
-        // }
-
         return (
             <div className="manage-doctor-container">
                 <div className="manage-doctor-title">
@@ -158,23 +160,75 @@ class ManageDoctor extends Component {
                 </div>
                 <div className="more-info mb-4">
                     <div className="content-left form-group">
-                        <label><FormattedMessage id="manage-doctor.select-doctor" /></label>
+                        <label>
+                            <FormattedMessage id="manage-doctor.select-doctor" />
+                        </label>
                         <Select
                             value={this.state.selectedDoctor}
                             onChange={this.handleChange}
                             options={this.state.listDoctors}
+                            placeholder={"Chọn Bác Sĩ"}
                         />
                     </div>
                     <div className="content-right">
-                        <label><FormattedMessage id="manage-doctor.intro" /></label>
+                        <label>
+                            <FormattedMessage id="manage-doctor.intro" />
+                        </label>
                         <textarea
-                            className="form-control" rows="4"
+                            className="form-control" rows="1"
                             onChange={(event) => this.handleOnChangeDesc(event)}
                             value={this.state.description}
                         >
                         </textarea>
                     </div>
                 </div>
+                <div className="doctor-info-extra row">
+                    <div className="col-4 form-group">
+                        <label>Chọn Giá</label>
+                        <Select
+                            //value={this.state.selectedDoctor}
+                            //onChange={this.handleChange}
+                            options={this.state.listPrice}
+                            placeholder={"Chọn Giá"}
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Chọn Phương Thức Thanh Toán</label>
+                        <Select
+                            //value={this.state.selectedDoctor}
+                            //onChange={this.handleChange}
+                            options={this.state.listPayment}
+                            placeholder={"Chọn Phương Thức Thanh Toán"}
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Chọn Tỉnh Thành</label>
+                        <Select
+                            //value={this.state.selectedDoctor}
+                            //onChange={this.handleChange}
+                            options={this.state.listProvince}
+                            placeholder={"Chọn Tỉnh Thành"}
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Tên Phòng Khám</label>
+                        <input className="form-control">
+
+                        </input>
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Địa Chỉ Phòng Khám</label>
+                        <input className="form-control">
+
+                        </input>
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Ghi Chú</label>
+                        <input className="form-control">
+                        </input>
+                    </div>
+                </div>
+
                 <div className="manage-doctor-editor">
                     <MdEditor
                         style={{ height: '500px' }}
@@ -187,7 +241,11 @@ class ManageDoctor extends Component {
                     className={hasDataYet === true ? "save-content-doctor" : "create-content-doctor"}
                     onClick={() => this.handleSaveContentMarkdown()}
                 >
-                    {hasDataYet === true ? <span>Lưu Thông Tin</span> : <span>Tạo Thông Tin</span>}
+                    {hasDataYet === true ?
+                        <span><FormattedMessage id="manage-doctor.save" /></span>
+                        :
+                        <span><FormattedMessage id="manage-doctor.add" /></span>
+                    }
                 </button>
             </div >
         );
@@ -199,14 +257,18 @@ const mapStateToProps = (state) => {
         language: state.app.language,
         doctorList: state.admin.allDoctors,
         doctor: state.admin.doctor,
+        allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchAllDoctors: () => { dispatch(actions.fetchAllDoctors()) },
+        getAllDoctorsRedux: () => { dispatch(actions.getAllDoctors()) },
         saveDoctorInfo: (data) => { dispatch(actions.saveDoctorInfo(data)) },
         getDoctorById: (id) => { dispatch(actions.getDoctorById(id)) },
+
+        getAllRequiredDoctorInfoRedux: () => dispatch(actions.getRequiredDoctorInfo()),
+
     };
 };
 

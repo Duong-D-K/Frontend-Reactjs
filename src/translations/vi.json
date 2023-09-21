@@ -65,7 +65,9 @@
     "manage-doctor": {
         "title": "Quản Lý Thông Tin Bác Sĩ",
         "select-doctor": "Chọn Bác Sĩ",
-        "intro": "Thông Tin Giới Thiệu"
+        "intro": "Thông Tin Giới Thiệu",
+        "add": "Tạo Người Dùng",
+        "save": "Lưu Người Dùng"
     },
     "homepage": {
         "prominent-doctor": "Bác Sĩ Nổi Bật",

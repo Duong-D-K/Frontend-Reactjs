@@ -1,7 +1,6 @@
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    // isLoadingGender: false,
     genders: [],
     roles: [],
     positions: [],
@@ -12,23 +11,20 @@ const initialState = {
     allScheduleTime: [],
     schedule: [],
 
+    allRequiredDoctorInfo: [],
+
 };
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         //gender
-        case actionTypes.FETCH_GENDER_START:
-            return {
-                ...state,
-                // isLoadingGender: true,
-            };
-        case actionTypes.FETCH_GENDER_SUCCEED:
+        case actionTypes.GET_GENDER_SUCCEED:
             return {
                 ...state,
                 genders: action.data,
                 // isLoadingGender: false,
             };
-        case actionTypes.FETCH_GENDER_FAIL:
+        case actionTypes.GET_GENDER_FAIL:
             return {
                 ...state,
                 genders: [],
@@ -123,7 +119,16 @@ const adminReducer = (state = initialState, action) => {
                 schedule: "",
             };
 
-
+        case actionTypes.GET_REQUIRED_DOCTOR_INFO_SUCCEED:
+            return {
+                ...state,
+                allRequiredDoctorInfo: action.data,
+            };
+        case actionTypes.GET_REQUIRED_DOCTOR_INFO_FAIL:
+            return {
+                ...state,
+                allRequiredDoctorInfo: "",
+            };
 
 
         default:

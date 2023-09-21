@@ -220,7 +220,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAllDoctorsRedux: () => { dispatch(actions.fetchAllDoctors()) },
+        getAllDoctorsRedux: () => { dispatch(actions.getAllDoctors()) },
         getAllScheduleTimeRedux: () => { dispatch(actions.getAllScheduleTime()) },
         createBulkScheduleRedux: (data) => { dispatch(actions.createBulkSchedule(data)) },
     };

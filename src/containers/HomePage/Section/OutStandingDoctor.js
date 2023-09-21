@@ -24,7 +24,7 @@ class OutStandingDoctor extends Component {
     }
 
     componentDidMount() {
-        this.props.loadTopDoctors();
+        this.props.getTopDoctorsRedux();
     }
 
     handleViewDetailDoctor = (doctor) => {
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadTopDoctors: () => dispatch(actions.fetchTopDoctors()),
+        getTopDoctorsRedux: () => dispatch(actions.getTopDoctors()),
     };
 };
 

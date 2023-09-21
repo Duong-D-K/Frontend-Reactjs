@@ -10,27 +10,25 @@ import {
 import { toast } from "react-toastify";
 
 //import gender
-export const fetchGender = () => {
+export const getGender = () => {
     return async (dispatch, getState) => {
         try {
-            dispatch({ type: actionTypes.FETCH_GENDER_START });
-
             let response = await getAllCodesSerivce("gender");
 
             if (response && response.code === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_GENDER_SUCCEED,
+                    type: actionTypes.GET_GENDER_SUCCEED,
                     data: response.data,
                 });
 
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_GENDER_FAIL,
+                    type: actionTypes.GET_GENDER_FAIL,
                 });
             }
         } catch (e) {
             dispatch({
-                type: actionTypes.FETCH_GENDER_FAIL,
+                type: actionTypes.GET_GENDER_FAIL,
             });
 
             console.log("Fetch Gender Fail", e);
@@ -38,7 +36,7 @@ export const fetchGender = () => {
     }
 }
 //import position
-export const fetchPostion = () => {
+export const getPostion = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllCodesSerivce("position");
@@ -58,12 +56,12 @@ export const fetchPostion = () => {
                 type: actionTypes.FETCH_POSITION_FAIL,
             });
 
-            console.log("fetchPostion", e);
+            console.log("getPostion", e);
         }
     }
 }
 //import role
-export const fetchRole = () => {
+export const getRole = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllCodesSerivce("role");
@@ -83,7 +81,39 @@ export const fetchRole = () => {
                 type: actionTypes.FETCH_ROLE_FAIL,
             });
 
-            console.log("fetchGender", e);
+            console.log("getGender", e);
+        }
+    }
+}
+//get required doctor information
+export const getRequiredDoctorInfo = () => {
+    return async (dispatch, getState) => {
+        try {
+            let responsePrice = await getAllCodesSerivce("price");
+            let responsePayment = await getAllCodesSerivce("payment");
+            let responseProvince = await getAllCodesSerivce("province");
+
+            if (responsePrice && responsePrice.code === 0 &&
+                responsePayment && responsePayment.code === 0 &&
+                responseProvince && responseProvince.code === 0) {
+                let data = {
+                    responsePrice: responsePrice.data,
+                    responsePayment: responsePayment.data,
+                    responseProvince: responseProvince.data,
+                };
+
+                dispatch({
+                    type: actionTypes.GET_REQUIRED_DOCTOR_INFO_SUCCEED,
+                    data: data,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.GET_REQUIRED_DOCTOR_INFO_FAIL,
+                });
+            }
+        } catch (e) {
+            console.log("Get Required Doctor Infomation Fail", e);
         }
     }
 }
@@ -100,7 +130,7 @@ export const createNewUser = (data) => {
                 });
                 toast.success("Create User Successfully!!");
 
-                dispatch(fetchAllUsers());
+                dispatch(getAllUsers());
             } else {
                 dispatch({
                     type: actionTypes.CREATE_USER_FAIL,
@@ -117,7 +147,7 @@ export const createNewUser = (data) => {
     }
 }
 //fetch all users
-export const fetchAllUsers = () => {
+export const getAllUsers = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllUsersService("ALL");
@@ -157,7 +187,7 @@ export const updateUser = (data) => {
 
                 toast.success(response.message);
 
-                dispatch(fetchAllUsers());
+                dispatch(getAllUsers());
             } else {
                 dispatch({
                     type: actionTypes.UPDATE_USER_FAIL,
@@ -191,7 +221,7 @@ export const deleteUser = (userId) => {
 
                 toast.success(response.message);
 
-                dispatch(fetchAllUsers());
+                dispatch(getAllUsers());
             } else {
                 dispatch({
                     type: actionTypes.DELETE_USER_FAIL,
@@ -209,7 +239,7 @@ export const deleteUser = (userId) => {
     }
 }
 //fetch top doctors
-export const fetchTopDoctors = (data) => {
+export const getTopDoctors = (data) => {
     return async (dispatch, getState) => {
         try {
             let response = await getTopDoctorsService(10);
@@ -236,7 +266,7 @@ export const fetchTopDoctors = (data) => {
     }
 }
 //fetch all doctors
-export const fetchAllDoctors = () => {
+export const getAllDoctors = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllDoctorsService();
