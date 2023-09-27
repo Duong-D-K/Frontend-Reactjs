@@ -154,13 +154,13 @@ class ScheduleManagement extends Component {
             <>
                 <div className="schedule-management-container">
                     <div className="m-s-title">
-                        <FormattedMessage id="schedule-management.title" />
+                        <FormattedMessage id="admin.schedule-management.title" />
                     </div>
                     <div className="container">
                         <div className="row">
                             <div className="col-6 form-group">
                                 <label>
-                                    <FormattedMessage id="schedule-management.select-doctor" />
+                                    <FormattedMessage id="admin.schedule-management.select-doctor" />
                                 </label>
                                 <Select
                                     value={this.state.selectedDoctor}
@@ -170,7 +170,7 @@ class ScheduleManagement extends Component {
                             </div>
                             <div className="col-6 form-group">
                                 <label>
-                                    <FormattedMessage id="schedule-management.select-date" />
+                                    <FormattedMessage id="admin.schedule-management.select-date" />
                                 </label>
                                 <DatePicker
                                     className="form-control"
@@ -198,7 +198,7 @@ class ScheduleManagement extends Component {
                                     className="btn btn-primary btn-save-schedule"
                                     onClick={() => { this.handleSaveSchedule() }}
                                 >
-                                    <FormattedMessage id="schedule-management.save-info" />
+                                    <FormattedMessage id="admin.schedule-management.save-info" />
                                 </button>
                             </div>
                         </div>

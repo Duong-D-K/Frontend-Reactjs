@@ -1,90 +1,101 @@
 {
-    "home-header": {
-        "specialty": "Medical Specialty",
-        "search-doctor": "Find doctor by ppecialty",
-        "health-facility": "Health Facility",
-        "select-room": "Select a clinic",
-        "doctor": "Doctor",
-        "choose-doctor": "Choose a good doctor",
-        "examination-package": "Examination Package",
-        "general-health-check": "General health check",
-        "support": "Support",
-        "welcome": "Welcome, "
-    },
-    "content-up": {
-        "title1": "MEDICAL PLATFORM",
-        "title2": "COMPREHENSIVE HEALTH CARE"
-    },
-    "content-down": {
-        "child1": "Specialist Examination",
-        "child2": "Remote Examination",
-        "child3": "General Examination",
-        "child4": "Medical Tests",
-        "child5": "Mental Health",
-        "child6": "Dental Examination",
-        "child7": "Surgery Package",
-        "child8": "Medical Products",
-        "child9": "Health Test"
-    },
-    "menu": {
-        "admin": {
-            "manage-user": "Users",
-            "manage-doctor": "Doctors' Infomation Management",
-            "manage-admin": "Admin Management",
-            "crud": "CRUD User",
-            "crud-redux": "Users' Information Management",
-            "clinic": "Clinics",
-            "manage-clinic": "Clinics' Management",
-            "specialty": "Specialties",
-            "manage-specialty": "Specialties' Management",
-            "handbook": "Handbooks",
-            "manage-handbook": "Handbooks' Management"
+    "admin": {
+        "manage-doctor": {
+            "title": "Doctor Information Management",
+            "select-doctor": "Select Doctor",
+            "intro": "Introduction",
+            "add": "Create Doctor",
+            "save": "Save Doctor",
+            "price": "Examination Price",
+            "payment": "Payment Methods",
+            "province": "Province",
+            "clinic-name": "Clinic Name",
+            "clinic-address": "Clinic Address",
+            "note": "Note"
         },
-        "doctor": {
-            "manage-schedule": "Doctors' Schedule Management"
+        "schedule-management": {
+            "title": "Manage Doctor's Examination Schedule",
+            "select-doctor": "Select A Doctor",
+            "select-date": "Select Date",
+            "save-info": "Save Infomation"
+        },
+        "manage-user": {
+            "title": "User Information Management",
+
+            "add": "Add A New User",
+            "password": "Password",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "phoneNumber": "Phone Number",
+            "address": "Address",
+            "gender": "Gender",
+            "position": "Postion",
+            "role": "Role",
+            "image": "Image",
+            "create": "Create User",
+            "edit": "Save Change",
+
+            "action": "Action"
+        },
+        "menu": {
+            "admin": {
+                "manage-user": "Users",
+                "manage-doctor": "Doctors' Infomation Management",
+                "manage-admin": "Admin Management",
+                "crud": "CRUD User",
+                "crud-redux": "Users' Information Management",
+                "clinic": "Clinics",
+                "manage-clinic": "Clinics' Management",
+                "specialty": "Specialties",
+                "manage-specialty": "Specialties' Management",
+                "handbook": "Handbooks",
+                "manage-handbook": "Handbooks' Management"
+            },
+            "doctor": {
+                "manage-schedule": "Doctors' Schedule Management"
+            }
         }
     },
-    "manage-user": {
-        "title": "User Information Management",
 
-        "add": "Add A New User",
-        "password": "Password",
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "phoneNumber": "Phone Number",
-        "address": "Address",
-        "gender": "Gender",
-        "position": "Postion",
-        "role": "Role",
-        "image": "Image",
-        "create": "Create User",
-        "edit": "Save Change",
-
-        "action": "Action"
-    },
-    "manage-doctor": {
-        "title": "Doctor Information Management",
-        "select-doctor": "Select Doctor",
-        "intro": "Introduction",
-        "add": "Create Doctor",
-        "save": "Save Doctor"
-    },
-    "homepage": {
-        "prominent-doctor": "Prominent Doctors",
-        "more-info": "More Infomation"
-    },
-    "schedule-management": {
-        "title": "Manage Doctor's Examination Schedule",
-        "select-doctor": "Select A Doctor",
-        "select-date": "Select Date",
-        "save-info": "Save Infomation"
-    },
-    "patient": {
-        "detail-doctor": {
-            "schedule": "Schedule",
-            "no-schedule": "Doctor don't have schedule during this time. Please choose another time!!",
-            "choose": "Choose ",
-            "book-free": " and Book (Free) !"
+    "client": {
+        "patient": {
+            "detail-doctor": {
+                "schedule": "Schedule",
+                "no-schedule": "Doctor don't have schedule during this time. Please choose another time!!",
+                "choose": "Choose ",
+                "book-free": " and Book (Free) !"
+            }
+        },
+        "home-header": {
+            "specialty": "Medical Specialty",
+            "search-doctor": "Find doctor by ppecialty",
+            "health-facility": "Health Facility",
+            "select-room": "Select a clinic",
+            "doctor": "Doctor",
+            "choose-doctor": "Choose a good doctor",
+            "examination-package": "Examination Package",
+            "general-health-check": "General health check",
+            "support": "Support",
+            "welcome": "Welcome, "
+        },
+        "content-up": {
+            "title1": "MEDICAL PLATFORM",
+            "title2": "COMPREHENSIVE HEALTH CARE"
+        },
+        "content-down": {
+            "child1": "Specialist Examination",
+            "child2": "Remote Examination",
+            "child3": "General Examination",
+            "child4": "Medical Tests",
+            "child5": "Mental Health",
+            "child6": "Dental Examination",
+            "child7": "Surgery Package",
+            "child8": "Medical Products",
+            "child9": "Health Test"
+        },
+        "homepage": {
+            "prominent-doctor": "Prominent Doctors",
+            "more-info": "More Infomation"
         }
     }
 }

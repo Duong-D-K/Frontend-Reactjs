@@ -198,7 +198,7 @@ class UserRedux extends Component {
             <div className="user-redux-cotainer">
                 <div className="title">
                     <div className="text-center">
-                        <FormattedMessage id="manage-user.title" />
+                        <FormattedMessage id="admin.manage-user.title" />
                     </div>
                 </div>
 
@@ -206,7 +206,7 @@ class UserRedux extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-12 my-3">
-                                <FormattedMessage id="manage-user.add" />
+                                <FormattedMessage id="admin.manage-user.add" />
                             </div>
                             <div className="col12">{isGetGenders === true ? "Loading gender" : ""}</div>
                             <div className="col-3">
@@ -220,7 +220,7 @@ class UserRedux extends Component {
                                 />
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.password" /></label>
+                                <label><FormattedMessage id="admin.manage-user.password" /></label>
                                 <input
                                     className="form-control"
                                     type="password"
@@ -230,35 +230,35 @@ class UserRedux extends Component {
                                 />
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.firstName" /></label>
+                                <label><FormattedMessage id="admin.manage-user.firstName" /></label>
                                 <input className="form-control" type="text"
                                     value={firstName}
                                     onChange={(event) => { this.onChangeInput(event, "firstName") }}
                                 />
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.lastName" /></label>
+                                <label><FormattedMessage id="admin.manage-user.lastName" /></label>
                                 <input className="form-control" type="text"
                                     value={lastName}
                                     onChange={(event) => { this.onChangeInput(event, "lastName") }}
                                 />
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.phoneNumber" /></label>
+                                <label><FormattedMessage id="admin.manage-user.phoneNumber" /></label>
                                 <input className="form-control" type="text"
                                     value={phoneNumber}
                                     onChange={(event) => { this.onChangeInput(event, "phoneNumber") }}
                                 />
                             </div>
                             <div className="col-9">
-                                <label><FormattedMessage id="manage-user.address" /></label>
+                                <label><FormattedMessage id="admin.manage-user.address" /></label>
                                 <input className="form-control" type="text"
                                     value={address}
                                     onChange={(event) => { this.onChangeInput(event, "address") }}
                                 />
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.gender" /></label>
+                                <label><FormattedMessage id="admin.manage-user.gender" /></label>
                                 <select
                                     className="form-control"
                                     onChange={(event) => { this.onChangeInput(event, "gender") }}
@@ -275,7 +275,7 @@ class UserRedux extends Component {
                                 </select>
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.position" /></label>
+                                <label><FormattedMessage id="admin.manage-user.position" /></label>
                                 <select
                                     className="form-control"
                                     onChange={(event) => { this.onChangeInput(event, "position") }}
@@ -291,7 +291,7 @@ class UserRedux extends Component {
                                 </select>
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.role" /></label>
+                                <label><FormattedMessage id="admin.manage-user.role" /></label>
                                 <select
                                     className="form-control"
                                     onChange={(event) => { this.onChangeInput(event, "role") }}
@@ -307,7 +307,7 @@ class UserRedux extends Component {
                                 </select>
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.image" /></label>
+                                <label><FormattedMessage id="admin.manage-user.image" /></label>
                                 <div className="preview-img-container">
                                     <input type="file" id="previewImg" hidden
                                         onChange={(event) => { this.handleOnChangeImage(event) }}
@@ -329,9 +329,9 @@ class UserRedux extends Component {
                                     onClick={() => { this.handleCreateUser() }}
                                 >
                                     {this.state.action === CRUD_ACTIONS.UPDATE ?
-                                        <FormattedMessage id="manage-user.edit" />
+                                        <FormattedMessage id="admin.manage-user.edit" />
                                         :
-                                        <FormattedMessage id="manage-user.create" />
+                                        <FormattedMessage id="admin.manage-user.create" />
                                     }
                                 </button>
                             </div>

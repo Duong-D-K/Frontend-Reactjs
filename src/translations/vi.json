@@ -1,90 +1,102 @@
 {
-    "home-header": {
-        "specialty": "Chuyên Khoa",
-        "search-doctor": "Tìm bác sĩ theo chuyên khoa",
-        "health-facility": "Cơ Sở Y Tế",
-        "select-room": "Chọn bệnh viện phòng khám",
-        "doctor": "Bác Sĩ",
-        "choose-doctor": "Chọn bác sĩ giỏi",
-        "examination-package": "Gói Khám",
-        "general-health-check": "Khám sức khỏe tổng quát",
-        "support": "Hỗ Trợ",
-        "welcome": "Xin Chào, "
-    },
-    "content-up": {
-        "title1": "NỀN TẢNG Y TẾ",
-        "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN"
-    },
-    "content-down": {
-        "child1": "Khám Chuyên Khoa",
-        "child2": "Khám Từ Xa",
-        "child3": "Khám Tổng Quát",
-        "child4": "Xét Nghiệm Y Học",
-        "child5": "Sức Khỏe Tinh Thần",
-        "child6": "Khám Nha Khoa",
-        "child7": "Gói Phẫu Thuật",
-        "child8": "Sản Phẩm Y Tế",
-        "child9": "Bài Test Sức Khỏe"
-    },
-    "menu": {
-        "admin": {
-            "manage-user": "Người dùng",
-            "manage-doctor": "Quản Lý Thông Tin Bác Sĩ",
-            "manage-admin": "Quản lý Admin",
-            "crud": "CRUD User",
-            "crud-redux": "Quản Lý Thông Tin Người Dùng",
-            "clinic": "Phòng Khám",
-            "manage-clinic": "Quản Lý Phòng Khám",
-            "specialty": "Chuyên Khoa",
-            "manage-specialty": "Quản Lý Chuyên Khoa",
-            "handbook": "Cẩm Nang",
-            "manage-handbook": "Quản Lý Cẩm Nang"
+    "admin": {
+        "manage-doctor": {
+            "title": "Quản Lý Thông Tin Bác Sĩ",
+            "select-doctor": "Chọn Bác Sĩ",
+            "intro": "Thông Tin Giới Thiệu",
+            "add": "Tạo Người Dùng",
+            "save": "Lưu Người Dùng",
+            "price": "Giá Khám Bệnh",
+            "payment": "Phương Thức Thanh Toán",
+            "province": "Tỉnh Thành",
+            "clinic-name": "Tên Phòng Khám",
+            "clinic-address": "Địa Chỉ Phòng Khám",
+            "note": "Ghi Chú"
         },
-        "doctor": {
-            "manage-schedule": "Quản Lý Kế Hoạch Khám Bệnh"
+        "schedule-management": {
+            "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",
+            "select-doctor": "Chọn Bác Sĩ",
+            "select-date": "Chọn Ngày",
+            "save-info": "Lưu Thông Tin"
+        },
+        "manage-user": {
+            "title": "Quản Lý Thông Tin Người Dùng",
+
+            "add": "Thêm Mới Người Dùng",
+            "password": "Mật Khẩu",
+            "firstName": "Tên",
+            "lastName": "Họ",
+            "phoneNumber": "Số Điện Thoại",
+            "address": "Địa Chỉ",
+            "gender": "Giới Tính",
+            "position": "Chức Danh",
+            "role": "Vai Trò",
+            "image": "Hình Ảnh",
+            "create": "Tạo Người Dùng",
+            "edit": "Lưu Thay Đổi",
+
+            "action": "Thao Tác"
+        },
+        "menu": {
+            "admin": {
+                "manage-user": "Người Dùng",
+                "manage-doctor": "Quản Lý Thông Tin Bác Sĩ",
+                "manage-admin": "Quản lý Admin",
+                "crud": "CRUD User",
+                "crud-redux": "Quản Lý Thông Tin Người Dùng",
+
+                "clinic": "Phòng Khám",
+                "manage-clinic": "Quản Lý Phòng Khám",
+                "specialty": "Chuyên Khoa",
+                "manage-specialty": "Quản Lý Chuyên Khoa",
+                "handbook": "Cẩm Nang",
+                "manage-handbook": "Quản Lý Cẩm Nang"
+            },
+            "doctor": {
+                "manage-schedule": "Quản Lý Kế Hoạch Khám Bệnh"
+            }
         }
     },
-    "manage-user": {
-        "title": "Quản Lý Thông Tin Người Dùng",
 
-        "add": "Thêm Mới Người Dùng",
-        "password": "Mật Khẩu",
-        "firstName": "Tên",
-        "lastName": "Họ",
-        "phoneNumber": "Số Điện Thoại",
-        "address": "Địa Chỉ",
-        "gender": "Giới Tính",
-        "position": "Chức Danh",
-        "role": "Vai Trò",
-        "image": "Hình Ảnh",
-        "create": "Tạo Người Dùng",
-        "edit": "Lưu Thay Đổi",
-
-        "action": "Thao Tác"
-    },
-    "manage-doctor": {
-        "title": "Quản Lý Thông Tin Bác Sĩ",
-        "select-doctor": "Chọn Bác Sĩ",
-        "intro": "Thông Tin Giới Thiệu",
-        "add": "Tạo Người Dùng",
-        "save": "Lưu Người Dùng"
-    },
-    "homepage": {
-        "prominent-doctor": "Bác Sĩ Nổi Bật",
-        "more-info": "Xem Thêm"
-    },
-    "schedule-management": {
-        "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",
-        "select-doctor": "Chọn Bác Sĩ",
-        "select-date": "Chọn Ngày",
-        "save-info": "Lưu Thông Tin"
-    },
-    "patient": {
-        "detail-doctor": {
-            "schedule": "Lịch Khám",
-            "no-schedule": "Bác Sĩ Không Có Lịch Hẹn Trong Thời Gian Này, Vui Lòng Chọn Thời Gian Khác!",
-            "choose": "Chọn ",
-            "book-free": " và Đặt (Miễn Phí) !"
+    "client": {
+        "patient": {
+            "detail-doctor": {
+                "schedule": "Lịch Khám",
+                "no-schedule": "Bác Sĩ Không Có Lịch Hẹn Trong Thời Gian Này, Vui Lòng Chọn Thời Gian Khác!",
+                "choose": "Chọn ",
+                "book-free": " và Đặt (Miễn Phí) !"
+            }
+        },
+        "home-header": {
+            "specialty": "Chuyên Khoa",
+            "search-doctor": "Tìm bác sĩ theo chuyên khoa",
+            "health-facility": "Cơ Sở Y Tế",
+            "select-room": "Chọn bệnh viện phòng khám",
+            "doctor": "Bác Sĩ",
+            "choose-doctor": "Chọn bác sĩ giỏi",
+            "examination-package": "Gói Khám",
+            "general-health-check": "Khám sức khỏe tổng quát",
+            "support": "Hỗ Trợ",
+            "welcome": "Xin Chào, "
+        },
+        "content-up": {
+            "title1": "NỀN TẢNG Y TẾ",
+            "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN"
+        },
+        "content-down": {
+            "child1": "Khám Chuyên Khoa",
+            "child2": "Khám Từ Xa",
+            "child3": "Khám Tổng Quát",
+            "child4": "Xét Nghiệm Y Học",
+            "child5": "Sức Khỏe Tinh Thần",
+            "child6": "Khám Nha Khoa",
+            "child7": "Gói Phẫu Thuật",
+            "child8": "Sản Phẩm Y Tế",
+            "child9": "Bài Test Sức Khỏe"
+        },
+        "homepage": {
+            "prominent-doctor": "Bác Sĩ Nổi Bật",
+            "more-info": "Xem Thêm"
         }
     }
 }

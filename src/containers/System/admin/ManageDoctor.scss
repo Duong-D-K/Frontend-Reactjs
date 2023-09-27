@@ -11,15 +11,10 @@
     }
     .more-info {
         display: flex;
-        gap: 15px;
-
-        .content-left {
-            width: 40%;
-        }
-
-        .content-right {
-            width: 60%;
-        }
+        // gap: 15px;
+    }
+    .doctor-info-extra {
+        margin: 0 0 0 0;
     }
     .save-content-doctor {
         margin-top: 20px;

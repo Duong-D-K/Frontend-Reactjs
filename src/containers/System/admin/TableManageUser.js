@@ -45,14 +45,14 @@ class TableManageUser extends Component {
                     <tbody>
                         <tr>
                             <th>Email</th>
-                            <th><FormattedMessage id="manage-user.firstName" /></th>
-                            <th><FormattedMessage id="manage-user.lastName" /></th>
-                            <th><FormattedMessage id="manage-user.phoneNumber" /></th>
-                            <th><FormattedMessage id="manage-user.address" /></th>
-                            <th><FormattedMessage id="manage-user.gender" /></th>
-                            <th><FormattedMessage id="manage-user.position" /></th>
-                            <th><FormattedMessage id="manage-user.role" /></th>
-                            <th><FormattedMessage id="manage-user.action" /></th>
+                            <th><FormattedMessage id="admin.manage-user.firstName" /></th>
+                            <th><FormattedMessage id="admin.manage-user.lastName" /></th>
+                            <th><FormattedMessage id="admin.manage-user.phoneNumber" /></th>
+                            <th><FormattedMessage id="admin.manage-user.address" /></th>
+                            <th><FormattedMessage id="admin.manage-user.gender" /></th>
+                            <th><FormattedMessage id="admin.manage-user.position" /></th>
+                            <th><FormattedMessage id="admin.manage-user.role" /></th>
+                            <th><FormattedMessage id="admin.manage-user.action" /></th>
                         </tr>
                         {usersList && usersList.length > 0 && usersList.map((item, index) => {
                             return (
