@@ -4,8 +4,8 @@ import {
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
     getAllDoctorsService, createDoctorInfoSerivce,
-    getDoctorByIdService, createBulkScheduleService, getScheduleByDateService,
-
+    getDoctorByIdService, createBulkScheduleService,
+    getScheduleByDateService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -43,17 +43,17 @@ export const getPostion = () => {
 
             if (response && response.code === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_POSITION_SUCCEED,
+                    type: actionTypes.GET_POSITION_SUCCEED,
                     data: response.data,
                 });
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_POSITION_FAIL,
+                    type: actionTypes.GET_POSITION_FAIL,
                 });
             }
         } catch (e) {
             dispatch({
-                type: actionTypes.FETCH_POSITION_FAIL,
+                type: actionTypes.GET_POSITION_FAIL,
             });
 
             console.log("getPostion", e);
@@ -68,7 +68,7 @@ export const getRole = () => {
 
             if (response && response.code === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_ROLE_SUCCEED,
+                    type: actionTypes.GET_ROLE_SUCCEED,
                     data: response.data,
                 });
             } else {
@@ -150,23 +150,23 @@ export const createNewUser = (data) => {
 export const getAllUsers = () => {
     return async (dispatch, getState) => {
         try {
-            let response = await getAllUsersService("ALL");
+            let response = await getAllUsersService();
 
-            if (response && response.code === 0) {
+            if (response && response.code === 0 && response.data) {
                 dispatch({
                     type: actionTypes.GET_ALL_USERS_SUCCEED,
-                    users: response.users.reverse(),//reverse helps descending column
+                    data: response.data.reverse(),//reverse helps descending column
                 });
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_ALL_USERS_FAIL,
+                    type: actionTypes.GET_ALL_USERS_FAIL,
                 });
 
                 toast.error("Fetch Users Unsuccessfully!!");
             }
         } catch (e) {
             dispatch({
-                type: actionTypes.FETCH_ALL_USERS_FAIL,
+                type: actionTypes.GET_ALL_USERS_FAIL,
             });
 
             toast.error("Fetch Users Unsuccessfully!!");
@@ -246,12 +246,12 @@ export const getTopDoctors = (data) => {
 
             if (response && response.code === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_TOP_DOCTORS_SUCCEED,
+                    type: actionTypes.GET_TOP_DOCTORS_SUCCEED,
                     data: response.data,
                 });
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_TOP_DOCTORS_FAIL,
+                    type: actionTypes.GET_TOP_DOCTORS_FAIL,
                     data: "",
                 });
             }
@@ -259,7 +259,7 @@ export const getTopDoctors = (data) => {
             console.log("Fech Top Doctors Error", e);
 
             dispatch({
-                type: actionTypes.FETCH_TOP_DOCTORS_FAIL,
+                type: actionTypes.GET_TOP_DOCTORS_FAIL,
                 data: "",
             });
         }
@@ -273,12 +273,12 @@ export const getAllDoctors = () => {
 
             if (response && response.code === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_ALL_DOCTORS_SUCCEED,
+                    type: actionTypes.GET_ALL_DOCTORS_SUCCEED,
                     data: response.data,
                 });
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_ALL_DOCTORS_FAIL,
+                    type: actionTypes.GET_ALL_DOCTORS_FAIL,
                     data: "",
                 });
             }
@@ -286,7 +286,7 @@ export const getAllDoctors = () => {
             console.log("Fech Top Doctors Error", e);
 
             dispatch({
-                type: actionTypes.FETCH_ALL_DOCTORS_FAIL,
+                type: actionTypes.GET_ALL_DOCTORS_FAIL,
                 data: "",
             });
         }

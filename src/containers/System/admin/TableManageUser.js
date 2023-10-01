@@ -28,7 +28,6 @@ class TableManageUser extends Component {
 
     handleEditUser = (user) => {
         this.props.handleEditUserFromParentsKey(user);
-
     }
 
     handleDeleteUser = (user) => {

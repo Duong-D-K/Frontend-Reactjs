@@ -28,9 +28,11 @@ class ManageDoctor extends Component {
             listPrice: [],
             listPayment: [],
             listProvince: [],
+
             selectedPrice: "",
             selectedPayment: "",
             selectedProvince: "",
+
             clinicName: "",
             clinicAddress: "",
             note: "",
@@ -49,16 +51,27 @@ class ManageDoctor extends Component {
 
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
-                // if (type === "USERS") {
-                let object = {};
-                let labelVi = type === "USERS" ? `${item.lastName} ${item.firstName}` : item.valueVi;
-                let labelEn = type === "USERS" ? `${item.firstName} ${item.lastName}` : item.valueEn;
+                if (type === "USERS") {
+                    let object = {};
+                    let labelVi = `${item.lastName} ${item.firstName}`;
+                    let labelEn = `${item.firstName} ${item.lastName}`;
 
-                object.label = this.props.language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.label = this.props.language === LANGUAGES.VI ? labelVi : labelEn;
 
-                object.value = type === "USERS" ? item.id : item.keyMap;
+                    object.value = item.id;
 
-                result.push(object);
+                    result.push(object);
+                } else {
+                    let object = {};
+                    let labelVi = item.valueVi;
+                    let labelEn = item.valueEn;
+
+                    object.label = this.props.language === LANGUAGES.VI ? labelVi : labelEn;
+
+                    object.value = item.keyMap;
+
+                    result.push(object);
+                }
             })
         }
         return result;
@@ -129,29 +142,59 @@ class ManageDoctor extends Component {
 
     handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor: selectedDoctor });
+        let { listPrice, listPayment, listProvince } = this.state;
 
         let response = await getDoctorByIdService(selectedDoctor.value);
 
-        if (response && response.code === 0 && response.data && response.data.Markdown) {
+
+        if (response && response.code === 0 && response.data && response.data.Doctor_Information) {
+            let priceId = response.data.Doctor_Information.priceId;
+            let paymentId = response.data.Doctor_Information.paymentId;
+            let provinceId = response.data.Doctor_Information.provinceId;
+
+            let selectedPrice = listPrice.find(item => {
+                return item && item.value === priceId;
+            })
+            let selectedPayment = listPayment.find(item => {
+                return item && item.value === paymentId;
+            })
+            let selectedProvince = listProvince.find(item => {
+                return item && item.value === provinceId;
+            })
+
             this.setState({
-                contentHTML: response.data.Markdown.contentHTML,
-                contentMarkdown: response.data.Markdown.contentMarkdown,
-                description: response.data.Markdown.description,
+                contentHTML: response.data.Markdown.contentHTML ? response.data.Markdown.contentHTML : "",
+                contentMarkdown: response.data.Markdown.contentMarkdown ? response.data.Markdown.contentMarkdown : "",
+                description: response.data.Markdown.description ? response.data.Markdown.description : "",
 
                 hasDataYet: true,
+
+                clinicName: response.data.Doctor_Information.clinicName,
+                clinicAddress: response.data.Doctor_Information.clinicAddress,
+                note: response.data.Doctor_Information.note,
+
+                selectedPrice: selectedPrice,
+                selectedPayment: selectedPayment,
+                selectedProvince: selectedProvince,
             });
+
+
         } else {
             this.setState({
-                contentHTML: "",
-                contentMarkdown: "",
-                description: "",
-
                 hasDataYet: false,
+
+                clinicName: "",
+                clinicAddress: "",
+                note: "",
+
+                selectedPrice: "",
+                selectedPayment: "",
+                selectedProvince: "",
             })
         }
     };
 
-    handleOnChangeSelectDoctorInfo = (selectedOption, name) => {
+    handleOnChangeSelect = (selectedOption, name) => {
         this.setState({
             [name.name]: selectedOption
         })
@@ -189,7 +232,7 @@ class ManageDoctor extends Component {
                         </label>
                         <Select
                             value={this.state.selectedPrice}
-                            onChange={this.handleOnChangeSelectDoctorInfo}
+                            onChange={this.handleOnChangeSelect}
                             options={this.state.listPrice}
                             placeholder={<FormattedMessage id="admin.manage-doctor.price" />}
                             name="selectedPrice"
@@ -201,7 +244,7 @@ class ManageDoctor extends Component {
                         </label>
                         <Select
                             value={this.state.selectedPayment}
-                            onChange={this.handleOnChangeSelectDoctorInfo}
+                            onChange={this.handleOnChangeSelect}
                             options={this.state.listPayment}
                             placeholder={<FormattedMessage id="admin.manage-doctor.payment" />}
                             name="selectedPayment"
@@ -213,7 +256,7 @@ class ManageDoctor extends Component {
                         </label>
                         <Select
                             value={this.state.selectedProvince}
-                            onChange={this.handleOnChangeSelectDoctorInfo}
+                            onChange={this.handleOnChangeSelect}
                             options={this.state.listProvince}
                             placeholder={<FormattedMessage id="admin.manage-doctor.province" />}
                             name="selectedProvince"

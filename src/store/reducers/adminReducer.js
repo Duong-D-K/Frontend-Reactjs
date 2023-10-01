@@ -31,18 +31,18 @@ const adminReducer = (state = initialState, action) => {
                 // isLoadingGender: false,
             };
         //postion
-        case actionTypes.FETCH_POSITION_SUCCEED:
+        case actionTypes.GET_POSITION_SUCCEED:
             return {
                 ...state,
                 positions: action.data,
             };
-        case actionTypes.FETCH_POSITION_FAIL:
+        case actionTypes.GET_POSITION_FAIL:
             return {
                 ...state,
                 positions: [],
             };
         //role
-        case actionTypes.FETCH_ROLE_SUCCEED:
+        case actionTypes.GET_ROLE_SUCCEED:
             return {
                 ...state,
                 roles: action.data,
@@ -56,31 +56,31 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.GET_ALL_USERS_SUCCEED:
             return {
                 ...state,
-                users: action.users,
+                users: action.data,
             };
-        case actionTypes.FETCH_ALL_USERS_FAIL:
+        case actionTypes.GET_ALL_USERS_FAIL:
             return {
                 ...state,
                 users: [],
             };
         //fetch top doctors
-        case actionTypes.FETCH_TOP_DOCTORS_SUCCEED:
+        case actionTypes.GET_TOP_DOCTORS_SUCCEED:
             return {
                 ...state,
                 topDoctors: action.data,
             };
-        case actionTypes.FETCH_TOP_DOCTORS_FAIL:
+        case actionTypes.GET_TOP_DOCTORS_FAIL:
             return {
                 ...state,
                 topDoctors: [],
             };
         //get all doctors
-        case actionTypes.FETCH_ALL_DOCTORS_SUCCEED:
+        case actionTypes.GET_ALL_DOCTORS_SUCCEED:
             return {
                 ...state,
                 allDoctors: action.data,
             };
-        case actionTypes.FETCH_ALL_DOCTORS_FAIL:
+        case actionTypes.GET_ALL_DOCTORS_FAIL:
             return {
                 ...state,
                 allDoctors: [],
