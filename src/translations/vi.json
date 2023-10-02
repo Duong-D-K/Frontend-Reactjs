@@ -97,6 +97,13 @@
         "homepage": {
             "prominent-doctor": "Bác Sĩ Nổi Bật",
             "more-info": "Xem Thêm"
+        },
+        "extra-info-doctor": {
+            "examination-address": "Địa Chỉ Khám",
+            "examination-price": "Giá Khám",
+            "see-details": "Xem Chi tiết",
+            "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức: ",
+            "hide-price": "Ẩn Bảng Giá"
         }
     }
 }

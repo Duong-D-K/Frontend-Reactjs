@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./DoctorExtraInfo.scss";
+import "./DoctorExtraInfo.scss"
+import { getDoctorInformationById } from "../../../services/userService";
+import NumericFormat from "react-number-format";
+import { LANGUAGES } from "../../../utils";
+import { FormattedMessage } from "react-intl";
 
 class DoctorExtraInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             showInfo: false,
+
+            doctorInfo: {},
         }
     }
 
@@ -15,7 +21,15 @@ class DoctorExtraInfo extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.doctorIdFromParents !== prevProps.doctorIdFromParents) {
+            let response = await getDoctorInformationById(this.props.doctorIdFromParents);
 
+            if (response && response.code === 0) {
+                this.setState({
+                    doctorInfo: response.data,
+                });
+            }
+        }
     }
 
     showDoctorInfo = (status) => {
@@ -25,38 +39,80 @@ class DoctorExtraInfo extends Component {
     }
 
     render() {
-        let { showInfo } = this.state;
+        let { showInfo, doctorInfo } = this.state;
+
+        let { language } = this.props;
+        console.log("check", doctorInfo);
 
         return (
             <div className="doctor-extra-info-container">
                 <div className="content-up">
-                    <div className="text-address">ĐỊA CHỈ KHÁM</div>
-                    <div className="clinic-name">Phòng khám Chuyên khoa Da Liễu</div>
-                    <div className="detail-address">207 Phố Huế - Hai Bà Trưng - Hà Nội</div>
+                    <div className="text-address">
+                        <FormattedMessage id="client.extra-info-doctor.examination-address" />
+                    </div>
+                    <div className="clinic-name">
+                        {doctorInfo && doctorInfo.clinicName ? doctorInfo.clinicName : ""}
+                    </div>
+                    <div className="detail-address">
+                        {doctorInfo && doctorInfo.clinicAddress ? doctorInfo.clinicAddress : ""}
+                    </div>
                 </div>
                 <div className="content-down">
                     {showInfo === false ?
-                        <div className="short-info">Giá Khám 250000.
-                            <span onClick={() => this.showDoctorInfo(true)}> Xem Chi tiet</span>
+                        <div className="short-info">
+                            <FormattedMessage id="client.extra-info-doctor.examination-price" />
+
+                            {doctorInfo && doctorInfo.priceData &&
+                                <NumericFormat
+                                    className="currency"
+                                    value={language === LANGUAGES.VI ? doctorInfo.priceData.valueVi : doctorInfo.priceData.valueEn}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    suffix={language === LANGUAGES.VI ? "VND" : "USD"}
+                                />
+                            }
+                            <span className="detail" onClick={() => this.showDoctorInfo(true)}>
+                                <FormattedMessage id="client.extra-info-doctor.see-details" />
+
+                            </span>
                         </div>
                         :
                         <>
-                            <div className="title-price">Giá Khám: </div>
+                            <div className="title-price">
+                                <FormattedMessage id="client.extra-info-doctor.examination-price" />
+                            </div>
                             <div className="detail-info">
                                 <div className="price">
-                                    <span className="left">Giá khám </span>
-                                    <span className="right">400.000đ</span>
+                                    <span className="left">
+                                        <FormattedMessage id="client.extra-info-doctor.examination-price" />
+                                    </span>
+                                    <span className="right">
+                                        {doctorInfo && doctorInfo.priceData &&
+                                            <NumericFormat
+                                                className="currency"
+                                                value={language === LANGUAGES.VI ? doctorInfo.priceData.valueVi : doctorInfo.priceData.valueEn}
+                                                displayType="text"
+                                                thousandSeparator={true}
+                                                suffix={language === LANGUAGES.VI ? "VND" : "USD"}
+                                            />
+                                        }
+                                    </span>
                                 </div>
                                 <div className="note">
-                                    Giá khám đã bao gồm phí đặt lịch hẹn trước (Giá niêm yết của phòng khám)
-                                    Giá khám cho người nước ngoài 30 USD
+                                    {doctorInfo && doctorInfo.note ? doctorInfo.note : ""}
                                 </div>
                             </div>
 
                             <div className="payment">
-                                Người bệnh có thể thanh toán chi phí bằng hình thức tiền mặt và quẹt thẻ</div>
+                                <FormattedMessage id="client.extra-info-doctor.payment" />
+                                {doctorInfo && doctorInfo.paymentData &&
+                                    language === LANGUAGES.VI ? doctorInfo.paymentData.valueVi : doctorInfo.paymentData.valueEn}
+                            </div>
                             <div className="hide-price">
-                                <span onClick={() => this.showDoctorInfo(false)}>Ẩn bảng giá</span>
+                                <span onClick={() => this.showDoctorInfo(false)}>
+                                    <FormattedMessage id="client.extra-info-doctor.hide-price" />
+
+                                </span>
                             </div>
                         </>
                     }

@@ -147,20 +147,42 @@ class ManageDoctor extends Component {
         let response = await getDoctorByIdService(selectedDoctor.value);
 
 
-        if (response && response.code === 0 && response.data && response.data.Doctor_Information) {
-            let priceId = response.data.Doctor_Information.priceId;
-            let paymentId = response.data.Doctor_Information.paymentId;
-            let provinceId = response.data.Doctor_Information.provinceId;
+        if (response && response.code === 0 && response.data) {
+            if (response.data.Doctor_Information) {
+                let priceId = response.data.Doctor_Information.priceId;
+                let paymentId = response.data.Doctor_Information.paymentId;
+                let provinceId = response.data.Doctor_Information.provinceId;
 
-            let selectedPrice = listPrice.find(item => {
-                return item && item.value === priceId;
-            })
-            let selectedPayment = listPayment.find(item => {
-                return item && item.value === paymentId;
-            })
-            let selectedProvince = listProvince.find(item => {
-                return item && item.value === provinceId;
-            })
+                let selectedPrice = listPrice.find(item => {
+                    return item && item.value === priceId;
+                })
+                let selectedPayment = listPayment.find(item => {
+                    return item && item.value === paymentId;
+                })
+                let selectedProvince = listProvince.find(item => {
+                    return item && item.value === provinceId;
+                })
+
+                this.setState({
+                    clinicName: response.data.Doctor_Information.clinicName,
+                    clinicAddress: response.data.Doctor_Information.clinicAddress,
+                    note: response.data.Doctor_Information.note,
+
+                    selectedPrice: selectedPrice,
+                    selectedPayment: selectedPayment,
+                    selectedProvince: selectedProvince,
+                })
+            } else {
+                this.setState({
+                    clinicName: "",
+                    clinicAddress: "",
+                    note: "",
+
+                    selectedPrice: "",
+                    selectedPayment: "",
+                    selectedProvince: "",
+                })
+            }
 
             this.setState({
                 contentHTML: response.data.Markdown.contentHTML ? response.data.Markdown.contentHTML : "",
@@ -168,28 +190,12 @@ class ManageDoctor extends Component {
                 description: response.data.Markdown.description ? response.data.Markdown.description : "",
 
                 hasDataYet: true,
-
-                clinicName: response.data.Doctor_Information.clinicName,
-                clinicAddress: response.data.Doctor_Information.clinicAddress,
-                note: response.data.Doctor_Information.note,
-
-                selectedPrice: selectedPrice,
-                selectedPayment: selectedPayment,
-                selectedProvince: selectedProvince,
             });
 
 
         } else {
             this.setState({
-                hasDataYet: false,
-
-                clinicName: "",
-                clinicAddress: "",
-                note: "",
-
-                selectedPrice: "",
-                selectedPayment: "",
-                selectedProvince: "",
+                hasDataYet: false
             })
         }
     };

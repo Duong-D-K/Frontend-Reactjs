@@ -96,6 +96,13 @@
         "homepage": {
             "prominent-doctor": "Prominent Doctors",
             "more-info": "More Infomation"
+        },
+        "extra-info-doctor": {
+            "examination-address": "Examination Address",
+            "examination-price": "Examination Price",
+            "see-details": "See Details",
+            "payment": "Patients can pay costs in the form of: ",
+            "hide-price": "Hide Price List"
         }
     }
 }
