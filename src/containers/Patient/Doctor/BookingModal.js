@@ -8,6 +8,7 @@ import { LANGUAGES } from "../../../utils";
 import DoctorSchedule from "./DoctorSchedule";
 import DoctorExtraInfo from "./DoctorExtraInfo";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import DoctorProfile from "./DoctorProfile";
 
 class BookingModal extends Component {
     constructor(props) {
@@ -29,10 +30,6 @@ class BookingModal extends Component {
 
     render() {
         let { openBookingModal, closeBookingModal, dataTime, schedule, doctor } = this.props;
-
-        console.log("datatime", dataTime);
-        console.log("schedule", schedule);
-        console.log("doctor", doctor);
 
 
         return (
@@ -56,9 +53,7 @@ class BookingModal extends Component {
                         </div>
                         <div className="booking-modal-body">
                             <div className="doctor-info">
-                                <div className="price">
-                                    gia kham 500.000d
-                                </div>
+                                <DoctorProfile />
                                 <div className="row">
                                     <div className="col-6 form-group">
                                         <label>Ho ten</label>
