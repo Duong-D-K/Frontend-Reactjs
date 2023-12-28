@@ -42,7 +42,6 @@ class DoctorExtraInfo extends Component {
         let { showInfo, doctorInfo } = this.state;
 
         let { language } = this.props;
-        console.log("check", doctorInfo);
 
         return (
             <div className="doctor-extra-info-container">

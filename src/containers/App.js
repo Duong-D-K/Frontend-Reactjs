@@ -17,6 +17,7 @@ import Doctor from "../routes/Doctor";
 // import { CustomToastCloseButton } from "../components/CustomToast";
 import HomePage from './HomePage/HomePage.js';
 import DetailDoctor from "./Patient/Doctor/DetailDoctor";
+import DetailBooking from "./Patient/Doctor/DetailBooking";
 import CustomScrollbars from "../components/CustomScrollbars";
 
 class App extends Component {
@@ -53,6 +54,7 @@ class App extends Component {
 
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                                    <Route path={path.DETAIL_BOOKING} component={DetailBooking} />
                                 </Switch>
                             </CustomScrollbars>
                         </div>

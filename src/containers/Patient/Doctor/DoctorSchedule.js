@@ -7,6 +7,9 @@ import localization from "moment/locale/vi";
 import { LANGUAGES } from "../../../utils";
 import { getScheduleByDateService } from "../../../services/userService";
 import { FormattedMessage } from "react-intl";
+import { withRouter } from "react-router";
+import BookingModal from "./BookingModal";
+import { classNames } from "react-select/dist/index-ea9e225d.cjs.prod";
 
 class DoctorSchedule extends Component {
     constructor(props) {
@@ -14,6 +17,8 @@ class DoctorSchedule extends Component {
         this.state = {
             allDays: [],
             allAvailableTime: [],
+            isOpenModalBooking: false,
+            dataScheduleTimeModal: {},
         }
     }
 
@@ -84,8 +89,24 @@ class DoctorSchedule extends Component {
         }
     }
 
+
+    handleViewDetailDoctor = (time) => {
+        // if (this.props.history) {
+        //     this.props.history.push(`/detail-booking/${item.id}`);
+        // }
+        this.setState({
+            isOpenModalBooking: true,
+            dataScheduleTimeModal: time,
+        })
+    }
+
+    closeBookingModal = () => {
+        this.setState({
+            isOpenModalBooking: false,
+        })
+    }
     render() {
-        let { allDays, allAvailableTime } = this.state;
+        let { allDays, allAvailableTime, isOpenModalBooking, dataScheduleTimeModal } = this.state;
 
         let { language } = this.props;
 
@@ -120,7 +141,11 @@ class DoctorSchedule extends Component {
                                             allAvailableTime.map((item, index) => {
                                                 let diplayTime = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
                                                 return (
-                                                    <button key={index}>{diplayTime}</button>
+                                                    <button
+                                                        key={index}
+                                                        className={language === LANGUAGES.VI ? "btn-vi" : "btn-en"}
+                                                        onClick={() => this.handleViewDetailDoctor(item)}
+                                                    > {diplayTime}</button>
                                                 );
                                             })
                                         }
@@ -139,6 +164,12 @@ class DoctorSchedule extends Component {
                         </div>
                     </div>
                 </div >
+
+                <BookingModal
+                    openBookingModal={isOpenModalBooking}
+                    closeBookingModal={this.closeBookingModal}
+                    dataTime={dataScheduleTimeModal}
+                />
             </>
         );
     }
@@ -157,4 +188,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorSchedule);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DoctorSchedule));

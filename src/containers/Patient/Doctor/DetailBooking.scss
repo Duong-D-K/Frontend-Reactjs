@@ -1,0 +1,165 @@
+.booking-detail-container {
+    border: 1px solid #000;
+
+    .container {
+        .doctor-intro {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            margin-top: 40px;
+            .content-left {
+                width: 120px;
+                height: 120px;
+                background: center center no-repeat;
+                border: 1px solid #000;
+                border-radius: 40%;
+            }
+
+            .content-right {
+                .schedule-content {
+                    font-size: x-large;
+                    font-weight: 700;
+                }
+
+                .doctor-name {
+                    font-size: 20px;
+                    color: #337ab7;
+                }
+
+                .schedule-time {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .check-schedule {
+            font-size: 18px;
+            input {
+                margin-right: 5px;
+            }
+            label {
+                margin-right: 20px;
+            }
+        }
+
+        .patient-name {
+            margin-left: auto;
+            margin-right: auto;
+            .enter-info {
+                display: flex;
+                border: 1px solid #ced4da;
+                height: 45px;
+
+                input {
+                    border: none;
+                }
+
+                i {
+                    position: relative;
+                    top: 9px;
+                    left: 6px;
+                }
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+
+        .check-gender {
+            font-size: 18px;
+            input {
+                margin-right: 5px;
+            }
+            label {
+                margin-right: 20px;
+            }
+        }
+
+        .patient-phonenumber {
+            margin-left: auto;
+            margin-right: auto;
+            .enter-info {
+                display: flex;
+                border: 1px solid #ced4da;
+                height: 45px;
+
+                input {
+                    border: none;
+                }
+
+                i {
+                    position: relative;
+                    top: 9px;
+                    left: 6px;
+                }
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+
+        .patient-yearbirth {
+            margin-left: auto;
+            margin-right: auto;
+            .enter-info {
+                display: flex;
+                border: 1px solid #ced4da;
+
+                input {
+                    border: none;
+                }
+
+                i {
+                    position: relative;
+                    top: 9px;
+                    left: 6px;
+                }
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+        .patient-email {
+            margin-left: auto;
+            margin-right: auto;
+            .enter-info {
+                display: flex;
+                border: 1px solid #ced4da;
+
+                input {
+                    border: none;
+                }
+
+                i {
+                    position: relative;
+                    top: 9px;
+                    left: 6px;
+                }
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+        .patient-address {
+            margin-left: auto;
+            margin-right: auto;
+            .enter-info {
+                display: flex;
+                border: 1px solid #ced4da;
+
+                input {
+                    border: none;
+                }
+
+                i {
+                    position: relative;
+                    top: 9px;
+                    left: 6px;
+                }
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+    }
+}
