@@ -31,7 +31,6 @@ class BookingModal extends Component {
     render() {
         let { openBookingModal, closeBookingModal, dataTime, schedule, doctor } = this.props;
 
-
         return (
             <>
                 <Modal
@@ -53,7 +52,10 @@ class BookingModal extends Component {
                         </div>
                         <div className="booking-modal-body">
                             <div className="doctor-info">
-                                <DoctorProfile />
+                                <DoctorProfile
+                                    isShowDescriptionDoctor={false}
+                                    dataTime={dataTime}
+                                />
                                 <div className="row">
                                     <div className="col-6 form-group">
                                         <label>Ho ten</label>

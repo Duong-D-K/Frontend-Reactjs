@@ -10,8 +10,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { FormattedMessage } from "react-intl";
 
-const mdParser = new MarkdownIt(/* Markdown-it options */);//convert from html to text
-
+const mdParser = new MarkdownIt();
 class ManageDoctor extends Component {
     constructor(props) {
         super(props);
@@ -78,8 +77,8 @@ class ManageDoctor extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.doctorList !== this.props.doctorList) {
-            let dataSelect = this.buildDataInputSelect(this.props.doctorList, "USERS");
+        if (prevProps.allDoctors !== this.props.allDoctors) {
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors, "USERS");
 
             this.setState({
                 listDoctors: dataSelect,
@@ -89,7 +88,7 @@ class ManageDoctor extends Component {
             let { responsePrice, responsePayment, responseProvince } = this.props.allRequiredDoctorInfo;
 
             this.setState({
-                listDoctors: this.buildDataInputSelect(this.props.doctorList, "USERS"),
+                listDoctors: this.buildDataInputSelect(this.props.allDoctors, "USERS"),
                 listPrice: this.buildDataInputSelect(responsePrice),
                 listPayment: this.buildDataInputSelect(responsePayment),
                 listProvince: this.buildDataInputSelect(responseProvince),
@@ -146,7 +145,6 @@ class ManageDoctor extends Component {
 
         let response = await getDoctorByIdService(selectedDoctor.value);
 
-
         if (response && response.code === 0 && response.data) {
             if (response.data.Doctor_Information) {
                 let priceId = response.data.Doctor_Information.priceId;
@@ -202,7 +200,7 @@ class ManageDoctor extends Component {
 
     handleOnChangeSelect = (selectedOption, name) => {
         this.setState({
-            [name.name]: selectedOption
+            [name.name]: selectedOption,
         })
     }
 
@@ -284,7 +282,6 @@ class ManageDoctor extends Component {
                             onChange={(event) => this.handleOnChangeText(event, "clinicAddress")}
                             value={this.state.clinicAddress}
                         >
-
                         </input>
                     </div>
                 </div>
@@ -295,7 +292,7 @@ class ManageDoctor extends Component {
                         </label>
                         <textarea
                             className="form-control" rows="3"
-                            onChange={(event) => this.handleOnChangeText(event, "discription")}
+                            onChange={(event) => this.handleOnChangeText(event, "description")}
                             value={this.state.description}
                         >
                         </textarea>
@@ -336,7 +333,7 @@ class ManageDoctor extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
-        doctorList: state.admin.allDoctors,
+        allDoctors: state.admin.allDoctors,
         doctor: state.admin.doctor,
         allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };

@@ -105,8 +105,6 @@ class UserManage extends Component {
         } catch (e) {
             console.log(e);
         }
-
-
     }
 
     render() {
@@ -144,7 +142,7 @@ class UserManage extends Component {
                                 <th>Address</th>
                                 <th>Action</th>
                             </tr>
-                            {arrUsers && arrUsers.map((item) => {
+                            {arrUsers ? arrUsers.map((item) => {
                                 return (
                                     <tr>
                                         <td>{item.email}</td>
@@ -166,7 +164,7 @@ class UserManage extends Component {
                                         </td>
                                     </tr>
                                 );
-                            })}
+                            }) : <></>}
                         </tbody>
                     </table>
                 </div>

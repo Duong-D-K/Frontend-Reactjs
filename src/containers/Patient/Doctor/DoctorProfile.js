@@ -7,6 +7,8 @@ import { getDoctorByIdService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import NumericFormat from "react-number-format";
+import moment, { lang } from "moment/moment";
+import _ from "lodash";
 
 class DoctorProfile extends Component {
     constructor(props) {
@@ -36,10 +38,8 @@ class DoctorProfile extends Component {
     }
 
     render() {
-        let { language } = this.props;
+        let { language, dataTime } = this.props;
         let { profile } = this.state;
-
-        console.log(this.state);
 
         let nameEn = "", nameVi = "";
 
@@ -60,12 +60,27 @@ class DoctorProfile extends Component {
                                 {language === LANGUAGES.VI ? nameVi : nameEn}
                             </div>
                             <div className="down">
-                                {profile && profile.Markdown && profile.Markdown.description ?
-                                    <span>
-                                        {profile.Markdown.description}
-                                    </span>
-
-                                    : ""
+                                {this.props.isShowDescriptionDoctor === true ?
+                                    <>
+                                        {profile && profile.Markdown && profile.Markdown.description ?
+                                            <span>
+                                                {profile.Markdown.description}
+                                            </span>
+                                            : <></>
+                                        }
+                                    </>
+                                    :
+                                    <>
+                                        {dataTime && !_.isEmpty(dataTime) ?
+                                            <div className="date">
+                                                {language === LANGUAGES.VI ?
+                                                    `${dataTime.timeTypeData.valueVi} - ${moment(parseInt(dataTime.date)).format("dddd, DD-MM-YYYY")}`
+                                                    : `${dataTime.timeTypeData.valueEn} - ${moment(parseInt(dataTime.date)).locale("en").format("ddd, YYYY-MM-DD")}`}
+                                            </div>
+                                            : <></>
+                                        }
+                                        <div>mien phi dat lich </div>
+                                    </>
                                 }
                             </div>
                             <div className="price">
@@ -75,9 +90,9 @@ class DoctorProfile extends Component {
                                         <NumericFormat
                                             className="currency"
                                             value={language === LANGUAGES.VI ?
-                                                "Giá Khám: " + profile.Doctor_Information.priceData.valueVi
+                                                `Giá Khám: ${profile.Doctor_Information.priceData.valueVi}`
                                                 :
-                                                "Price: " + profile.Doctor_Information.priceData.valueEn
+                                                `Price: ${profile.Doctor_Information.priceData.valueEn}`
                                             }
                                             displayType="text"
                                             thousandSeparator={true}
