@@ -9,6 +9,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import NumericFormat from "react-number-format";
 import moment, { lang } from "moment/moment";
 import _ from "lodash";
+import { FormattedMessage } from "react-intl";
 
 class DoctorProfile extends Component {
     constructor(props) {
@@ -79,20 +80,22 @@ class DoctorProfile extends Component {
                                             </div>
                                             : <></>
                                         }
-                                        <div>mien phi dat lich </div>
+                                        <div>
+                                            <FormattedMessage id={"client.doctor-profile.free-appointment"} />
+                                        </div>
                                     </>
                                 }
                             </div>
                             <div className="price">
                                 <span>
-                                    Giá khám:
+                                    <FormattedMessage id={"client.doctor-profile.price"} />
                                     {profile && profile.Doctor_Information && profile.Doctor_Information.priceData ?
                                         <NumericFormat
                                             className="currency"
                                             value={language === LANGUAGES.VI ?
-                                                `Giá Khám: ${profile.Doctor_Information.priceData.valueVi}`
+                                                profile.Doctor_Information.priceData.valueVi
                                                 :
-                                                `Price: ${profile.Doctor_Information.priceData.valueEn}`
+                                                profile.Doctor_Information.priceData.valueEn
                                             }
                                             displayType="text"
                                             thousandSeparator={true}

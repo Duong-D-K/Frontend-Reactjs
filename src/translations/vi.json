@@ -104,6 +104,22 @@
             "see-details": "Xem Chi tiết",
             "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức: ",
             "hide-price": "Ẩn Bảng Giá"
+        },
+        "booking-modal": {
+            "title": "Thông Tin Đặt Lịch Khám Bệnh",
+            "patient-fullName": "Họ Tên Bệnh Nhân",
+            "phoneNumber": "Số Điện Thoại",
+            "email": "Email",
+            "address": "Địa Chỉ",
+            "reason": "Lý Do Khám Bệnh",
+            "birthday": "Sinh Nhật",
+            "gender": "Giới Tính",
+            "btn-confirm": "Xác Nhận",
+            "btn-cancel": "Hủy Bỏ"
+        },
+        "doctor-profile": {
+            "free-appointment": "Miễn Phí Đặt Lịch",
+            "price": "Giá Khám Bệnh: "
         }
     }
 }

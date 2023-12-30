@@ -5,7 +5,7 @@ import {
     editUserService, getTopDoctorsService,
     getAllDoctorsService, createDoctorInfoSerivce,
     getDoctorByIdService, createBulkScheduleService,
-    getScheduleByDateService,
+    getScheduleByDateService, createAppointmentBookingService
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -432,6 +432,26 @@ export const getScheduleByDate = (doctorId, date) => {
                 type: actionTypes.GET_SCHEDULE_BY_DATE_FAIL,
                 data: "",
             });
+        }
+    }
+}
+
+export const saveAppointmentBooking = (data) => {
+    console.log("data", data);
+
+    return async (dispatch, getState) => {
+        try {
+            let response = await createAppointmentBookingService(data);
+
+            if (response && response.code === 0) {
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            toast.error("Save Doctor Info Failed!!");
+
+            console.log("Save Doctor Error", e);
         }
     }
 }

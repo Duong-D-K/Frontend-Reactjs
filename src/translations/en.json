@@ -103,6 +103,22 @@
             "see-details": "See Details",
             "payment": "Patients can pay costs in the form of: ",
             "hide-price": "Hide Price List"
+        },
+        "booking-modal": {
+            "title": "Medical Examination Scheduling Information",
+            "patient-fullName": "Patient's Full Name",
+            "phoneNumber": "Phone Number",
+            "email": "Email",
+            "address": "Address",
+            "reason": "Reason for Medical Examination",
+            "birthday": "Date Of Birth",
+            "gender": "Gender",
+            "btn-confirm": "Confirm",
+            "btn-cancel": "Cancel"
+        },
+        "doctor-profile": {
+            "free-appointment": "Free Appointment",
+            "price": "Price: "
         }
     }
 }
