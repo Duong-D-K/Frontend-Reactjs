@@ -76,7 +76,8 @@ class DoctorProfile extends Component {
                                             <div className="date">
                                                 {language === LANGUAGES.VI ?
                                                     `${dataTime.timeTypeData.valueVi} - ${moment(parseInt(dataTime.date)).format("dddd, DD-MM-YYYY")}`
-                                                    : `${dataTime.timeTypeData.valueEn} - ${moment(parseInt(dataTime.date)).locale("en").format("ddd, YYYY-MM-DD")}`}
+                                                    : `${dataTime.timeTypeData.valueEn} - ${moment(parseInt(dataTime.date)).locale("en").format("ddd, YYYY-MM-DD")}`
+                                                }
                                             </div>
                                             : <></>
                                         }

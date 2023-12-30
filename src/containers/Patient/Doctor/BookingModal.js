@@ -11,6 +11,7 @@ import DatePicker from "../../../components/Input/DatePicker";
 import Select from 'react-select';
 import { FormattedMessage } from "react-intl";
 import { toast } from "react-toastify";
+import moment, { lang } from "moment/moment";
 
 class BookingModal extends Component {
     constructor(props) {
@@ -93,7 +94,15 @@ class BookingModal extends Component {
             birthday: new Date(this.state.birthday).getTime(),
             selectedGender: this.state.selectedGender.value,
             doctorId: this.state.doctorId,
-            timeType: this.props.dataTime.timeType,
+            appointmentTime: this.props.dataTime.timeType,
+            language: this.props.language,
+            appointmentDate: this.props.dataTime.date,
+            timeString: this.props.language === LANGUAGES.VI ?
+                `${this.props.dataTime.timeTypeData.valueVi} - ${moment(parseInt(this.props.dataTime.date)).format("dddd, DD-MM-YYYY")}`
+                : `${this.props.dataTime.timeTypeData.valueEn} - ${moment(parseInt(this.props.dataTime.date)).locale("en").format("ddd, YYYY-MM-DD")}`,
+            doctorString: this.props.language === LANGUAGES.VI ?
+                `${this.props.doctor.positionData.valueVi}, ${this.props.doctor.lastName} ${this.props.doctor.firstName}` :
+                `${this.props.doctor.positionData.valueEn}, ${this.props.doctor.firstName} ${this.props.doctor.lastName}`,
         });
 
         this.props.closeBookingModal();
