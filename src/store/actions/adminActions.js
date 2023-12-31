@@ -7,7 +7,7 @@ import {
     getDoctorByIdService, createBulkScheduleService,
     getScheduleByDateService, createAppointmentBookingService,
     createExaminationVerificationService,
-    createSpecialtyService,
+    createSpecialtyService, getAllSpecialtiesService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -498,6 +498,33 @@ export const createSpecialty = (data) => {
             toast.error("Create New Specialty Failed!!");
 
             console.log("Failed!", e);
+        }
+    }
+}
+
+export const getAllSpecialties = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllSpecialtiesService();
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_SPECIALTIES_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_SPECIALTIES_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.GET_ALL_SPECIALTIES_FAIL,
+                data: "",
+            });
         }
     }
 }

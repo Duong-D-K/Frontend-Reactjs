@@ -30,13 +30,12 @@
                 background-color: #eee;
 
                 &.section-specialty {
-                    background-image: url("../../assets/images/specialty/co-xuong-khop.jpg");
+                    border-radius: 10px;
                 }
                 &.section-medical-facility {
                     background-image: url("../../assets/images/medical-facility/lo-go-viet-duc.jpg");
                 }
                 &.section-outstanding-doctor {
-                    // background-image: url("../../assets/images/outstanding-doctor/bs-nguyen-duy-hung.jpg");
                     width: 120px;
                     height: 120px;
                     border-radius: 50%;
@@ -90,12 +89,25 @@
         padding: 5px;
 
         .customize-border {
-            border: 1px solid orange;
+            border: 1px solid rgba(230, 228, 222, 0.677);
             padding-top: 20px;
 
             .outer-bg {
                 display: flex;
                 justify-content: center;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+.section-specialty {
+    .section-customize {
+        padding: 5px;
+
+        .customize-border {
+            padding-top: 20px;
+
+            .outer-bg {
                 margin-bottom: 10px;
             }
         }

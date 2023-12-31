@@ -61,6 +61,13 @@ class SpecialtyManagement extends Component {
 
     handleSaveSpecialty = () => {
         this.props.createSpecialtyRedux(this.state);
+
+        this.setState({
+            name: "",
+            imageBase64: "",
+            contentMarkdown: "",
+            contentHTML: "",
+        })
     }
     render() {
         return (

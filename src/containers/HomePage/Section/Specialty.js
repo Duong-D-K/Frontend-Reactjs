@@ -3,42 +3,59 @@ import { connect } from "react-redux";
 import "./Specialty.scss";
 // import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
+import * as actions from "../../../store/actions";
+import { FormattedMessage } from "react-intl";
 
 class Specialty extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            allSpecialties: [],
+        }
+    }
+    async componentDidMount() {
+        await this.props.getAllSpecialtiesRedux();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.allSpecialties !== prevProps.allSpecialties) {
+            this.setState({
+                allSpecialties: this.props.allSpecialties,
+            })
+        }
+    }
+
     render() {
+        let { allSpecialties } = this.state;
+
         return (
             <div className="section-share section-specialty">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section">Chuyên Khoa Phổ Biến</span>
-                        <button className="btn-section">Xem Thêm</button>
+                        <span className="title-section"><FormattedMessage id="client.homepage.popular-specialty" /></span>
+                        <button className="btn-section"><FormattedMessage id="client.homepage.more-info" /></button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                            <div className="section-customize">
-                                <div className="bg-image section-specialty "></div>
-                                <div className="section-customize-text">Cơ Xương Khớp 1</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-specialty "></div>
-                                <div className="section-customize-text">Cơ Xương Khớp 2</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-specialty "></div>
-                                <div className="section-customize-text">Cơ Xương Khớp 3</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-specialty "></div>
-                                <div className="section-customize-text">Cơ Xương Khớp 4</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-specialty "></div>
-                                <div className="section-customize-text">Cơ Xương Khớp 5</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-specialty "></div>
-                                <div className="section-customize-text">Cơ Xương Khớp 6</div>
-                            </div>
+                            {allSpecialties?.length > 0 ? allSpecialties.map((item, index) => {
+                                return (
+                                    <div
+                                        className="section-customize" key={index}
+                                    // onClick={() => this.handleViewDetailDoctor(item)}
+                                    >
+                                        <div className="customize-border">
+                                            <div className="outer-bg">
+                                                <div className="bg-image section-specialty"
+                                                    style={{ backgroundImage: `url(${item.image})` }}
+                                                />
+                                            </div>
+                                            <div className="postion text-center">
+                                                <div className="section-customize-text">{item.name}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }) : <><div>Server Error</div></>}
                         </Slider>
                     </div>
                 </div>
@@ -51,12 +68,15 @@ const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
+        allSpecialties: state.admin.allSpecialties,
+
 
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getAllSpecialtiesRedux: () => dispatch(actions.getAllSpecialties()),
 
     };
 };
