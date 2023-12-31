@@ -10,6 +10,7 @@ const initialState = {
     doctor: [],
     allScheduleTime: [],
     schedule: [],
+    examination_verification: {},
 
     allRequiredDoctorInfo: [],
 
@@ -130,7 +131,16 @@ const adminReducer = (state = initialState, action) => {
                 allRequiredDoctorInfo: "",
             };
 
-
+        case actionTypes.SAVE_EXAMINATION_VERIFICATION_SUCCEED:
+            return {
+                ...state,
+                examination_verification: action.data,
+            };
+        case actionTypes.SAVE_EXAMINATION_VERIFICATION_FAIL:
+            return {
+                ...state,
+                examination_verification: action.data,
+            };
         default:
             return state;
     }

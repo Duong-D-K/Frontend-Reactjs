@@ -5,7 +5,8 @@ import {
     editUserService, getTopDoctorsService,
     getAllDoctorsService, createDoctorInfoSerivce,
     getDoctorByIdService, createBulkScheduleService,
-    getScheduleByDateService, createAppointmentBookingService
+    getScheduleByDateService, createAppointmentBookingService,
+    createExaminationVerificationService
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -437,8 +438,6 @@ export const getScheduleByDate = (doctorId, date) => {
 }
 
 export const saveAppointmentBooking = (data) => {
-    console.log("data", data);
-
     return async (dispatch, getState) => {
         try {
             let response = await createAppointmentBookingService(data);
@@ -452,6 +451,34 @@ export const saveAppointmentBooking = (data) => {
             toast.error("Save Doctor Info Failed!!");
 
             console.log("Save Doctor Error", e);
+        }
+    }
+}
+
+export const saveExaminationVerification = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await createExaminationVerificationService(data);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.SAVE_EXAMINATION_VERIFICATION_SUCCEED,
+                    data: { code: response.code, message: response.message },
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.SAVE_EXAMINATION_VERIFICATION_FAIL,
+                    data: { code: response.code, message: response.message },
+                });
+            }
+        } catch (e) {
+            toast.error("Save Doctor Info Failed!!");
+
+            console.log("Save Doctor Error", e);
+
+            dispatch({
+                type: actionTypes.SAVE_EXAMINATION_VERIFICATION_FAIL,
+            });
         }
     }
 }
