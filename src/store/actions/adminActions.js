@@ -6,7 +6,8 @@ import {
     getAllDoctorsService, createDoctorInfoSerivce,
     getDoctorByIdService, createBulkScheduleService,
     getScheduleByDateService, createAppointmentBookingService,
-    createExaminationVerificationService
+    createExaminationVerificationService,
+    createSpecialtyService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -479,6 +480,24 @@ export const saveExaminationVerification = (data) => {
             dispatch({
                 type: actionTypes.SAVE_EXAMINATION_VERIFICATION_FAIL,
             });
+        }
+    }
+}
+
+export const createSpecialty = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await createSpecialtyService(data);
+
+            if (response && response.code === 0) {
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            toast.error("Create New Specialty Failed!!");
+
+            console.log("Failed!", e);
         }
     }
 }
