@@ -5,6 +5,8 @@ import "./Specialty.scss";
 import Slider from "react-slick";
 import * as actions from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
+import { withRouter } from "react-router";
+import { LANGUAGES } from "../../../utils";
 
 class Specialty extends Component {
     constructor(props) {
@@ -25,6 +27,12 @@ class Specialty extends Component {
         }
     }
 
+    handleViewDetailSpecialty = (specialty) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-specialty/${specialty.id}`);
+        }
+    }
+
     render() {
         let { allSpecialties } = this.state;
 
@@ -41,7 +49,7 @@ class Specialty extends Component {
                                 return (
                                     <div
                                         className="section-customize" key={index}
-                                    // onClick={() => this.handleViewDetailDoctor(item)}
+                                        onClick={() => this.handleViewDetailSpecialty(item)}
                                     >
                                         <div className="customize-border">
                                             <div className="outer-bg">
@@ -50,7 +58,7 @@ class Specialty extends Component {
                                                 />
                                             </div>
                                             <div className="postion text-center">
-                                                <div className="section-customize-text">{item.name}</div>
+                                                <div className="section-customize-text">{this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -81,4 +89,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));

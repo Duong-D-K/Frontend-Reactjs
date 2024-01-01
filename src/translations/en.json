@@ -3,6 +3,7 @@
         "manage-doctor": {
             "title": "Doctor Information Management",
             "select-doctor": "Select Doctor",
+            "select-specialty": "Select Specialty",
             "intro": "Introduction",
             "add": "Create Doctor",
             "save": "Save Doctor",

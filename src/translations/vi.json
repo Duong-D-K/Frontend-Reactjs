@@ -3,6 +3,7 @@
         "manage-doctor": {
             "title": "Quản Lý Thông Tin Bác Sĩ",
             "select-doctor": "Chọn Bác Sĩ",
+            "select-specialty": "Chọn Chuyên Khoa",
             "intro": "Thông Tin Giới Thiệu",
             "add": "Tạo Người Dùng",
             "save": "Lưu Người Dùng",
