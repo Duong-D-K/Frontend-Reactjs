@@ -8,6 +8,7 @@ import {
     getScheduleByDateService, createAppointmentBookingService,
     createExaminationVerificationService,
     createSpecialtyService, getAllSpecialtiesService,
+    getAllDoctorInSpecialtyService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -523,6 +524,35 @@ export const getAllSpecialties = () => {
 
             dispatch({
                 type: actionTypes.GET_ALL_SPECIALTIES_FAIL,
+                data: "",
+            });
+        }
+    }
+}
+//get doctor by id
+export const getAllDoctorInSpecialty = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllDoctorInSpecialtyService(id);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            toast.error("Get All Doctors In Specialty Failed!!");
+
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_FAIL,
                 data: "",
             });
         }

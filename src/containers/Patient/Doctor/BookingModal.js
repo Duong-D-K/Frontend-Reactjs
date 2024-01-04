@@ -28,6 +28,11 @@ class BookingModal extends Component {
             timeType: "",
 
             listGenders: "",
+
+            image: "",
+            doctorName: "",
+            doctorPosition: "",
+            doctorIntro: "",
         }
     }
 
@@ -59,6 +64,16 @@ class BookingModal extends Component {
             this.setState({
                 doctorId: this.props.dataTime.doctorId,
                 timeType: this.props.dataTime.timeType,
+            })
+        }
+        if (this.props.doctor !== prevProps.doctor) {
+            console.log(this.props.doctor.Markdown.description);
+
+            this.setState({
+                doctorName: { firstName: this.props.doctor.firstName, lastName: this.props.doctor.lastName },
+                image: this.props.doctor.image,
+                doctorPosition: this.props.doctor.positionData,
+                doctorDescription: this.props.doctor.Markdown.description,
             })
         }
     }
@@ -111,6 +126,8 @@ class BookingModal extends Component {
     render() {
         let { openBookingModal, closeBookingModal, dataTime } = this.props;
 
+        let { image, doctorName, doctorPosition, doctorDescription } = this.state;
+
         return (
             <>
                 <Modal
@@ -135,6 +152,10 @@ class BookingModal extends Component {
                         <div className="booking-modal-body">
                             <div className="doctor-info">
                                 <DoctorProfile
+                                    image={image}
+                                    doctorName={doctorName}
+                                    doctorDescription={doctorDescription}
+                                    doctorPosition={doctorPosition}
                                     isShowDescriptionDoctor={false}
                                     dataTime={dataTime}
                                 />

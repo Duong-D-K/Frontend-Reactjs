@@ -39,14 +39,15 @@ class DoctorProfile extends Component {
     }
 
     render() {
-        let { language, dataTime } = this.props;
+        let { image, doctorName, doctorPosition, doctorDescription, language, dataTime } = this.props;
+
         let { profile } = this.state;
 
         let nameEn = "", nameVi = "";
 
-        if (profile && profile.positionData) {
-            nameVi = `${profile.positionData.valueVi}, ${profile.lastName} ${profile.firstName}`;
-            nameEn = `${profile.positionData.valueEn}, ${profile.firstName} ${profile.lastName}`;
+        if (doctorPosition) {
+            nameVi = `${doctorPosition.valueVi}, ${doctorName.lastName} ${doctorName.firstName}`;
+            nameEn = `${doctorPosition.valueEn}, ${doctorName.firstName} ${doctorName.lastName}`;
         }
         return (
             <>
@@ -54,7 +55,7 @@ class DoctorProfile extends Component {
                     <div className="doctor-intro">
                         <div
                             className="content-left"
-                            style={{ backgroundImage: `url(${profile && profile.image ? profile.image : ""})` }}>
+                            style={{ backgroundImage: `url(${image ? image : ""})` }}>
                         </div>
                         <div className="content-right">
                             <div className="up">
@@ -63,12 +64,9 @@ class DoctorProfile extends Component {
                             <div className="down">
                                 {this.props.isShowDescriptionDoctor === true ?
                                     <>
-                                        {profile && profile.Markdown && profile.Markdown.description ?
-                                            <span>
-                                                {profile.Markdown.description}
-                                            </span>
-                                            : <></>
-                                        }
+                                        <span>
+                                            {doctorDescription ? doctorDescription : "Hiện tại chưa có thông tin!"}
+                                        </span>
                                     </>
                                     :
                                     <>
@@ -89,20 +87,24 @@ class DoctorProfile extends Component {
                             </div>
                             <div className="price">
                                 <span>
-                                    <FormattedMessage id={"client.doctor-profile.price"} />
-                                    {profile && profile.Doctor_Information && profile.Doctor_Information.priceData ?
-                                        <NumericFormat
-                                            className="currency"
-                                            value={language === LANGUAGES.VI ?
-                                                profile.Doctor_Information.priceData.valueVi
-                                                :
-                                                profile.Doctor_Information.priceData.valueEn
-                                            }
-                                            displayType="text"
-                                            thousandSeparator={true}
-                                            suffix={language === LANGUAGES.VI ? " VND" : " USD"}
-                                        /> : "Hiện tại chưa có giá khám bệnh"
-                                    }
+                                    {this.props.isShowDescriptionDoctor === false ?
+                                        (profile && profile.Doctor_Information && profile.Doctor_Information.priceData ?
+                                            (<>
+                                                <FormattedMessage id={"client.doctor-profile.price"} />
+                                                <NumericFormat
+                                                    className="currency"
+                                                    value={language === LANGUAGES.VI ?
+                                                        profile.Doctor_Information.priceData.valueVi
+                                                        :
+                                                        profile.Doctor_Information.priceData.valueEn
+                                                    }
+                                                    displayType="text"
+                                                    thousandSeparator={true}
+                                                    suffix={language === LANGUAGES.VI ? " VND" : " USD"}
+                                                />
+                                            </>)
+                                            : ("Hiện tại chưa có giá khám bệnh"))
+                                        : (<></>)}
                                 </span>
                             </div>
                         </div>

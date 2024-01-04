@@ -5,6 +5,7 @@ import { getDoctorInformationById } from "../../../services/userService";
 import NumericFormat from "react-number-format";
 import { LANGUAGES } from "../../../utils";
 import { FormattedMessage } from "react-intl";
+import { compose } from "redux";
 
 class DoctorExtraInfo extends Component {
     constructor(props) {
@@ -17,14 +18,27 @@ class DoctorExtraInfo extends Component {
     }
 
     async componentDidMount() {
+        //bình thường khi detail doctor gọi tới component này, giá trị ban đầu của this.props.doctorIdFromParents là null,
+        // sau khi render xong sẽ chạy hàm componentDidUpdate, khi này nhận ra sự khác biệt của this.props.doctorIdFromParents nên sẽ tìm doctor theo id mới
+        //nhưng khi bên detail specialty gọi sang component này thì this.props.doctorIdFromParents đã có giá trị rồi và biến đấy k bị thay đổi
+        // cho nên hàm componentDidUpdate sẽ không được gọi và trả về giá trị. Vậy nên phải viết hàm getDoctorInformationById ở trong componentDidMount
+        if (this.props.doctorIdFromParents) {
 
+            let response = await getDoctorInformationById(this.props.doctorIdFromParents);
+
+            if (response?.code === 0) {
+                this.setState({
+                    doctorInfo: response.data,
+                });
+            }
+        }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.doctorIdFromParents !== prevProps.doctorIdFromParents) {
             let response = await getDoctorInformationById(this.props.doctorIdFromParents);
 
-            if (response && response.code === 0) {
+            if (response?.code === 0) {
                 this.setState({
                     doctorInfo: response.data,
                 });
@@ -115,8 +129,6 @@ class DoctorExtraInfo extends Component {
                             </div>
                         </>
                     }
-
-
                 </div>
             </div>
         );

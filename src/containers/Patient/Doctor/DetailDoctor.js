@@ -73,12 +73,10 @@ class DetailDoctor extends Component {
                     <div className="doctor-schedule">
                         <div className="content-left">
                             <DoctorSchedule doctorIdFromParents={this.state.currentDoctorId} />
-                            {/* Truyền doctorId từ thằng cha sang thằng con */}
                         </div>
                         <div className="content-right">
                             <DoctorExtraInfo
                                 doctorIdFromParents={this.state.currentDoctorId} />
-                            {/* Truyền doctorId từ thằng cha sang thằng con */}
                         </div>
                     </div>
                     <div className="doctor-detail-info">
