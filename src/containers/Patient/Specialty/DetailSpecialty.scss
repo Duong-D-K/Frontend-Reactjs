@@ -7,7 +7,11 @@
 
     .specialty-description {
         border: 1px solid #000;
-        height: 200px;
+    }
+
+    .find-doctor-by-location {
+        width: 200px;
+        margin-top: 20px;
     }
 
     .detail-specialty-body {
@@ -17,6 +21,7 @@
             min-height: 300px;
             margin: 15px 0;
             padding: 10px;
+            margin-bottom: 30px;
 
             background-color: #fff;
             box-shadow: 0 1px 6px rgb(32, 33, 36/ 28%);
@@ -24,7 +29,6 @@
 
             .detail-content-left {
                 width: 50%;
-                border: 1px solid #000;
             }
 
             .detail-content-right {

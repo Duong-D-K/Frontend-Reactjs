@@ -49,6 +49,7 @@ class DoctorProfile extends Component {
             nameVi = `${doctorPosition.valueVi}, ${doctorName.lastName} ${doctorName.firstName}`;
             nameEn = `${doctorPosition.valueEn}, ${doctorName.firstName} ${doctorName.lastName}`;
         }
+
         return (
             <>
                 <div className="doctor-profile-container">

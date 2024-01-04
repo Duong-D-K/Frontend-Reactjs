@@ -71,8 +71,8 @@ const getAllSpecialtiesService = () => {
     return axios.get(`/api/get-all-specialties`);
 };
 
-const getAllDoctorInSpecialtyService = (id) => {
-    return axios.get(`/api/get-all-doctors-in-specialty?id=${id}`);
+const getAllDoctorInSpecialtyService = (data) => {
+    return axios.get(`/api/get-all-doctors-in-specialty?id=${data.id}&location=${data.location}`);
 }
 
 export {
