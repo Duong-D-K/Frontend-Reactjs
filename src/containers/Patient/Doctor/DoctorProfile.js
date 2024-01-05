@@ -10,13 +10,13 @@ import NumericFormat from "react-number-format";
 import moment, { lang } from "moment/moment";
 import _ from "lodash";
 import { FormattedMessage } from "react-intl";
+import { Link, withRouter } from 'react-router-dom';
 
 class DoctorProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             profile: {},
-
         }
     }
 
@@ -39,7 +39,7 @@ class DoctorProfile extends Component {
     }
 
     render() {
-        let { image, doctorName, doctorPosition, doctorDescription, language, dataTime } = this.props;
+        let { doctorId, image, doctorName, doctorPosition, doctorDescription, language, dataTime } = this.props;
 
         let { profile } = this.state;
 
@@ -105,7 +105,11 @@ class DoctorProfile extends Component {
                                                 />
                                             </>)
                                             : ("Hiện tại chưa có giá khám bệnh"))
-                                        : (<></>)}
+                                        : (<>
+                                            <div className="view-detail-doctor">
+                                                <Link to={`/detail-doctor/${this.props.doctorId}`}>Xem them</Link>
+                                            </div>
+                                        </>)}
                                 </span>
                             </div>
                         </div>
@@ -132,4 +136,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorProfile);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DoctorProfile));

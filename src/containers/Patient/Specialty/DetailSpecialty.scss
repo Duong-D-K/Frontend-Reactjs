@@ -4,9 +4,10 @@
 }
 .detail-specialty-container {
     background-color: #eeeeee;
-
     .specialty-description {
-        border: 1px solid #000;
+        padding: 10px;
+        background-color: #ffff;
+        margin: 15px 0;
     }
 
     .find-doctor-by-location {
@@ -15,6 +16,8 @@
     }
 
     .detail-specialty-body {
+        padding: 0 100px;
+
         .each-doctor {
             display: flex;
             width: 100%;

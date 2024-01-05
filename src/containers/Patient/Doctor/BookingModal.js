@@ -152,6 +152,7 @@ class BookingModal extends Component {
                         <div className="booking-modal-body">
                             <div className="doctor-info">
                                 <DoctorProfile
+                                    doctorId={""}
                                     image={image}
                                     doctorName={doctorName}
                                     doctorDescription={doctorDescription}

@@ -14,6 +14,8 @@ import DoctorSchedule from "../Doctor/DoctorSchedule";
 import DoctorExtraInfo from "../Doctor/DoctorExtraInfo";
 import DoctorProfile from "../Doctor/DoctorProfile";
 import _ from "lodash";
+import { withRouter } from "react-router";
+
 
 const mdParser = new MarkdownIt();
 class DetailSpecialty extends Component {
@@ -60,13 +62,22 @@ class DetailSpecialty extends Component {
         }
     }
 
-    buildDataInputSelect = (inputData, type) =>
-        (inputData?.length > 0)
+    buildDataInputSelect = (inputData, type) => {
+
+        let result = (inputData?.length > 0)
             ? inputData.map(item => ({
-                label: this.props.language === LANGUAGES.VI ? (type === "USERS" ? `${item.lastName} ${item.firstName}` : item.valueVi) : (type === "USERS" ? `${item.firstName} ${item.lastName}` : item.valueEn),
-                value: type === "USERS" ? item.id : item.keyMap,
+                label: this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn,
+                value: item.keyMap,
             }))
             : [];
+
+        result.unshift({
+            label: this.props.language === LANGUAGES.VI ? "Toàn Quốc" : "Nationwide",
+            value: "ALL",
+        });
+
+        return result;
+    }
 
     handleOnChangeSelect = async (selectedOption, name) => {
         this.setState({
@@ -85,6 +96,9 @@ class DetailSpecialty extends Component {
                     <HomeHeader />
                     <div className="detail-specialty-body m-5 px-5">
                         <div className="specialty-description">
+                            <div className="specialty-name">
+                                <h2>{this.props.language === LANGUAGES.VI ? specialtyInfo.nameVi : specialtyInfo.nameEn}</h2>
+                            </div>
                             {specialtyInfo && !_.isEmpty(specialtyInfo) ?
                                 <div dangerouslySetInnerHTML={{ __html: specialtyInfo.contentHTML }}>
                                 </div>
@@ -105,6 +119,7 @@ class DetailSpecialty extends Component {
                                 <div className="each-doctor" key={index}>
                                     <div className="detail-content-left">
                                         <DoctorProfile
+                                            doctorId={item.doctorId}
                                             image={item.User.image}
                                             doctorName={{
                                                 firstName: item.User.firstName,
@@ -149,4 +164,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty));
