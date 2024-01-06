@@ -6,20 +6,12 @@ import { getAllUsersService, createNewUserService, deleteUserSerive, editUserSer
 import { emitter } from "../../utils/emitter";
 import ModalCreateUser from "./ModalCreateUser";
 import ModalEditUser from "./ModalEditUser";
+import { useTable } from 'react-table';
 
 class UserManage extends Component {
-    /**life cycle
- * Run component
- * 1: Run contructor -> init status
- * 2: Did mount (set state before rendering to monitor)
- * 3: Render (rerender)
- * 4: Update component
- */
-
     constructor(props) {
         super(props);
         this.state = {
-            //state la ham bat dong bo
             arrUser: [],
             isOpenCreateModalUser: false,
             isOpenEditModalUser: false,
@@ -28,11 +20,12 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
-        //chức năng là gọi api lấy giá trị vào và set state cho component
-        //state có nhiệm vụ lưu trữ giá trị và ta sẽ dùng state ngay trong render()
-        //render() sẽ render cho các bạn nhìn thấy
         await this.getAllUsers();
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+    }
 
     toggleUserCreateModal = () => {
         this.setState({
@@ -52,7 +45,7 @@ class UserManage extends Component {
 
         if (response && response.code === 0) {
             this.setState({
-                arrUser: response.users,
+                arrUser: response.data,
             });
         }
     }
@@ -109,6 +102,7 @@ class UserManage extends Component {
 
     render() {
         let arrUsers = this.state.arrUser;
+
         return (
             <div className="user-container">
                 <ModalCreateUser
@@ -128,7 +122,10 @@ class UserManage extends Component {
                     Manage User With Duy Khanh
                 </div>
                 <div className="mx-1">
-                    <button className="btn btn-primary px-3" onClick={() => this.setState({ isOpenCreateModalUser: true })}>
+                    <button
+                        className="btn btn-primary px-3"
+                        onClick={() => this.setState({ isOpenCreateModalUser: true })}
+                    >
                         <i className="fas fa-plus"></i>Add New User
                     </button>
                 </div>

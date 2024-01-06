@@ -8,7 +8,8 @@ import {
     getScheduleByDateService, createAppointmentBookingService,
     createExaminationVerificationService,
     createSpecialtyService, getAllSpecialtiesService,
-    getAllDoctorInSpecialtyService,
+    getAllDoctorInSpecialtyService, createClinicService,
+    getAllProvincesService, getDistrictsByProvinceIdService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -529,7 +530,7 @@ export const getAllSpecialties = () => {
         }
     }
 }
-//get doctor by id
+
 export const getAllDoctorInSpecialty = (id) => {
     return async (dispatch, getState) => {
         try {
@@ -553,6 +554,82 @@ export const getAllDoctorInSpecialty = (id) => {
 
             dispatch({
                 type: actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_FAIL,
+                data: "",
+            });
+        }
+    }
+}
+
+export const createClinic = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await createClinicService(data);
+
+            if (response && response.code === 0) {
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            toast.error("Create New Specialty Failed!!");
+
+            console.log("Failed!", e);
+        }
+    }
+}
+
+export const getAllProvinces = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllProvincesService();
+
+            if (response && response.code === 0 && response.data) {
+                dispatch({
+                    type: actionTypes.GET_ALL_PROVINCES_SUCCEED,
+                    data: response.data.reverse(),//reverse helps descending column
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_SPECIALTIES_FAIL,
+                });
+
+                toast.error("Get All Provinces Unsuccessfully!!");
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.GET_ALL_SPECIALTIES_FAIL,
+            });
+
+            toast.error("Get All Provinces Unsuccessfully!!");
+
+            console.log("Get All Provinces Fail", e);
+        }
+    }
+}
+
+export const getDistrictsByProvinceId = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getDistrictsByProvinceIdService(id);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_DISTRICT_BY_PROVINCEID_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_DISTRICT_BY_PROVINCEID_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            toast.error("Get District By Province Failed!!");
+
+            console.log("Get District By Province Error", e);
+
+            dispatch({
+                type: actionTypes.GET_DISTRICT_BY_PROVINCEID_FAIL,
                 data: "",
             });
         }

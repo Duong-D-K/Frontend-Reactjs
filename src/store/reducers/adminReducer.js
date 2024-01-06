@@ -14,6 +14,9 @@ const initialState = {
     examination_verification: {},
     allDoctorsInSpecialty: [],
 
+    allProvinces: [],
+    allDistricts: [],
+
     allRequiredDoctorInfo: [],
 
 };
@@ -160,12 +163,34 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 allDoctorsInSpecialty: action.data,
             };
-
         case actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_FAIL:
             return {
                 ...state,
                 allDoctorsInSpecialty: [],
             };
+
+        case actionTypes.GET_ALL_PROVINCES_SUCCEED:
+            return {
+                ...state,
+                allProvinces: action.data,
+            };
+        case actionTypes.GET_ALL_PROVINCES_FAIL:
+            return {
+                ...state,
+                allProvinces: [],
+            };
+
+        case actionTypes.GET_DISTRICT_BY_PROVINCEID_SUCCEED:
+            return {
+                ...state,
+                allDistricts: action.data,
+            };
+        case actionTypes.GET_DISTRICT_BY_PROVINCEID_FAIL:
+            return {
+                ...state,
+                allDistricts: [],
+            };
+
         default:
             return state;
     }

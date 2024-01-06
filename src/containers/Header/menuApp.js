@@ -34,7 +34,7 @@ export const adminMenu = [
         name: "admin.menu.admin.clinic",
         menus: [
             {
-                name: "admin.menu.admin.manage-clinic", link: "/system/manage-clinic",
+                name: "admin.menu.admin.manage-clinic", link: "/system/clinic-management",
             },
 
         ],
