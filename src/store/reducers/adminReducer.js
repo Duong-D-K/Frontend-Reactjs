@@ -16,7 +16,9 @@ const initialState = {
 
     allProvinces: [],
     allDistricts: [],
+    allClinics: [],
 
+    clinic: [],
     allRequiredDoctorInfo: [],
 
 };
@@ -191,6 +193,27 @@ const adminReducer = (state = initialState, action) => {
                 allDistricts: [],
             };
 
+        case actionTypes.GET_ALL_CLINICS_SUCCEED:
+            return {
+                ...state,
+                allClinics: action.data,
+            };
+        case actionTypes.GET_ALL_CLINICS_FAIL:
+            return {
+                ...state,
+                allClinics: [],
+            };
+
+        case actionTypes.GET_CLINIC_BY_ID_SUCCEED:
+            return {
+                ...state,
+                clinic: action.data,
+            };
+        case actionTypes.GET_CLINIC_BY_ID_FAIL:
+            return {
+                ...state,
+                clinic: [],
+            };
         default:
             return state;
     }

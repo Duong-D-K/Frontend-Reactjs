@@ -87,6 +87,13 @@ const getDistrictsByProvinceIdService = (provinceId) => {
     return axios.get(`/api/get-District-By-ProvinceId?provinceId=${provinceId}`);
 }
 
+const getAllClinicsService = () => {
+    return axios.get(`/api/get-all-clinics`);
+}
+
+const getClinicByIdService = (id) => {
+    return axios.get(`/api/get-clinic-by-id?id=${id}`);
+}
 export {
     handleLoginApi,
 
@@ -111,6 +118,8 @@ export {
     getAllProvincesService,
 
     getDistrictsByProvinceIdService,
+    getAllClinicsService,
+    getClinicByIdService,
 
     createBulkScheduleService,
 };

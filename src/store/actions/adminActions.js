@@ -10,6 +10,7 @@ import {
     createSpecialtyService, getAllSpecialtiesService,
     getAllDoctorInSpecialtyService, createClinicService,
     getAllProvincesService, getDistrictsByProvinceIdService,
+    getAllClinicsService, getClinicByIdService,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -630,6 +631,64 @@ export const getDistrictsByProvinceId = (id) => {
 
             dispatch({
                 type: actionTypes.GET_DISTRICT_BY_PROVINCEID_FAIL,
+                data: "",
+            });
+        }
+    }
+}
+
+export const getAllClinics = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllClinicsService();
+
+            if (response && response.code === 0 && response.data) {
+                dispatch({
+                    type: actionTypes.GET_ALL_CLINICS_SUCCEED,
+                    data: response.data.reverse(),//reverse helps descending column
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_CLINICS_FAIL,
+                });
+
+                toast.error("Get All Clinics Unsuccessfully!!");
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.GET_ALL_CLINICS_FAIL,
+            });
+
+            toast.error("Get All Clinics Unsuccessfully!!");
+
+            console.log("Get All Clinics Fail", e);
+        }
+    }
+}
+
+export const getClinicById = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getClinicByIdService(id);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_CLINIC_BY_ID_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_CLINIC_BY_ID_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            toast.error("Get Clinic By Id Failed!!");
+
+            console.log("Get Clinic By Id Error", e);
+
+            dispatch({
+                type: actionTypes.GET_CLINIC_BY_ID_FAIL,
                 data: "",
             });
         }

@@ -33,7 +33,8 @@
                     border-radius: 10px;
                 }
                 &.section-medical-facility {
-                    background-image: url("../../assets/images/medical-facility/lo-go-viet-duc.jpg");
+                    background-size: contain;
+                    background-color: #ffffff;
                 }
                 &.section-outstanding-doctor {
                     width: 120px;

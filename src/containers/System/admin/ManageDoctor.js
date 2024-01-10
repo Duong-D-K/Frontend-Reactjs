@@ -9,6 +9,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { FormattedMessage } from "react-intl";
+import { template } from "lodash";
 
 const mdParser = new MarkdownIt();
 class ManageDoctor extends Component {
@@ -50,6 +51,7 @@ class ManageDoctor extends Component {
         await this.props.getAllDoctorsRedux();
         await this.props.getAllRequiredDoctorInfoRedux();
         await this.props.getAllSpecialtiesRedux();
+        this.props.getAllClinicsRedux();
     }
 
     buildDataInputSelect = (inputData, type) =>
@@ -63,6 +65,13 @@ class ManageDoctor extends Component {
     buildDataSpecialty = (data) => {
         return data.map(item => ({
             label: this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn,
+            value: item.id,
+        }));
+    }
+
+    buildDataClinic = (data) => {
+        return data.map(item => ({
+            label: item.name,
             value: item.id,
         }));
     }
@@ -82,6 +91,13 @@ class ManageDoctor extends Component {
             this.setState({
                 listSpecialty: dataSelect,
             });
+
+        }
+
+        if (this.props.allClinics !== prevProps.allClinics) {
+            this.setState({
+                listClinic: this.buildDataClinic(this.props.allClinics),
+            })
         }
 
         if (prevProps.language !== this.props.language) {
@@ -137,28 +153,30 @@ class ManageDoctor extends Component {
             clinicName: this.state.clinicName,
             clinicAddress: this.state.clinicAddress,
             note: this.state.note,
-            clinicId: this.state.selectedClinic ? this.state.selectedClinic : "30",
+            clinicId: this.state.selectedClinic.value,
             specialtyId: this.state.selectedSpecialty.value,
         });
     }
 
     handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor: selectedDoctor });
-        let { listPrice, listPayment, listProvince, listSpecialty } = this.state;
+        let { listPrice, listPayment, listProvince, listSpecialty, listClinic } = this.state;
 
         let response = await getDoctorByIdService(selectedDoctor.value);
 
         if (response && response.code === 0 && response.data) {
-            if (response.data.Doctor_Information?.Specialty) {
+            if (response.data.Doctor_Information?.Specialty && response.data.Doctor_Information?.Clinic) {
+
                 let priceId = response.data.Doctor_Information.priceId;
                 let paymentId = response.data.Doctor_Information.paymentId;
                 let provinceId = response.data.Doctor_Information.provinceId;
                 let specialty = response.data.Doctor_Information.Specialty;
-
+                let clinic = response.data.Doctor_Information.Clinic;
 
                 let selectedPrice = listPrice.find(item => {
                     return item && item.value === priceId;
                 })
+
                 let selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId;
                 })
@@ -169,6 +187,11 @@ class ManageDoctor extends Component {
                 let selectedSpecialty = listSpecialty.find(item => {
                     return item && item.value === specialty.id;
                 })
+
+                let selectedClinic = listClinic.find(item => {
+                    return item && item.value === clinic.id;
+                })
+
                 this.setState({
                     clinicName: response.data.Doctor_Information.clinicName,
                     clinicAddress: response.data.Doctor_Information.clinicAddress,
@@ -178,6 +201,7 @@ class ManageDoctor extends Component {
                     selectedPayment: selectedPayment,
                     selectedProvince: selectedProvince,
                     selectedSpecialty: selectedSpecialty,
+                    selectedClinic: selectedClinic,
                 })
             } else {
                 this.setState({
@@ -189,6 +213,7 @@ class ManageDoctor extends Component {
                     selectedPayment: "",
                     selectedProvince: "",
                     selectedSpecialty: "",
+                    selectedClinic: "",
                 })
             }
 
@@ -328,9 +353,15 @@ class ManageDoctor extends Component {
                             name="selectedSpecialty"
                         />
                     </div>
-                    <div className="col-4 form-group">
+                    <div className="col-6 form-group">
                         <label>Chọn Phòng Khám</label>
-                        <input className="form-control"></input>
+                        <Select
+                            value={this.state.selectedClinic}
+                            onChange={this.handleOnChangeSelect}
+                            options={this.state.listClinic}
+                            placeholder={<FormattedMessage id="admin.manage-doctor.select-specialty" />}
+                            name="selectedClinic"
+                        />
                     </div>
                 </div>
                 <div className="manage-doctor-editor col-12">
@@ -361,6 +392,7 @@ const mapStateToProps = (state) => {
         language: state.app.language,
         allDoctors: state.admin.allDoctors,
         allSpecialties: state.admin.allSpecialties,
+        allClinics: state.admin.allClinics,
         doctor: state.admin.doctor,
         allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };
@@ -372,6 +404,7 @@ const mapDispatchToProps = (dispatch) => {
         getAllSpecialtiesRedux: () => dispatch(actions.getAllSpecialties()),
         saveDoctorInfoRedux: (data) => { dispatch(actions.saveDoctorInfo(data)) },
         getDoctorById: (id) => { dispatch(actions.getDoctorById(id)) },
+        getAllClinicsRedux: () => dispatch(actions.getAllClinics()),
 
         getAllRequiredDoctorInfoRedux: () => dispatch(actions.getRequiredDoctorInfo()),
 
