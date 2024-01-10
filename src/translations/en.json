@@ -53,7 +53,8 @@
                 "manage-handbook": "Handbooks' Management"
             },
             "doctor": {
-                "manage-schedule": "Doctors' Schedule Management"
+                "schedule-management": "Doctors' Schedules Management",
+                "patient-management": "Doctors' Patients Management"
             }
         }
     },

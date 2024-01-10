@@ -54,7 +54,8 @@
                 "manage-handbook": "Quản Lý Cẩm Nang"
             },
             "doctor": {
-                "manage-schedule": "Quản Lý Kế Hoạch Khám Bệnh"
+                "schedule-management": "Quản Lý Kế Hoạch Khám Bệnh",
+                "patient-management": "Quản Lý Bệnh Nhân Khám Bệnh"
             }
         }
     },
