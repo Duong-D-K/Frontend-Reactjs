@@ -14,9 +14,11 @@ const initialState = {
     examination_verification: {},
     allDoctorsInSpecialty: [],
 
+    allSchedulesByDateAndDoctor: [],
     allProvinces: [],
     allDistricts: [],
     allClinics: [],
+    allPatients: [],
 
     clinic: [],
     allRequiredDoctorInfo: [],
@@ -214,6 +216,29 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 clinic: [],
             };
+
+        case actionTypes.GET_ALL_PATIENTS_BY_DATE_AND_DOCTORID_SUCCEED:
+            return {
+                ...state,
+                allPatients: action.data,
+            };
+        case actionTypes.GET_ALL_PATIENTS_BY_DATE_AND_DOCTORID_FAIL:
+            return {
+                ...state,
+                allPatients: [],
+            };
+
+        case actionTypes.GET_ALL_SCHEDULES_BY_DATE_AND_DOCTORID_SUCCEED:
+            return {
+                ...state,
+                allSchedulesByDateAndDoctor: action.data,
+            };
+        case actionTypes.GET_ALL_SCHEDULES_BY_DATE_AND_DOCTORID_FAIL:
+            return {
+                ...state,
+                allSchedulesByDateAndDoctor: [],
+            };
+
         default:
             return state;
     }

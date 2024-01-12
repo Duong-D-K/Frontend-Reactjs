@@ -10,6 +10,26 @@
     }
 
     .patient-management-body {
+        .patient-management-table {
+            .mp-btn-confirm {
+                margin-right: 10px;
+                height: 30px;
+                border-radius: 3px;
+                background-color: orange;
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+
+            .mp-btn-remedy {
+                height: 30px;
+                border-radius: 3px;
+                background-color: #39dca0;
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+        }
     }
 }
 

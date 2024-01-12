@@ -11,7 +11,11 @@ import {
     getAllDoctorInSpecialtyService, createClinicService,
     getAllProvincesService, getDistrictsByProvinceIdService,
     getAllClinicsService, getClinicByIdService,
+    getAllPatientsByDateAndDoctorIdService,
+    getAllSchedulesByDateAndDoctorIdService,
 } from "../../services/userService";
+
+import userService from "../../services/userService";
 import { toast } from "react-toastify";
 
 //import gender
@@ -689,6 +693,66 @@ export const getClinicById = (id) => {
 
             dispatch({
                 type: actionTypes.GET_CLINIC_BY_ID_FAIL,
+                data: "",
+            });
+        }
+    }
+}
+
+//get all patients by date and doctorId
+export const getAllPatientsByDateAndDoctorId = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllPatientsByDateAndDoctorIdService(doctorId, date);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_PATIENTS_BY_DATE_AND_DOCTORID_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_PATIENTS_BY_DATE_AND_DOCTORID_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            alert("Get Patients By Date And DoctorId Failed!!");
+
+            console.log(e);
+
+            dispatch({
+                type: actionTypes.GET_ALL_PATIENTS_BY_DATE_AND_DOCTORID_FAIL,
+                data: "",
+            });
+        }
+    }
+}
+
+//get all patients by date and doctorId
+export const getAllSchedulesByDateAndDoctorId = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllSchedulesByDateAndDoctorIdService(doctorId, date);
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_SCHEDULES_BY_DATE_AND_DOCTORID_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_SCHEDULES_BY_DATE_AND_DOCTORID_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            alert("Get Schedules By Date And DoctorId Failed!!");
+
+            console.log(e);
+
+            dispatch({
+                type: actionTypes.GET_ALL_SCHEDULES_BY_DATE_AND_DOCTORID_FAIL,
                 data: "",
             });
         }

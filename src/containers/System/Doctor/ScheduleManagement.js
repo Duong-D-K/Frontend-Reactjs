@@ -14,7 +14,7 @@ class ScheduleManagement extends Component {
         super(props);
         this.state = {
             listDoctors: [],
-            selectedDoctor: "",
+            selectedDoctor: this.props.user.id,
 
             seletedDate: "",
             period: [],
@@ -68,19 +68,38 @@ class ScheduleManagement extends Component {
                 period: data,
             });
         }
+        if (this.props.allSchedulesByDateAndDoctor !== prevProps.allSchedulesByDateAndDoctor) {
+            let { allSchedulesByDateAndDoctor } = this.props;
+            let { period } = this.state;
+
+            let updatePeriod = period.map(item => {
+                let isSelected = allSchedulesByDateAndDoctor.some(p => p.timeType === item.keyMap);
+                return { ...item, isSelected }
+            })
+
+            this.setState({
+                period: updatePeriod,
+            })
+        }
     }
 
     handleChange = async (selectedDoctor) => {
         this.setState({ selectedDoctor: selectedDoctor });
-
     };
 
-    handleOnChangeDatePicker = (date) => {
+    handleOnChangeDatePicker = async (date) => {
         this.setState({
             seletedDate: date[0],//hàm này nhả ra 1 arr, lấy phần tử đầu tiên của arr đó
         });
-    };
 
+        let { selectedDoctor, seletedDate } = this.state;
+
+        if (seletedDate) {
+            await this.props.getAllSchedulesByDateAndDoctorIdRedux(selectedDoctor.value || selectedDoctor, seletedDate.getTime());
+        } else {
+            toast.warning("Please Choose Date!");
+        }
+    };
 
     handleClickBtnTime = time => {
         let { period } = this.state;
@@ -97,7 +116,6 @@ class ScheduleManagement extends Component {
         this.setState({
             period: period,
         })
-
     }
 
     handleSaveSchedule = async () => {
@@ -114,35 +132,29 @@ class ScheduleManagement extends Component {
             return;
         }
 
-        // let formattedDate = moment(seletedDate).format(dateFormat.SEND_TO_SERVER);
-        // let formattedDate = moment(seletedDate).unix();
         let formattedDate = new Date(seletedDate).getTime();
 
         if (period && period.length > 0) {
             let selectedTime = period.filter(item => item.isSelected === true);//cho hết tất cả những phần tử được chọn vào trong mảng selectedTime
 
-            if (selectedTime && selectedTime.length > 0) {
-                selectedTime.map(item => {
-                    let object = {};
+            selectedTime.map(item => {
+                let object = {};
 
-                    object.doctorId = selectedDoctor.value;//value và label
-                    object.date = formattedDate;
-                    object.timeType = item.keyMap;
+                object.doctorId = this.props.user.roleId === "R2" ? selectedDoctor : selectedDoctor.value;//value và label
+                object.date = formattedDate;
+                object.timeType = item.keyMap;
 
-                    result.push(object);
-                })
-
-            } else {
-                toast.error("Please Choose Time!");
-                return;
-            }
+                result.push(object);
+            })
         }
 
-        let res = await this.props.createBulkScheduleRedux({
+        await this.props.createBulkScheduleRedux({
             arrSchedule: result,
-            doctorId: selectedDoctor.value,
+            doctorId: this.props.user.roleId === "R2" ? selectedDoctor : selectedDoctor.value,
             formattedDate: formattedDate,
         });
+
+        this.setState({ seletedDate: "" })
     }
 
     render() {
@@ -166,6 +178,13 @@ class ScheduleManagement extends Component {
                                     value={this.state.selectedDoctor}
                                     onChange={this.handleChange}
                                     options={this.state.listDoctors}
+                                    isDisabled={this.props.user.roleId === "R2"}
+                                    placeholder={this.props.user.roleId === "R2" ?
+                                        language === LANGUAGES.VI ?
+                                            `${this.props.user.lastName} ${this.props.user.firstName}` :
+                                            `${this.props.user.firstName} ${this.props.user.lastName}`
+
+                                        : "Chon bac si"}
                                 />
                             </div>
                             <div className="col-6 form-group">
@@ -176,7 +195,8 @@ class ScheduleManagement extends Component {
                                     className="form-control"
                                     onChange={this.handleOnChangeDatePicker}
                                     value={this.state.seletedDate}
-                                    minDate={new Date()}
+                                    // minDate={new Date()}
+                                    placeholder={"Chon Ngay kham"}
                                 />
                             </div>
                             <div className="col-12 pick-hour-container">
@@ -211,10 +231,12 @@ class ScheduleManagement extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        user: state.user.userInfo,
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
         doctorList: state.admin.allDoctors,
         allScheduleTime: state.admin.allScheduleTime,
+        allSchedulesByDateAndDoctor: state.admin.allSchedulesByDateAndDoctor,
     };
 };
 
@@ -223,6 +245,7 @@ const mapDispatchToProps = (dispatch) => {
         getAllDoctorsRedux: () => { dispatch(actions.getAllDoctors()) },
         getAllScheduleTimeRedux: () => { dispatch(actions.getAllScheduleTime()) },
         createBulkScheduleRedux: (data) => { dispatch(actions.createBulkSchedule(data)) },
+        getAllSchedulesByDateAndDoctorIdRedux: (doctorId, date) => { dispatch(actions.getAllSchedulesByDateAndDoctorId(doctorId, date)) },
     };
 };
 

@@ -94,6 +94,14 @@ const getAllClinicsService = () => {
 const getClinicByIdService = (id) => {
     return axios.get(`/api/get-clinic-by-id?id=${id}`);
 }
+
+const getAllPatientsByDateAndDoctorIdService = (doctorId, date) => {
+    return axios.get(`/api/get-all-patients-by-date-and-doctorId?doctorId=${doctorId}&date=${date}`);
+}
+
+const getAllSchedulesByDateAndDoctorIdService = (doctorId, date) => {
+    return axios.get(`/api/get-all-schedules-by-date-and-doctorId?doctorId=${doctorId}&date=${date}`);
+}
 export {
     handleLoginApi,
 
@@ -120,6 +128,8 @@ export {
     getDistrictsByProvinceIdService,
     getAllClinicsService,
     getClinicByIdService,
+    getAllPatientsByDateAndDoctorIdService,
+    getAllSchedulesByDateAndDoctorIdService,
 
     createBulkScheduleService,
 };
