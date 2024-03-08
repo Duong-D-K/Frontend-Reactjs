@@ -9,19 +9,23 @@ import DatePicker from "../../../components/Input/DatePicker";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import moment, { lang } from "moment/moment";
+import PrescriptionModal from "./PrescriptionModal";
 
 class PatientManagement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            seletedDate: new Date(),
+            selectedDate: new Date(),
             allPatients: {},
+            isOpenPrescriptionModal: false,
+            dataModal: {},
         };
     }
+
     async componentDidMount() {
         await this.props.getAllPatientsByDateAndDoctorIdRedux(
             this.props.user.id,
-            this.state.seletedDate.setHours(0, 0, 0, 0)
+            this.state.selectedDate.setHours(0, 0, 0, 0)
         )
     }
 
@@ -35,25 +39,58 @@ class PatientManagement extends Component {
 
     handleOnChangeDatePicker = (date) => {
         this.setState({
-            seletedDate: date[0],//hàm này nhả ra 1 arr, lấy phần tử đầu tiên của arr đó
+            selectedDate: date[0],//hàm này nhả ra 1 arr, lấy phần tử đầu tiên của arr đó
         }, async () => {
             await this.props.getAllPatientsByDateAndDoctorIdRedux(
                 this.props.user.id,
-                new Date(this.state.seletedDate).getTime()
+                new Date(this.state.selectedDate).getTime()
             );
         });
     };
 
-    handleConfirm = () => {
-
+    handleConfirm = (item) => {
+        this.setState({
+            isOpenPrescriptionModal: true,
+            dataModal: {
+                doctorId: item.doctorId,
+                patientId: item.patientId,
+                email: item.Patient.email,
+                timeType: item.appointmentTime,
+                name: item.Patient.fullName,
+            },
+        })
     }
 
-    handleRemedy = () => {
+    closePrescriptionModal = () => {
+        this.setState({
+            isOpenPrescriptionModal: false,
+            dataModal: {},
+        })
+    }
 
+    sendPrescription = async sendPrescription => {
+        let { dataModal } = this.state;
+
+        await this.props.sendPrescriptionRedux({
+            email: dataModal.email,
+            doctorId: dataModal.doctorId,
+            image: sendPrescription.image,
+            patientId: dataModal.patientId,
+            timeType: dataModal.timeType,
+            language: this.props.language,
+            patientName: dataModal.name,
+        });
+
+        this.closePrescriptionModal();
+
+        await this.props.getAllPatientsByDateAndDoctorIdRedux(
+            this.props.user.id,
+            new Date(this.state.selectedDate).getTime()
+        );
     }
 
     render() {
-        let { allPatients } = this.state;
+        let { allPatients, isOpenPrescriptionModal, dataModal } = this.state;
 
         let { language } = this.props;
 
@@ -69,7 +106,7 @@ class PatientManagement extends Component {
                             <DatePicker
                                 className="form-control"
                                 onChange={this.handleOnChangeDatePicker}
-                                value={this.state.seletedDate}
+                                value={this.state.selectedDate}
                             />
                         </div>
                         <div className="col-12 patient-management-table">
@@ -88,7 +125,7 @@ class PatientManagement extends Component {
                                         return (
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
-                                                <td>{item.Patient.fullName}</td>
+                                                <td>{item.Patient.fullName || ""}</td>
                                                 <td>{language === LANGUAGES.VI ? item.Patient.Allcode.valueVi : item.Patient.Allcode.valueEn}</td>
                                                 <td>{language === LANGUAGES.VI ?
                                                     moment(parseInt(item.Patient.birthday)).format("DD/MM/YYYY")
@@ -105,25 +142,32 @@ class PatientManagement extends Component {
                                                 <td>
                                                     <button
                                                         className="mp-btn-confirm"
-                                                        onClick={() => this.handleConfirm()}
+                                                        onClick={() => this.handleConfirm(item)}
                                                     >
                                                         Xac nhan
-                                                    </button>
-                                                    <button
-                                                        className="mp-btn-remedy"
-                                                        onClick={() => this.handleRemedy()}>
-                                                        Gui hoa don
                                                     </button>
                                                 </td>
                                             </tr>
                                         )
                                     })
-                                        : <>Hien tai chua co benh nhan dat lich kham</>}
+                                        :
+                                        <tr>
+                                            <td colSpan={7} style={{ textAlign: "center" }}>Hien tai chua co benh nhan dat lich kham</td>
+
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
+                <PrescriptionModal
+                    isOpenModal={isOpenPrescriptionModal}
+                    dataModal={dataModal}
+                    closePrescriptionModal={this.closePrescriptionModal}
+                    sendPrescription={this.sendPrescription}
+                />
             </>
         );
     }
@@ -143,6 +187,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllPatientsByDateAndDoctorIdRedux: (doctorId, date) => { dispatch(actions.getAllPatientsByDateAndDoctorId(doctorId, date)) },
+        sendPrescriptionRedux: (data) => { dispatch(actions.sendPrescription(data)) },
 
     };
 };

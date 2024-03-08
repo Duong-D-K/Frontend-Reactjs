@@ -12,7 +12,7 @@ import {
     getAllProvincesService, getDistrictsByProvinceIdService,
     getAllClinicsService, getClinicByIdService,
     getAllPatientsByDateAndDoctorIdService,
-    getAllSchedulesByDateAndDoctorIdService,
+    getAllSchedulesByDateAndDoctorIdService, sendPrescriptionService
 } from "../../services/userService";
 
 import userService from "../../services/userService";
@@ -221,28 +221,15 @@ export const deleteUser = (userId) => {
         try {
             let response = await deleteUserSerive(userId);
 
-            console.log(response);
-
             if (response && response.code === 0) {
-                dispatch({
-                    type: actionTypes.DELETE_USER_SUCCEED,
-                });
 
                 toast.success(response.message);
 
                 dispatch(getAllUsers());
             } else {
-                dispatch({
-                    type: actionTypes.DELETE_USER_FAIL,
-                });
-
                 toast.error(response.message);
             }
         } catch (e) {
-            dispatch({
-                type: actionTypes.DELETE_USER_FAIL,
-            });
-
             console.log("Delete User Fail", e);
         }
     }
@@ -755,6 +742,24 @@ export const getAllSchedulesByDateAndDoctorId = (doctorId, date) => {
                 type: actionTypes.GET_ALL_SCHEDULES_BY_DATE_AND_DOCTORID_FAIL,
                 data: "",
             });
+        }
+    }
+}
+
+export const sendPrescription = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await sendPrescriptionService(data);
+
+            if (response && response.code === 0) {
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            toast.error("Create New Specialty Failed!!");
+
+            console.log("Failed!", e);
         }
     }
 }

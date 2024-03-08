@@ -15,8 +15,8 @@ const createNewUserService = (data) => {
     return axios.post(`api/create-New-User`, data);
 }
 
-const deleteUserSerive = (data) => {
-    return axios.delete(`/api/delete-User`, data);
+const deleteUserSerive = (userId) => {
+    return axios.delete(`/api/delete-User/${userId}`);
 }
 
 const editUserService = (data) => {
@@ -102,6 +102,10 @@ const getAllPatientsByDateAndDoctorIdService = (doctorId, date) => {
 const getAllSchedulesByDateAndDoctorIdService = (doctorId, date) => {
     return axios.get(`/api/get-all-schedules-by-date-and-doctorId?doctorId=${doctorId}&date=${date}`);
 }
+
+const sendPrescriptionService = (data) => {
+    return axios.post(`/api/send-prescription`, data);
+}
 export {
     handleLoginApi,
 
@@ -132,4 +136,6 @@ export {
     getAllSchedulesByDateAndDoctorIdService,
 
     createBulkScheduleService,
+
+    sendPrescriptionService,
 };
