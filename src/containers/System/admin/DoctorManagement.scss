@@ -1,0 +1,89 @@
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04aa6d;
+    color: white;
+}
+
+.btn-edit {
+    margin-right: 10px;
+    height: 30px;
+    border-radius: 3px;
+    background-color: orange;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-delete {
+    height: 30px;
+    border-radius: 3px;
+    background-color: rgb(178, 224, 92);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.doctor-modal-container {
+    .doctor-modal-body {
+        display: flex;
+        // gap: 15px;
+        flex-wrap: wrap;
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            // width: 49%;
+
+            &.max-width-input {
+                // width: 100%;
+            }
+
+            input {
+                border-radius: 3px;
+                border: 1px solid grey;
+                // height: 40px;
+                // outline: none;
+                // padding: 0 10px;
+            }
+        }
+        .preview-img-container {
+            .label-upload {
+                padding: 4px;
+                border-radius: 3px;
+                background-color: #ddd;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+            .prev-image {
+                height: 200px;
+                width: 200%;
+                border: 1px solid #ddd;
+                background: center center no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+}

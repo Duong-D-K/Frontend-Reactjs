@@ -39,6 +39,18 @@ const createDoctorInfoSerivce = (data) => {
     return axios.post(`/api/save-doctor-info`, data);
 }
 
+const updateDoctorService = (data) => {
+    return axios.put(`/api/update-doctor`, data);
+}
+
+const createDoctorService = (data) => {
+    return axios.post(`/api/create-doctor`, data);
+}
+
+const deleteDoctorSerive = (doctorId) => {
+    return axios.delete(`/api/delete-doctor/${doctorId}`);
+}
+
 const getDoctorByIdService = (id) => {
     return axios.get(`/api/get-doctor-by-id?id=${id}`);
 }
@@ -114,9 +126,16 @@ export {
     deleteUserSerive,
     editUserService,
     getAllCodesSerivce,
+
     getTopDoctorsService,
+
     getAllDoctorsService,
     createDoctorInfoSerivce,
+
+    createDoctorService,
+    updateDoctorService,
+    deleteDoctorSerive,
+
     getDoctorByIdService,
     getScheduleByDateService,
     getDoctorInformationById,

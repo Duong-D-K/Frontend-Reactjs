@@ -77,15 +77,12 @@ const mapStateToProps = (state) => {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
         allSpecialties: state.admin.allSpecialties,
-
-
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllSpecialtiesRedux: () => dispatch(actions.getAllSpecialties()),
-
     };
 };
 

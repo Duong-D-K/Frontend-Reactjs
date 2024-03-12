@@ -4,6 +4,7 @@ import {
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
     getAllDoctorsService, createDoctorInfoSerivce,
+    updateDoctorService, deleteDoctorSerive,
     getDoctorByIdService, createBulkScheduleService,
     getScheduleByDateService, createAppointmentBookingService,
     createExaminationVerificationService,
@@ -316,6 +317,45 @@ export const saveDoctorInfo = (data) => {
             dispatch({
                 type: actionTypes.SAVE_DOCTOR_INFO_FAIL,
             });
+        }
+    }
+}
+
+export const updateDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await updateDoctorService(data);
+
+            if (response && response.code === 0) {
+                toast.success(response.message);
+
+                dispatch(getAllDoctors());
+
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            toast.error("Update Doctor Information Failed!!");
+
+            console.log("Save Doctor Error", e);
+        }
+    }
+}
+export const deleteDoctor = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await deleteDoctorSerive(doctorId);
+
+            if (response && response.code === 0) {
+
+                toast.success(response.message);
+
+                dispatch(getAllDoctors());
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            console.log("Delete Doctor Fail", e);
         }
     }
 }

@@ -14,12 +14,6 @@
             "clinic-address": "Clinic Address",
             "note": "Note"
         },
-        "schedule-management": {
-            "title": "Manage Doctor's Examination Schedule",
-            "select-doctor": "Select A Doctor",
-            "select-date": "Select Date",
-            "save-info": "Save Infomation"
-        },
         "manage-user": {
             "title": "User Information Management",
 
@@ -40,22 +34,59 @@
         },
         "menu": {
             "admin": {
-                "manage-user": "Users",
-                "manage-doctor": "Doctors' Infomation Management",
+                "manage-user": "Doctors",
+                "doctor-management": "Doctors' Information Management",
+                "manage-doctor": "Doctors' Introduction Management",
                 "manage-admin": "Admin Management",
-                "crud": "CRUD User",
                 "crud-redux": "Users' Information Management",
+
                 "clinic": "Clinics",
-                "manage-clinic": "Clinics' Management",
+                "clinic-management": "Clinics' Management",
+
                 "specialty": "Specialties",
-                "manage-specialty": "Specialties' Management",
+                "specialty-management": "Specialties' Management",
+
                 "handbook": "Handbooks",
-                "manage-handbook": "Handbooks' Management"
+                "handbook-management": "Handbooks' Management"
             },
             "doctor": {
                 "schedule-management": "Doctors' Schedules Management",
                 "patient-management": "Doctors' Patients Management"
             }
+        },
+        "doctor": {
+            "schedule-management": {
+                "title": "Manage Doctor's Examination Schedule",
+                "select-doctor": "Select A Doctor",
+                "select-date": "Select Date",
+                "save-info": "Save Infomation"
+            },
+            "patient-management": {
+                "title": "Medical Patient Management",
+                "select-date": "Select Examination Date",
+                "ordinal": "Ordinal",
+                "fullName": "fullName",
+                "gender": "Gender",
+                "dob": "Date Of Birth",
+                "examination-day": "Examination Date",
+                "examination-time": "Examination Time",
+                "action": "Action",
+                "confirm": "Confirm",
+                "no-parameter": "No patients have scheduled an appointment now!"
+            },
+            "prescription-modal": {
+                "title": "Send Medical Bills",
+                "patient-email": "Patient's Email",
+                "select-file": "Select File",
+                "send": "Send",
+                "cancel": "Cancel"
+            }
+        },
+        "specialty": {
+            "title": "Specialty Management",
+            "specialty-name": "Specialty Name",
+            "specialty-image": "Specialty Image",
+            "save": "Save"
         }
     },
 

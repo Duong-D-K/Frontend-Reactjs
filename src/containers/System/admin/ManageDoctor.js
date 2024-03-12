@@ -80,6 +80,8 @@ class ManageDoctor extends Component {
         if (prevProps.allDoctors !== this.props.allDoctors) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, "USERS");
 
+            console.log("dataSelect", dataSelect)
+
             this.setState({
                 listDoctors: dataSelect,
             });
@@ -91,7 +93,6 @@ class ManageDoctor extends Component {
             this.setState({
                 listSpecialty: dataSelect,
             });
-
         }
 
         if (this.props.allClinics !== prevProps.allClinics) {

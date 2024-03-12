@@ -14,12 +14,6 @@
             "clinic-address": "Địa Chỉ Phòng Khám",
             "note": "Ghi Chú"
         },
-        "schedule-management": {
-            "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",
-            "select-doctor": "Chọn Bác Sĩ",
-            "select-date": "Chọn Ngày",
-            "save-info": "Lưu Thông Tin"
-        },
         "manage-user": {
             "title": "Quản Lý Thông Tin Người Dùng",
 
@@ -40,23 +34,59 @@
         },
         "menu": {
             "admin": {
-                "manage-user": "Người Dùng",
-                "manage-doctor": "Quản Lý Thông Tin Bác Sĩ",
+                "manage-user": "Bác Sĩ",
+                "doctor-management": "Quản Lý Thông Tin Bác Sĩ",
+                "manage-doctor": "Quản Lý Giới Thiệu Bác Sĩ",
                 "manage-admin": "Quản lý Admin",
-                "crud": "CRUD User",
                 "crud-redux": "Quản Lý Thông Tin Người Dùng",
 
                 "clinic": "Phòng Khám",
-                "manage-clinic": "Quản Lý Phòng Khám",
+                "clinic-management": "Quản Lý Phòng Khám",
+
                 "specialty": "Chuyên Khoa",
-                "manage-specialty": "Quản Lý Chuyên Khoa",
+                "specialty-management": "Quản Lý Chuyên Khoa",
+
                 "handbook": "Cẩm Nang",
-                "manage-handbook": "Quản Lý Cẩm Nang"
+                "handbook-management": "Quản Lý Cẩm Nang"
             },
             "doctor": {
                 "schedule-management": "Quản Lý Kế Hoạch Khám Bệnh",
                 "patient-management": "Quản Lý Bệnh Nhân Khám Bệnh"
             }
+        },
+        "doctor": {
+            "schedule-management": {
+                "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",
+                "select-doctor": "Chọn Bác Sĩ",
+                "select-date": "Chọn Ngày Khám",
+                "save-info": "Lưu Thông Tin"
+            },
+            "patient-management": {
+                "title": "Quản Lý Bệnh Nhân Khám Bệnh",
+                "select-date": "Chọn Ngày Khám",
+                "ordinal": "Số Thứ Tự",
+                "fullName": "Họ Và Tên",
+                "gender": "Giới Tính",
+                "dob": "Sinh Nhật",
+                "examination-day": "Ngày Khám Bệnh",
+                "examination-time": "Giờ Khám Bệnh",
+                "action": "Thao Tác",
+                "confirm": "Xác Nhận",
+                "no-parameter": "Hiện tại chưa có bệnh nhân nào đặt lịch khám!"
+            },
+            "prescription-modal": {
+                "title": "Gửi Hóa Đơn Khám Bệnh",
+                "patient-email": "Email Bệnh Nhân",
+                "select-file": "Chọn File Hóa Đơn",
+                "send": "Gửi Đi",
+                "cancel": "Hủy"
+            }
+        },
+        "specialty": {
+            "title": "Quản Lý Chuyên Khoa",
+            "specialty-name": "Tên Chuyên Khoa",
+            "specialty-image": "Ảnh Chuyên Khoa",
+            "save": "Lưu"
         }
     },
 

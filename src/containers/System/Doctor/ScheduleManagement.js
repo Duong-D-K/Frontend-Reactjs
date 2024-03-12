@@ -16,7 +16,7 @@ class ScheduleManagement extends Component {
             listDoctors: [],
             selectedDoctor: this.props.user.id,
 
-            seletedDate: "",
+            selectedDate: "",
             period: [],
         };
     }
@@ -89,13 +89,13 @@ class ScheduleManagement extends Component {
 
     handleOnChangeDatePicker = async (date) => {
         this.setState({
-            seletedDate: date[0],//hàm này nhả ra 1 arr, lấy phần tử đầu tiên của arr đó
+            selectedDate: date[0],//hàm này nhả ra 1 arr, lấy phần tử đầu tiên của arr đó
         });
 
-        let { selectedDoctor, seletedDate } = this.state;
+        let { selectedDoctor, selectedDate } = this.state;
 
-        if (seletedDate) {
-            await this.props.getAllSchedulesByDateAndDoctorIdRedux(selectedDoctor.value || selectedDoctor, seletedDate.getTime());
+        if (selectedDate) {
+            await this.props.getAllSchedulesByDateAndDoctorIdRedux(selectedDoctor.value || selectedDoctor, selectedDate.getTime());
         } else {
             toast.warning("Please Choose Date!");
         }
@@ -119,11 +119,11 @@ class ScheduleManagement extends Component {
     }
 
     handleSaveSchedule = async () => {
-        let { period, selectedDoctor, seletedDate } = this.state;
+        let { period, selectedDoctor, selectedDate } = this.state;
 
         let result = [];
 
-        if (!seletedDate) {
+        if (!selectedDate) {
             toast.error("Please Choose Date!");
             return;
         }
@@ -132,7 +132,7 @@ class ScheduleManagement extends Component {
             return;
         }
 
-        let formattedDate = new Date(seletedDate).getTime();
+        let formattedDate = new Date(selectedDate).getTime();
 
         if (period && period.length > 0) {
             let selectedTime = period.filter(item => item.isSelected === true);//cho hết tất cả những phần tử được chọn vào trong mảng selectedTime
@@ -154,7 +154,7 @@ class ScheduleManagement extends Component {
             formattedDate: formattedDate,
         });
 
-        this.setState({ seletedDate: "" })
+        this.setState({ selectedDate: "" })
     }
 
     render() {
@@ -166,13 +166,13 @@ class ScheduleManagement extends Component {
             <>
                 <div className="schedule-management-container">
                     <div className="m-s-title">
-                        <FormattedMessage id="admin.schedule-management.title" />
+                        <FormattedMessage id="admin.doctor.schedule-management.title" />
                     </div>
                     <div className="container">
                         <div className="row">
                             <div className="col-6 form-group">
                                 <label>
-                                    <FormattedMessage id="admin.schedule-management.select-doctor" />
+                                    <FormattedMessage id="admin.doctor.schedule-management.select-doctor" />
                                 </label>
                                 <Select
                                     value={this.state.selectedDoctor}
@@ -183,20 +183,20 @@ class ScheduleManagement extends Component {
                                         language === LANGUAGES.VI ?
                                             `${this.props.user.lastName} ${this.props.user.firstName}` :
                                             `${this.props.user.firstName} ${this.props.user.lastName}`
-
-                                        : "Chon bac si"}
+                                        :
+                                        <FormattedMessage id="admin.doctor.schedule-management.select-doctor" />
+                                    }
                                 />
                             </div>
                             <div className="col-6 form-group">
                                 <label>
-                                    <FormattedMessage id="admin.schedule-management.select-date" />
+                                    <FormattedMessage id="admin.doctor.schedule-management.select-date" />
                                 </label>
                                 <DatePicker
                                     className="form-control"
                                     onChange={this.handleOnChangeDatePicker}
-                                    value={this.state.seletedDate}
-                                    // minDate={new Date()}
-                                    placeholder={"Chon Ngay kham"}
+                                    value={this.state.selectedDate}
+                                    minDate={new Date()}
                                 />
                             </div>
                             <div className="col-12 pick-hour-container">
@@ -218,7 +218,7 @@ class ScheduleManagement extends Component {
                                     className="btn btn-primary btn-save-schedule"
                                     onClick={() => { this.handleSaveSchedule() }}
                                 >
-                                    <FormattedMessage id="admin.schedule-management.save-info" />
+                                    <FormattedMessage id="admin.doctor.schedule-management.save-info" />
                                 </button>
                             </div>
                         </div>
