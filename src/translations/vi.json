@@ -1,19 +1,5 @@
 {
     "admin": {
-        "manage-doctor": {
-            "title": "Quản Lý Thông Tin Bác Sĩ",
-            "select-doctor": "Chọn Bác Sĩ",
-            "select-specialty": "Chọn Chuyên Khoa",
-            "intro": "Thông Tin Giới Thiệu",
-            "add": "Tạo Người Dùng",
-            "save": "Lưu Người Dùng",
-            "price": "Giá Khám Bệnh",
-            "payment": "Phương Thức Thanh Toán",
-            "province": "Tỉnh Thành",
-            "clinic-name": "Tên Phòng Khám",
-            "clinic-address": "Địa Chỉ Phòng Khám",
-            "note": "Ghi Chú"
-        },
         "manage-user": {
             "title": "Quản Lý Thông Tin Người Dùng",
 
@@ -34,9 +20,9 @@
         },
         "menu": {
             "admin": {
-                "manage-user": "Bác Sĩ",
+                "doctor": "Bác Sĩ",
                 "doctor-management": "Quản Lý Thông Tin Bác Sĩ",
-                "manage-doctor": "Quản Lý Giới Thiệu Bác Sĩ",
+                "doctor-introduction": "Quản Lý Giới Thiệu Bác Sĩ",
                 "manage-admin": "Quản lý Admin",
                 "crud-redux": "Quản Lý Thông Tin Người Dùng",
 
@@ -55,6 +41,62 @@
             }
         },
         "doctor": {
+            "doctor-management": {
+                "title": "QUẢN LÝ THÔNG TIN BÁC SĨ",
+                "add-new": "Thêm Mới Bác Sĩ",
+                "ordinal": "STT",
+                "email": "Email",
+                "firstName": "Tên",
+                "lastName": "Họ",
+                "phoneNumber": "Số Điện Thoại",
+                "address": "Địa Chỉ",
+                "gender": "Giới Tính",
+                "specialty": "Chuyên Khoa",
+                "clinic": "Phòng Khám",
+                "position": "Chức Danh",
+                "price": "Giá Khám Bệnh",
+                "payment": "Phương Thức Thanh Toán",
+                "action": "Thao Tác",
+                "edit": "Chỉnh Sửa",
+                "delete": "Xóa"
+            },
+            "create-doctor-modal": {
+                "title": "Thêm Mới Bác Sĩ",
+                "email": "Email",
+                "password": "Mật Khẩu",
+                "firstName": "Tên",
+                "lastName": "Họ",
+                "address": "Địa Chỉ",
+                "phoneNumber": "Số Điện Thoại",
+                "gender": "Giới Tính",
+                "clinic": "Phòng Khám",
+                "specialty": "Chuyên Khoa",
+                "position": "Chức Danh",
+                "price": "Giá Khám Bệnh",
+                "payment": "Phương Thức Thanh Toán",
+                "image": "Hình Ảnh",
+                "upload-image": "Tải Ảnh Lên",
+                "add-new": "Thêm Mới Bác Sĩ",
+                "close": "Đóng"
+            },
+            "edit-doctor-modal": {
+                "title": "Thay Đổi Thông Tin Bác Sĩ",
+                "email": "Email",
+                "firstName": "Tên",
+                "lastName": "Họ",
+                "phoneNumber": "Số Điện Thoại",
+                "address": "Địa Chỉ",
+                "specialty": "Chuyên Khoa",
+                "price": "Giá Khám Bệnh",
+                "payment": "Phương Thức Thanh Toán",
+                "clinic": "Phòng Khám",
+                "position": "Chức Danh",
+                "gender": "Giới Tính",
+                "image": "Hình Ảnh",
+                "upload-image": "Tải Ảnh Lên",
+                "save": "Lưu Bác Sĩ",
+                "close": "Đóng"
+            },
             "schedule-management": {
                 "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",
                 "select-doctor": "Chọn Bác Sĩ",
@@ -80,13 +122,38 @@
                 "select-file": "Chọn File Hóa Đơn",
                 "send": "Gửi Đi",
                 "cancel": "Hủy"
+            },
+            "doctor-introduction": {
+                "title": "Quản Lý Giới Thiệu Bác Sĩ",
+                "select-doctor": "Chọn Bác Sĩ",
+                "intro": "Thông Tin Giới Thiệu",
+                "save": "Lưu Người Dùng",
+                "note": "Ghi Chú"
             }
         },
         "specialty": {
-            "title": "Quản Lý Chuyên Khoa",
-            "specialty-name": "Tên Chuyên Khoa",
-            "specialty-image": "Ảnh Chuyên Khoa",
-            "save": "Lưu"
+            "specialty-management": {
+                "title": "Quản Lý Chuyên Khoa Khám Bệnh",
+                "add-new": "Thêm Mới Chuyên Khoa",
+                "ordinal": "STT",
+                "name": "Tên Chuyên Khoa",
+                "contentHTML": "Content HTML",
+                "contentMarkdown": "Content Markdown",
+                "image": "Hình Ảnh",
+                "action": "Thao Tác",
+                "edit": "Chỉnh Sửa",
+                "delete": "Xóa"
+            },
+            "edit-specialty-modal": {
+                "create-title": "Thêm Mới Chuyên Khoa",
+                "edit-title": "Chỉnh Sửa Chuyên Khoa",
+                "nameVi": "Tên Tiếng Việt",
+                "nameEn": "Tên Tiếng Anh",
+                "image": "Hình Ảnh",
+                "create": "Tạo Mới Chuyên Khoa",
+                "edit": "Chỉnh Sửa Chuyên Khoa",
+                "close": "Đóng"
+            }
         }
     },
 

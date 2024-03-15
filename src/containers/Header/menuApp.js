@@ -1,6 +1,6 @@
 export const adminMenu = [
     {   //quản lý người dùng
-        name: "admin.menu.admin.manage-user",
+        name: "admin.menu.admin.doctor",
         menus: [
             {
                 name: "admin.menu.admin.doctor-management", link: "/system/doctor-management",
@@ -9,7 +9,7 @@ export const adminMenu = [
                 name: "admin.menu.admin.crud-redux", link: "/system/user-redux",
             },
             {
-                name: "admin.menu.admin.manage-doctor", link: "/system/manage-doctor",
+                name: "admin.menu.admin.doctor-introduction", link: "/system/doctor-introduction",
                 // subMenus: [
                 //     {
                 //         name: "menu.system.system-administrator.user-manage",

@@ -30,6 +30,12 @@ class CreateDoctorModal extends Component {
 
             listPosition: [],
             selectedPosition: "",
+
+            listPrice: [],
+            selectedPrice: "",
+
+            listPayment: [],
+            selectedPayment: "",
         };
         this.listenToEmitter();
     }
@@ -74,14 +80,26 @@ class CreateDoctorModal extends Component {
                 label: this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn,
                 value: item.keyMap,
             }));
+        } else if (name === "price") {
+            return data.map(item => ({
+                label: this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn,
+                value: item.keyMap,
+            }));
+        } else if (name === "payment") {
+            return data.map(item => ({
+                label: this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn,
+                value: item.keyMap,
+            }));
         }
     }
 
     async componentDidMount() {
         await this.props.getAllSpecialtiesRedux();
         await this.props.getAllClinicsRedux();
-        await this.props.getGenderRedux();
-        await this.props.getPositonRedux();
+        await this.props.getAllGendersRedux();
+        await this.props.getAllPositonsRedux();
+        await this.props.getAllPricesRedux();
+        await this.props.getAllPaymentsRedux();
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -110,6 +128,18 @@ class CreateDoctorModal extends Component {
         if (this.props.allPositions !== prevProps.allPositions) {
             this.setState({
                 listPosition: this.buildDataSelect(this.props.allPositions, "position")
+            })
+        }
+
+        if (this.props.allPrices !== prevProps.allPrices) {
+            this.setState({
+                listPrice: this.buildDataSelect(this.props.allPrices, "price")
+            })
+        }
+
+        if (this.props.allPayments !== prevProps.allPayments) {
+            this.setState({
+                listPayment: this.buildDataSelect(this.props.allPayments, "payment")
             })
         }
     }
@@ -180,16 +210,16 @@ class CreateDoctorModal extends Component {
             <Modal
                 isOpen={this.props.isOpen}
                 className={"doctor-modal-container"}
-                size="lg"
+                size="xl"
                 centered
             >
                 <ModalHeader toggle={() => { this.props.toggleFromParent(); }}>
-                    Create New Doctor
+                    <FormattedMessage id="admin.doctor.create-doctor-modal.title" />
                 </ModalHeader>
                 <ModalBody>
                     <div className="doctor-modal-body">
                         <div className="input-container col-4">
-                            <label>Email</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.email" /></label>
                             <input
                                 type='text'
                                 onChange={(event) => { this.handleOnChangeInput(event, "email"); }}
@@ -199,7 +229,7 @@ class CreateDoctorModal extends Component {
                         </div>
 
                         <div className="input-container col-4">
-                            <label>Password</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.password" /></label>
                             <input
                                 type="password"
                                 onChange={(event) => { this.handleOnChangeInput(event, "password"); }}
@@ -207,7 +237,7 @@ class CreateDoctorModal extends Component {
 
                         </div>
                         <div className="input-container col-4">
-                            <label>First Name</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.firstName" /></label>
                             <input
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "firstName"); }}
@@ -215,7 +245,7 @@ class CreateDoctorModal extends Component {
                             />
                         </div>
                         <div className="input-container col-4">
-                            <label>Last Name</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.lastName" /></label>
                             <input
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "lastName"); }}
@@ -223,66 +253,80 @@ class CreateDoctorModal extends Component {
                             />
                         </div>
                         <div className="input-container col-4">
-                            <label>Address</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.address" /></label>
                             <input
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "address"); }}
                                 value={this.state.address} />
                         </div>
                         <div className="input-container col-4">
-                            <label>Phone Number</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.phoneNumber" /></label>
                             <input
                                 type="text"
                                 onChange={(event) => { this.handleOnChangeInput(event, "phoneNumber"); }}
                                 value={this.state.phoneNumber} />
                         </div>
                         <div className="input-container col-3">
-                            <label>Gioi tinh</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.gender" /></label>
                             <Select
                                 value={this.state.selectedGender}
                                 onChange={this.handleOnChangeSelect}
                                 options={this.state.listGender}
                                 name="selectedGender"
-                                placeholder="hello"
                             />
                         </div>
                         <div className="input-container col-9">
-                            <label>Dia chi phong kham</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.clinic" /></label>
                             <Select
                                 value={this.state.selectedClinic}
                                 onChange={this.handleOnChangeSelect}
                                 options={this.state.listClinic}
                                 name="selectedClinic"
-                                placeholder="hello"
                             />
                         </div>
-                        <div className="input-container col-4">
-                            <label>Chuyen khoa</label>
+                        <div className="input-container col-3">
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.specialty" /></label>
                             <Select
                                 value={this.state.selectedSpecialty}
                                 onChange={this.handleOnChangeSelect}
                                 options={this.state.listSpecialty}
                                 name="selectedSpecialty"
-                                placeholder="hello"
                             />
                         </div>
                         <div className="input-container col-3">
-                            <label>Chuc danh</label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.position" /></label>
                             <Select
                                 value={this.state.selectedPosition}
                                 onChange={this.handleOnChangeSelect}
                                 options={this.state.listPosition}
                                 name="selectedPosition"
-                                placeholder="hello"
+                            />
+                        </div>
+                        <div className="input-container col-3">
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.price" /></label>
+                            <Select
+                                value={this.state.selectedPrice}
+                                onChange={this.handleOnChangeSelect}
+                                options={this.state.listPrice}
+                                name="selectedPrice"
+                            />
+                        </div>
+                        <div className="input-container col-3">
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.payment" /></label>
+                            <Select
+                                value={this.state.selectedPayment}
+                                onChange={this.handleOnChangeSelect}
+                                options={this.state.listPayment}
+                                name="selectedPayment"
                             />
                         </div>
                         <div className="col-2">
-                            <label><FormattedMessage id="admin.manage-user.image" /></label>
+                            <label><FormattedMessage id="admin.doctor.create-doctor-modal.image" /></label>
                             <div className="preview-img-container">
                                 <input type="file" id="previewImg" hidden
                                     onChange={(event) => { this.handleOnChangeImage(event) }}
                                 />
-                                <label className="label-upload" htmlFor="previewImg">Tải Ảnh<i className="fas fa-upload"></i></label>
+                                <label className="label-upload" htmlFor="previewImg"><FormattedMessage id="admin.doctor.create-doctor-modal.upload-image" /><i className="fas fa-upload"></i></label>
                                 <div className="prev-image"
                                     style={{ backgroundImage: `url(${this.state.image})` }}
                                     onClick={() => {
@@ -300,14 +344,14 @@ class CreateDoctorModal extends Component {
                         onClick={() => { this.handleCreateNewDoctor(); }}
                         className="px-3"
                     >
-                        Add New
+                        <FormattedMessage id="admin.doctor.create-doctor-modal.add-new" />
                     </Button>
                     {""}
                     <Button
                         color="secondary" onClick={() => { this.props.toggleFromParent(); }}
                         className="px-3"
                     >
-                        Close
+                        <FormattedMessage id="admin.doctor.create-doctor-modal.close" />
                     </Button>
                 </ModalFooter>
             </Modal>
@@ -322,6 +366,8 @@ const mapStateToProps = (state) => {
         allClinics: state.admin.allClinics,
         allGenders: state.admin.genders,
         allPositions: state.admin.positions,
+        allPrices: state.admin.prices,
+        allPayments: state.admin.payments,
     };
 };
 
@@ -329,8 +375,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getAllSpecialtiesRedux: () => dispatch(actions.getAllSpecialties()),
         getAllClinicsRedux: () => dispatch(actions.getAllClinics()),
-        getPositonRedux: () => dispatch(actions.getPostion()),
-        getGenderRedux: () => { dispatch(actions.getGender()) },
+        getAllPositonsRedux: () => dispatch(actions.getAllPositions()),
+        getAllGendersRedux: () => dispatch(actions.getAllGenders()),
+        getAllPricesRedux: () => dispatch(actions.getAllPrices()),
+        getAllPaymentsRedux: () => dispatch(actions.getAllPayments()),
     };
 };
 

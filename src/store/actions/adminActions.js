@@ -3,24 +3,26 @@ import {
     getAllCodesSerivce, createNewUserService,
     getAllUsersService, deleteUserSerive,
     editUserService, getTopDoctorsService,
-    getAllDoctorsService, createDoctorInfoSerivce,
+    getAllDoctorsService, saveDoctorIntroductionService,
     updateDoctorService, deleteDoctorSerive,
     getDoctorByIdService, createBulkScheduleService,
     getScheduleByDateService, createAppointmentBookingService,
     createExaminationVerificationService,
-    createSpecialtyService, getAllSpecialtiesService,
+
+    createSpecialtyService, getAllSpecialtiesService, updateSpecialtyService, deleteSpecialtySerive,
+
     getAllDoctorInSpecialtyService, createClinicService,
     getAllProvincesService, getDistrictsByProvinceIdService,
     getAllClinicsService, getClinicByIdService,
     getAllPatientsByDateAndDoctorIdService,
     getAllSchedulesByDateAndDoctorIdService, sendPrescriptionService
+
 } from "../../services/userService";
 
 import userService from "../../services/userService";
 import { toast } from "react-toastify";
 
-//import gender
-export const getGender = () => {
+export const getAllGenders = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllCodesSerivce("gender");
@@ -45,8 +47,7 @@ export const getGender = () => {
         }
     }
 }
-//import position
-export const getPostion = () => {
+export const getAllPositions = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllCodesSerivce("position");
@@ -66,10 +67,59 @@ export const getPostion = () => {
                 type: actionTypes.GET_POSITION_FAIL,
             });
 
-            console.log("getPostion", e);
+            console.log("getAllPositions", e);
         }
     }
 }
+export const getAllPrices = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllCodesSerivce("price");
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_PRICE_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_PRICE_FAIL,
+                });
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.GET_PRICE_FAIL,
+            });
+
+            console.log("getAllPositions", e);
+        }
+    }
+}
+export const getAllPayments = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllCodesSerivce("payment");
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_PAYMENT_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_PAYMENT_FAIL,
+                });
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.GET_PAYMENT_FAIL,
+            });
+
+            console.log("getAllPositions", e);
+        }
+    }
+}
+
 //import role
 export const getRole = () => {
     return async (dispatch, getState) => {
@@ -91,7 +141,7 @@ export const getRole = () => {
                 type: actionTypes.FETCH_ROLE_FAIL,
             });
 
-            console.log("getGender", e);
+            console.log("Get Role Fail: ", e);
         }
     }
 }
@@ -262,38 +312,12 @@ export const getTopDoctors = (data) => {
         }
     }
 }
-//fetch all doctors
-export const getAllDoctors = () => {
-    return async (dispatch, getState) => {
-        try {
-            let response = await getAllDoctorsService();
 
-            if (response && response.code === 0) {
-                dispatch({
-                    type: actionTypes.GET_ALL_DOCTORS_SUCCEED,
-                    data: response.data,
-                });
-            } else {
-                dispatch({
-                    type: actionTypes.GET_ALL_DOCTORS_FAIL,
-                    data: "",
-                });
-            }
-        } catch (e) {
-            console.log("Fech Top Doctors Error", e);
-
-            dispatch({
-                type: actionTypes.GET_ALL_DOCTORS_FAIL,
-                data: "",
-            });
-        }
-    }
-}
 //save doctor info
-export const saveDoctorInfo = (data) => {
+export const saveDoctorIntroduction = (data) => {
     return async (dispatch, getState) => {
         try {
-            let response = await createDoctorInfoSerivce(data);
+            let response = await saveDoctorIntroductionService(data);
 
             if (response && response.code === 0) {
                 toast.success(response.message);
@@ -321,6 +345,33 @@ export const saveDoctorInfo = (data) => {
     }
 }
 
+
+export const getAllDoctors = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllDoctorsService();
+
+            if (response && response.code === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_DOCTORS_SUCCEED,
+                    data: response.data,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_DOCTORS_FAIL,
+                    data: "",
+                });
+            }
+        } catch (e) {
+            console.log("Fech Top Doctors Error", e);
+
+            dispatch({
+                type: actionTypes.GET_ALL_DOCTORS_FAIL,
+                data: "",
+            });
+        }
+    }
+}
 export const updateDoctor = (data) => {
     return async (dispatch, getState) => {
         try {
@@ -359,7 +410,6 @@ export const deleteDoctor = (doctorId) => {
         }
     }
 }
-//get doctor by id
 export const getDoctorById = (id) => {
     return async (dispatch, getState) => {
         try {
@@ -388,6 +438,8 @@ export const getDoctorById = (id) => {
         }
     }
 }
+
+
 //get allcode schedule hours
 export const getAllScheduleTime = () => {
     return async (dispatch, getState) => {
@@ -518,6 +570,7 @@ export const saveExaminationVerification = (data) => {
     }
 }
 
+
 export const createSpecialty = (data) => {
     return async (dispatch, getState) => {
         try {
@@ -525,6 +578,8 @@ export const createSpecialty = (data) => {
 
             if (response && response.code === 0) {
                 toast.success(response.message);
+
+                dispatch(getAllSpecialties());
             } else {
                 toast.error(response.message);
             }
@@ -535,7 +590,6 @@ export const createSpecialty = (data) => {
         }
     }
 }
-
 export const getAllSpecialties = () => {
     return async (dispatch, getState) => {
         try {
@@ -553,7 +607,7 @@ export const getAllSpecialties = () => {
                 });
             }
         } catch (e) {
-            console.log("Fech Top Doctors Error", e);
+            console.log("Get All Specialty Error", e);
 
             dispatch({
                 type: actionTypes.GET_ALL_SPECIALTIES_FAIL,
@@ -562,6 +616,45 @@ export const getAllSpecialties = () => {
         }
     }
 }
+export const updateSpecialty = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await updateSpecialtyService(data);
+
+            if (response && response.code === 0) {
+                toast.success(response.message);
+
+                dispatch(getAllSpecialties());
+
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            toast.error("Update Specialty Information Failed!!");
+
+            console.log("Update Specialty Error", e);
+        }
+    }
+}
+export const deleteSpecialty = (specialtyId) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await deleteSpecialtySerive(specialtyId);
+
+            if (response && response.code === 0) {
+
+                toast.success(response.message);
+
+                dispatch(getAllSpecialties());
+            } else {
+                toast.error(response.message);
+            }
+        } catch (e) {
+            console.log("Delete Specialty Fail", e);
+        }
+    }
+}
+
 
 export const getAllDoctorInSpecialty = (id) => {
     return async (dispatch, getState) => {
@@ -591,6 +684,7 @@ export const getAllDoctorInSpecialty = (id) => {
         }
     }
 }
+
 
 export const createClinic = (data) => {
     return async (dispatch, getState) => {

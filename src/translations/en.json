@@ -24,7 +24,7 @@
             "phoneNumber": "Phone Number",
             "address": "Address",
             "gender": "Gender",
-            "position": "Postion",
+            "position": "Position",
             "role": "Role",
             "image": "Image",
             "create": "Create User",
@@ -34,9 +34,9 @@
         },
         "menu": {
             "admin": {
-                "manage-user": "Doctors",
+                "doctor": "Doctors",
                 "doctor-management": "Doctors' Information Management",
-                "manage-doctor": "Doctors' Introduction Management",
+                "doctor-introduction": "Doctors' Introduction Management",
                 "manage-admin": "Admin Management",
                 "crud-redux": "Users' Information Management",
 
@@ -55,6 +55,62 @@
             }
         },
         "doctor": {
+            "doctor-management": {
+                "title": "Doctor Information Management",
+                "add-new": "Add New Doctor",
+                "ordinal": "Ordinal",
+                "email": "Email",
+                "firstName": "First Name",
+                "lastName": "Last Name",
+                "phoneNumber": "Phone Number",
+                "address": "Address",
+                "gender": "Gender",
+                "specialty": "Specialty",
+                "clinic": "Clinic",
+                "position": "Position",
+                "price": "Medical Price",
+                "payment": "Payment Methods",
+                "action": "Action",
+                "edit": "Edit",
+                "delete": "Delete"
+            },
+            "create-doctor-modal": {
+                "title": "Add New Doctor",
+                "email": "Email",
+                "password": "Password",
+                "firstName": "First Name",
+                "lastName": "Last Name",
+                "address": "Address",
+                "phoneNumber": "Phone Number",
+                "gender": "Gender",
+                "clinic": "Clinic",
+                "specialty": "Specialty",
+                "position": "Position",
+                "price": "Nedical Price",
+                "payment": "Payment Methods",
+                "image": "Image",
+                "upload-image": "Upload Image",
+                "add-new": "Add New",
+                "close": "Close"
+            },
+            "edit-doctor-modal": {
+                "title": "Edit Doctor Information",
+                "email": "Email",
+                "firstName": "First Name",
+                "lastName": "Last Name",
+                "phoneNumber": "Phone Number",
+                "address": "Address",
+                "specialty": "Specialty",
+                "price": "Medical Price",
+                "payment": "Payment Methods",
+                "clinic": "Clinic",
+                "position": "Position",
+                "gender": "Gender",
+                "image": "Image",
+                "upload-image": "Upload Image",
+                "save": "Save Doctor",
+                "close": "Close"
+            },
             "schedule-management": {
                 "title": "Manage Doctor's Examination Schedule",
                 "select-doctor": "Select A Doctor",
@@ -80,13 +136,38 @@
                 "select-file": "Select File",
                 "send": "Send",
                 "cancel": "Cancel"
+            },
+            "doctor-introduction": {
+                "title": "Doctor Introduction Management",
+                "select-doctor": "Select A Doctor",
+                "intro": "Introduction",
+                "save": "Save Doctor",
+                "note": "Note"
             }
         },
         "specialty": {
-            "title": "Specialty Management",
-            "specialty-name": "Specialty Name",
-            "specialty-image": "Specialty Image",
-            "save": "Save"
+            "specialty-management": {
+                "title": "Specialty Management",
+                "add-new": "Add New Specialty",
+                "ordinal": "Ordinal",
+                "name": "Specialty Name",
+                "contentHTML": "Content HTML",
+                "contentMarkdown": "Content Markdown",
+                "image": "Image",
+                "action": "Action",
+                "edit": "Edit",
+                "delete": "Delete"
+            },
+            "edit-specialty-modal": {
+                "create-title": "Add New Specialty",
+                "edit-title": "Edit Specialty",
+                "nameVi": "Vietnamese Name",
+                "nameEn": "English Name",
+                "image": "Image",
+                "create": "Confirm Add New",
+                "edit": "Confirm Edit",
+                "close": "Close"
+            }
         }
     },
 

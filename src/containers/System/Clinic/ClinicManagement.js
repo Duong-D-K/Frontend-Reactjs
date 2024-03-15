@@ -67,7 +67,7 @@ class ClinicManagement extends Component {
         return newDataArray;
     }
 
-    handeOnchangeInput = (event, id) => {
+    handleOnChangeInput = (event, id) => {
         let stateCopy = { ...this.state };
         stateCopy[id] = event.target.value;
 
@@ -147,7 +147,7 @@ class ClinicManagement extends Component {
                                 className="form-control"
                                 type="text"
                                 value={this.state.name}
-                                onChange={(event) => { this.handeOnchangeInput(event, "name") }}
+                                onChange={(event) => { this.handleOnChangeInput(event, "name") }}
                             />
                         </div>
                         <div className="col-6 form-group">
@@ -164,7 +164,7 @@ class ClinicManagement extends Component {
                                 className="form-control"
                                 type="text"
                                 value={this.state.address}
-                                onChange={(event) => { this.handeOnchangeInput(event, "address") }}
+                                onChange={(event) => { this.handleOnChangeInput(event, "address") }}
                             />
                         </div>
                         <div className="col-3 form-group">

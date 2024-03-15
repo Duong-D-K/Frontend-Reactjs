@@ -270,7 +270,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getGenderRedux: () => { dispatch(actions.getGender()) },
+        getGenderRedux: () => { dispatch(actions.getAllGenders()) },
         saveAppointmentBookingRedux: (data) => { dispatch(actions.saveAppointmentBooking(data)) },
     };
 };

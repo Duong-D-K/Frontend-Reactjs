@@ -1,4 +1,32 @@
-.specialty-management-container {
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04aa6d;
+    color: white;
+}
+
+.specialty-management {
     padding: 0 15px;
 
     .specialty-management-title {
@@ -18,6 +46,31 @@
             min-width: 75px;
             border-radius: 3px;
             margin: 15px 0;
+        }
+    }
+}
+
+.specialty-modal-container {
+    max-width: 1500px !important;
+    width: 100% !important;
+    max-height: 600px !important;
+
+    .preview-img-container {
+        .label-upload {
+            padding: 4px;
+            border-radius: 3px;
+            background-color: #ddd;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+        .prev-image {
+            height: 200px;
+            width: 50%;
+            border: 1px solid #cccccc;
+            background: center center no-repeat;
+            background-size: contain;
         }
     }
 }

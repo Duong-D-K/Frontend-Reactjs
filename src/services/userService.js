@@ -31,29 +31,31 @@ const getTopDoctorsService = (limit) => {
     return axios.get(`/api/top-doctors-home?limit=${limit}`);
 }
 
-const getAllDoctorsService = () => {
-    return axios.get(`/api/get-all-doctors`);
+
+
+const saveDoctorIntroductionService = (data) => {
+    return axios.post(`/api/save-doctor-introduction`, data);
 }
 
-const createDoctorInfoSerivce = (data) => {
-    return axios.post(`/api/save-doctor-info`, data);
-}
-
-const updateDoctorService = (data) => {
-    return axios.put(`/api/update-doctor`, data);
-}
-
-const createDoctorService = (data) => {
-    return axios.post(`/api/create-doctor`, data);
-}
-
-const deleteDoctorSerive = (doctorId) => {
-    return axios.delete(`/api/delete-doctor/${doctorId}`);
-}
 
 const getDoctorByIdService = (id) => {
     return axios.get(`/api/get-doctor-by-id?id=${id}`);
 }
+const getAllDoctorsService = () => {
+    return axios.get(`/api/get-all-doctors`);
+}
+const updateDoctorService = (data) => {
+    return axios.put(`/api/update-doctor`, data);
+}
+const createDoctorService = (data) => {
+    return axios.post(`/api/create-doctor`, data);
+}
+const deleteDoctorSerive = (doctorId) => {
+    return axios.delete(`/api/delete-doctor/${doctorId}`);
+}
+
+
+
 
 const createBulkScheduleService = (data) => {
     return axios.post("/api/bulk-create-schedule", data);
@@ -75,13 +77,20 @@ const createExaminationVerificationService = (data) => {
     return axios.post(`/api/examination-verification`, data);
 }
 
+
 const createSpecialtyService = (data) => {
     return axios.post(`/api/create-specialty`, data);
 }
-
 const getAllSpecialtiesService = () => {
     return axios.get(`/api/get-all-specialties`);
 };
+const updateSpecialtyService = (data) => {
+    return axios.put(`/api/update-specialty`, data);
+}
+const deleteSpecialtySerive = (specialtyId) => {
+    return axios.delete(`/api/delete-specialty/${specialtyId}`);
+}
+
 
 const getAllDoctorInSpecialtyService = (data) => {
     return axios.get(`/api/get-all-doctors-in-specialty?id=${data.id}&location=${data.location}`);
@@ -91,13 +100,14 @@ const createClinicService = (data) => {
     return axios.post(`/api/create-clinic`, data);
 }
 
+
 const getAllProvincesService = () => {
     return axios.get(`/api/get-All-Provinces`);
 }
-
 const getDistrictsByProvinceIdService = (provinceId) => {
     return axios.get(`/api/get-District-By-ProvinceId?provinceId=${provinceId}`);
 }
+
 
 const getAllClinicsService = () => {
     return axios.get(`/api/get-all-clinics`);
@@ -130,7 +140,7 @@ export {
     getTopDoctorsService,
 
     getAllDoctorsService,
-    createDoctorInfoSerivce,
+    saveDoctorIntroductionService,
 
     createDoctorService,
     updateDoctorService,
@@ -141,9 +151,14 @@ export {
     getDoctorInformationById,
     createAppointmentBookingService,
     createExaminationVerificationService,
+
     createSpecialtyService,
     getAllSpecialtiesService,
+    updateSpecialtyService,
+    deleteSpecialtySerive,
+
     getAllDoctorInSpecialtyService,
+
 
     createClinicService,
     getAllProvincesService,

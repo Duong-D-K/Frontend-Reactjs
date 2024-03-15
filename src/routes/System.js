@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import UserRedux from "../containers/System/Admin/UserRedux";
 import Header from "../containers/Header/Header";
-import ManageDoctor from "../containers/System/Admin/ManageDoctor";
+import DoctorIntroduction from "../containers/System/Doctor/DoctorIntroduction";
 import SpecialtyManagement from "../containers/System/Specialty/SpecialtyManagement";
 import ClinicManagement from "../containers/System/Clinic/ClinicManagement";
-import DoctorManagement from "../containers/System/Admin/DoctorManagement";
+import DoctorManagement from "../containers/System/Doctor/DoctorManagement";
 
 class System extends Component {
     render() {
@@ -19,7 +19,7 @@ class System extends Component {
                         <Switch>
                             <Route path="/system/doctor-management" component={DoctorManagement} />
                             <Route path="/system/user-redux" component={UserRedux} />
-                            <Route path="/system/manage-doctor" component={ManageDoctor} />
+                            <Route path="/system/doctor-introduction" component={DoctorIntroduction} />
                             <Route path="/system/specialty-management" component={SpecialtyManagement} />
                             <Route path="/system/clinic-management" component={ClinicManagement} />
 

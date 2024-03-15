@@ -6,6 +6,7 @@ import { FormattedMessage } from "react-intl";
 import Select from 'react-select';
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
+import EditSpecialtyModal from "./EditSpecialtyModal";
 import _ from "lodash";
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -16,100 +17,157 @@ class SpecialtyManagement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            imageBase64: "",
-            contentMarkdown: "",
-            contentHTML: "",
+            listSpecialty: "",
+            openEditSpecialtyModal: false,
+            // openCreateSpecialtyModal: false,
+
+            specialtyEdit: {}
         };
     }
-    componentDidMount() {
+    async componentDidMount() {
+        await this.props.getAllSpecialtiesRedux();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.allSpecialties !== prevProps.allSpecialties) {
+            this.setState({
+                listSpecialty: this.props.allSpecialties,
+            })
+        }
     }
 
-    handeOnchangeInput = (event, id) => {
+    handleOnChangeInput = (event, id) => {
         let stateCopy = { ...this.state };
         stateCopy[id] = event.target.value;
 
         this.setState({
             ...stateCopy
         })
-
     }
 
-    handleEditorChange = ({ html, text }) => {
+    toggleEditSpecialtyModal = () => {
         this.setState({
-            contentMarkdown: text,
-            contentHTML: html,
+            openEditSpecialtyModal: !this.state.openEditSpecialtyModal,
         })
     }
 
-    handleOnChangeImage = async (event) => {
-        let data = event.target.files;
-        let file = data[0];
+    editSpecialty = async (specialty) => {
+        try {
+            if (specialty.actions === "edit") {
+                this.props.updateSpecialtyrRedux({
+                    id: specialty.id,
+                    nameVi: specialty.nameVi,
+                    nameEn: specialty.nameEn,
+                    contentHTML: specialty.contentHTML,
+                    contentMarkdown: specialty.contentMarkdown,
+                    image: specialty.image,
+                });
 
-        if (file) {
-            let base64 = await CommonUtils.getBase64(file);
+                this.setState({ openEditSpecialtyModal: false });
+            }
+            else if (specialty.actions === "create") {
+                this.props.createSpecialtyRedux({
+                    nameVi: specialty.nameVi,
+                    nameEn: specialty.nameEn,
+                    contentHTML: specialty.contentHTML,
+                    contentMarkdown: specialty.contentMarkdown,
+                    image: specialty.image,
+                });
 
-            this.setState({
-                imageBase64: base64,
-                avatar: base64,
-            });
+                this.setState({ openEditSpecialtyModal: false });
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
-    handleSaveSpecialty = () => {
-        this.props.createSpecialtyRedux(this.state);
-
-        this.setState({
-            name: "",
-            imageBase64: "",
-            contentMarkdown: "",
-            contentHTML: "",
-        })
+    deleteSpecialty = async (specialty) => {
+        try {
+            await this.props.deleteSpecialtyRedux(specialty.id);
+        } catch (e) {
+            console.log(e);
+        }
     }
+
     render() {
+        let { listSpecialty } = this.state;
+
         return (
             <>
-                <div className="specialty-management-container">
+                <div className="specialty-management container-fluid">
+                    {this.state.openEditSpecialtyModal &&
+                        <EditSpecialtyModal
+                            isOpen={this.state.openEditSpecialtyModal}
+                            toggleFromParent={this.toggleEditSpecialtyModal}
+                            currentSpecialty={this.state.specialtyEdit}
+                            editSpecialty={this.editSpecialty}
+                        />
+                    }
                     <div className="specialty-management-title">
-                        <FormattedMessage id="admin.specialty.title" />
+                        <FormattedMessage id="admin.specialty.specialty-management.title" />
                     </div>
-                    <div className="add-new-specialty row">
-                        <div className="col-6 form-group">
-                            <label><FormattedMessage id="admin.specialty.specialty-name" /></label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                value={this.state.name}
-                                onChange={(event) => { this.handeOnchangeInput(event, "name") }}
-                            />
-                        </div>
-                        <div className="col-6 form-group">
-                            <label><FormattedMessage id="admin.specialty.specialty-image" /></label>
-                            <input
-                                className="form-control-file"
-                                type="file"
-                                onChange={(event) => { this.handleOnChangeImage(event) }}
-                            />
-                        </div>
-                        <div className="col-12">
-                            <MdEditor
-                                style={{ height: '400px' }}
-                                renderHTML={text => mdParser.render(text)}
-                                onChange={this.handleEditorChange}
-                                value={this.state.contentMarkdown}
-                            />
-                        </div>
-                        <div className="col-12">
-                            <button
-                                className="btn-save-specialty"
-                                onClick={() => this.handleSaveSpecialty()}
-                            ><FormattedMessage id="admin.specialty.save" /></button>
-                        </div>
+                    <div className="mx-1">
+                        <button
+                            className="btn btn-primary px-3"
+                            onClick={() => this.setState({ openEditSpecialtyModal: true, specialtyEdit: { key: "create", data: "" }, })}
+                        >
+                            <i className="fas fa-plus"></i><FormattedMessage id="admin.specialty.specialty-management.add-new" />
+                        </button>
                     </div>
-
+                    <div className="user-table mt-4 mx-1">
+                        <table id="customers">
+                            <tbody>
+                                <tr>
+                                    <th><FormattedMessage id="admin.specialty.specialty-management.ordinal" /></th>
+                                    <th><FormattedMessage id="admin.specialty.specialty-management.name" /></th>
+                                    <th><FormattedMessage id="admin.specialty.specialty-management.contentHTML" /></th>
+                                    <th><FormattedMessage id="admin.specialty.specialty-management.contentMarkdown" /></th>
+                                    <th><FormattedMessage id="admin.specialty.specialty-management.image" /></th>
+                                    <th><FormattedMessage id="admin.specialty.specialty-management.action" /></th>
+                                </tr>
+                                {listSpecialty ? listSpecialty.map((item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn}</td>
+                                            <td>{item.contentHTML && item.contentHTML.substring(0, 60)}.....</td>
+                                            <td>{item.contentMarkdown && item.contentMarkdown.substring(0, 60)}.....</td>
+                                            <td>
+                                                <div className="preview-img-container">
+                                                    <div className="prev-image"
+                                                        style={{
+                                                            backgroundImage: `url(${item.image})`,
+                                                            height: "40px",
+                                                            backgroundSize: "auto 40px",
+                                                            backgroundPosition: "center",
+                                                            backgroundRepeat: "no-repeat",
+                                                        }}
+                                                    >
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="btn-edit"
+                                                    onClick={() => {
+                                                        this.setState({
+                                                            openEditSpecialtyModal: true,
+                                                            specialtyEdit: {
+                                                                key: "edit",
+                                                                data: item,
+                                                            },
+                                                        })
+                                                    }}><FormattedMessage id="admin.specialty.specialty-management.edit" />
+                                                </button>
+                                                <button className="btn-delete" onClick={() => this.deleteSpecialty(item)}><FormattedMessage id="admin.specialty.specialty-management.delete" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                }) : <></>}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </>
         );
@@ -118,14 +176,17 @@ class SpecialtyManagement extends Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        language: state.app.language,
+        allSpecialties: state.admin.allSpecialties,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getAllSpecialtiesRedux: () => dispatch(actions.getAllSpecialties()),
+        updateSpecialtyrRedux: (data) => { dispatch(actions.updateSpecialty(data)) },
         createSpecialtyRedux: (data) => { dispatch(actions.createSpecialty(data)) },
-
+        deleteSpecialtyRedux: (specialtyId) => { dispatch(actions.deleteSpecialty(specialtyId)) },
     };
 };
 

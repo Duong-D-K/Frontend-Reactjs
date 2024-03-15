@@ -4,6 +4,9 @@ const initialState = {
     genders: [],
     roles: [],
     positions: [],
+    prices: [],
+    payments: [],
+
     users: [],
     topDoctors: [],
     allDoctors: [],
@@ -15,6 +18,7 @@ const initialState = {
     allDoctorsInSpecialty: [],
 
     allSchedulesByDateAndDoctor: [],
+
     allProvinces: [],
     allDistricts: [],
     allClinics: [],
@@ -27,7 +31,7 @@ const initialState = {
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
-        //gender
+
         case actionTypes.GET_GENDER_SUCCEED:
             return {
                 ...state,
@@ -40,7 +44,7 @@ const adminReducer = (state = initialState, action) => {
                 genders: [],
                 // isLoadingGender: false,
             };
-        //postion
+
         case actionTypes.GET_POSITION_SUCCEED:
             return {
                 ...state,
@@ -51,7 +55,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 positions: [],
             };
-        //role
+
         case actionTypes.GET_ROLE_SUCCEED:
             return {
                 ...state,
@@ -61,6 +65,28 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 roles: [],
+            };
+
+        case actionTypes.GET_PRICE_SUCCEED:
+            return {
+                ...state,
+                prices: action.data,
+            };
+        case actionTypes.GET_PRICE_FAIL:
+            return {
+                ...state,
+                prices: [],
+            };
+
+        case actionTypes.GET_PAYMENT_SUCCEED:
+            return {
+                ...state,
+                payments: action.data,
+            };
+        case actionTypes.GET_PAYMENT_FAIL:
+            return {
+                ...state,
+                payments: [],
             };
         //fetch all users
         case actionTypes.GET_ALL_USERS_SUCCEED:

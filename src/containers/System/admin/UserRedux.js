@@ -41,41 +41,7 @@ class UserRedux extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.genderRedux !== this.props.genderRedux) {
-            this.setState({
-                genderArray: this.props.genderRedux,
-                gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].keyMap : "",
-            });
-        }
-        if (prevProps.positionRedux !== this.props.positionRedux) {
-            this.setState({
-                positionArray: this.props.positionRedux,
-                position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].keyMap : "",
-            });
-        }
-        if (prevProps.roleRedux !== this.props.roleRedux) {
-            this.setState({
-                roleArray: this.props.roleRedux,
-                role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].keyMap : "",
-            });
-        }
-        if (prevProps.users !== this.props.users) {
-            this.setState({
-                email: "",
-                password: "",
-                firstName: "",
-                lastName: "",
-                phoneNumber: "",
-                address: "",
-                gender: this.props.genderRedux && this.props.genderRedux.length > 0 ? this.props.genderRedux[0].keyMap : "",
-                position: this.props.positionRedux && this.props.positionRedux.length > 0 ? this.props.positionRedux[0].keyMap : "",
-                role: this.props.roleRedux && this.props.roleRedux.length > 0 ? this.props.roleRedux[0].keyMap : "",
-                avatar: "",
 
-                action: CRUD_ACTIONS.CREATE,
-                previewImgUrl: "",
-            });
-        }
     }
 
     handleOnChangeImage = async (event) => {
@@ -363,8 +329,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getGenderRedux: () => dispatch(actions.getGender()),
-        getPositonRedux: () => dispatch(actions.getPostion()),
+        getGenderRedux: () => dispatch(actions.getAllGenders()),
+        getPositonRedux: () => dispatch(actions.getAllPositions()),
         getRoleRedux: () => dispatch(actions.getRole()),
 
         createNewUserRedux: (data) => { dispatch(actions.createNewUser(data)) },
