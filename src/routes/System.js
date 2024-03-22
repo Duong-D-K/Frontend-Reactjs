@@ -18,8 +18,8 @@ class System extends Component {
                     <div className="system-list">
                         <Switch>
                             <Route path="/system/doctor-management" component={DoctorManagement} />
-                            <Route path="/system/user-redux" component={UserRedux} />
-                            <Route path="/system/doctor-introduction" component={DoctorIntroduction} />
+                            {/* <Route path="/system/user-redux" component={UserRedux} /> */}
+                            {/* <Route path="/system/doctor-introduction" component={DoctorIntroduction} /> */}
                             <Route path="/system/specialty-management" component={SpecialtyManagement} />
                             <Route path="/system/clinic-management" component={ClinicManagement} />
 

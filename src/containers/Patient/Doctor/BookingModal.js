@@ -23,16 +23,15 @@ class BookingModal extends Component {
             address: "",
             reason: "",
             birthday: "",
-            selectedGender: "",
-            doctorId: "",
-            timeType: "",
+            // doctorId: "",
+            // timeType: "",
 
             listGenders: "",
+            selectedGender: "",
 
-            image: "",
-            doctorName: "",
-            doctorPosition: "",
-            doctorIntro: "",
+            // doctorName: "",
+            // doctorPosition: "",
+            // doctorIntro: "",
         }
     }
 
@@ -48,32 +47,9 @@ class BookingModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.language !== prevProps.language) {
-            this.setState({
-                listGenders: this.buildDataGender(this.props.listGenders)
-            })
-        }
-
         if (this.props.listGenders !== prevProps.listGenders) {
             this.setState({
                 listGenders: this.buildDataGender(this.props.listGenders)
-            })
-        }
-
-        if (this.props.dataTime !== prevProps.dataTime) {
-            this.setState({
-                doctorId: this.props.dataTime.doctorId,
-                timeType: this.props.dataTime.timeType,
-            })
-        }
-        if (this.props.doctor !== prevProps.doctor) {
-            console.log(this.props.doctor.Markdown.description);
-
-            this.setState({
-                doctorName: { firstName: this.props.doctor.firstName, lastName: this.props.doctor.lastName },
-                image: this.props.doctor.image,
-                doctorPosition: this.props.doctor.positionData,
-                doctorDescription: this.props.doctor.Markdown.description,
             })
         }
     }
@@ -93,7 +69,7 @@ class BookingModal extends Component {
         });
     };
 
-    handleChange = (selectedOption) => {
+    handleOnChangeSelect = (selectedOption) => {
         this.setState({
             selectedGender: selectedOption
         })
@@ -108,13 +84,13 @@ class BookingModal extends Component {
             reason: this.state.reason,
             birthday: new Date(this.state.birthday).getTime(),
             selectedGender: this.state.selectedGender.value,
-            doctorId: this.state.doctorId,
-            appointmentTime: this.props.dataTime.timeType,
+            doctorId: this.props.dataFromParents.doctor.id,
+            appointmentTime: this.props.dataFromParents.time.timeType,
             language: this.props.language,
-            appointmentDate: this.props.dataTime.date,
+            appointmentDate: this.props.dataFromParents.time.date,
             timeString: this.props.language === LANGUAGES.VI ?
-                `${this.props.dataTime.timeTypeData.valueVi} - ${moment(parseInt(this.props.dataTime.date)).format("dddd, DD-MM-YYYY")}`
-                : `${this.props.dataTime.timeTypeData.valueEn} - ${moment(parseInt(this.props.dataTime.date)).locale("en").format("ddd, YYYY-MM-DD")}`,
+                `${this.props.dataFromParents.time.timeTypeData.valueVi} - ${moment(parseInt(this.props.dataFromParents.time.date)).format("dddd, DD-MM-YYYY")}`
+                : `${this.props.dataFromParents.time.timeTypeData.valueEn} - ${moment(parseInt(this.props.dataFromParents.time.date)).locale("en").format("ddd, YYYY-MM-DD")}`,
             doctorString: this.props.language === LANGUAGES.VI ?
                 `${this.props.doctor.positionData.valueVi}, ${this.props.doctor.lastName} ${this.props.doctor.firstName}` :
                 `${this.props.doctor.positionData.valueEn}, ${this.props.doctor.firstName} ${this.props.doctor.lastName}`,
@@ -124,41 +100,32 @@ class BookingModal extends Component {
     }
 
     render() {
-        let { openBookingModal, closeBookingModal, dataTime } = this.props;
+        let { dataTime } = this.props;
 
         let { image, doctorName, doctorPosition, doctorDescription } = this.state;
 
         return (
             <>
                 <Modal
-                    isOpen={openBookingModal}
-                    className="booking-modal-container"
+                    isOpen={this.props.openBookingModal}
+                    className="booking-modal container-fluid"
                     size="lg"
                     centered
                     backdrop={true}
                 >
-                    <div className="booking-modal-content">
+                    <ModalHeader toggle={this.props.closeBookingModal}>
                         <div className="booking-modal-header">
-                            <span className="left">
+                            <span className="title">
                                 <FormattedMessage id={"client.booking-modal.title"} />
                             </span>
-                            <span
-                                className="right"
-                                onClick={closeBookingModal}
-
-                            ><i className="fas fa-times"></i></span>
-
                         </div>
+                    </ModalHeader>
+
+                    <ModalBody>
                         <div className="booking-modal-body">
                             <div className="doctor-info">
                                 <DoctorProfile
-                                    doctorId={""}
-                                    image={image}
-                                    doctorName={doctorName}
-                                    doctorDescription={doctorDescription}
-                                    doctorPosition={doctorPosition}
-                                    isShowDescriptionDoctor={false}
-                                    dataTime={dataTime}
+                                    dataFromParents={this.props.dataFromParents}
                                 />
                                 <div className="row">
                                     <div className="col-6 form-group">
@@ -228,13 +195,16 @@ class BookingModal extends Component {
                                         </label>
                                         <Select
                                             value={this.state.selectedGender}
-                                            onChange={this.handleChange}
+                                            onChange={this.handleOnChangeSelect}
                                             options={this.state.listGenders}
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </ModalBody>
+
+                    <ModalFooter>
                         <div className="booking-modal-footer">
                             <button
                                 className="btn-booking-confirm"
@@ -244,16 +214,13 @@ class BookingModal extends Component {
                             </button>
                             <button
                                 className="btn-booking-cancel"
-                                onClick={closeBookingModal}
+                                onClick={this.props.closeBookingModal}
                             >
                                 <FormattedMessage id={"client.booking-modal.btn-cancel"} />
                             </button>
-
                         </div>
-                    </div>
-                </Modal>
-
-
+                    </ModalFooter>
+                </Modal >
             </>
         );
     }
@@ -271,6 +238,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getGenderRedux: () => { dispatch(actions.getAllGenders()) },
+
         saveAppointmentBookingRedux: (data) => { dispatch(actions.saveAppointmentBooking(data)) },
     };
 };

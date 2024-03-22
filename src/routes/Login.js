@@ -44,7 +44,7 @@ class Login extends Component {
 
     redirectToSystemPage = () => {
         const { navigate } = this.props;
-        const redirectPath = "/system/user-manage";
+        const redirectPath = "/system/doctor-management";
         navigate(`${redirectPath}`);
     };
 
@@ -110,10 +110,7 @@ class Login extends Component {
                         <div className="form-group icon-true">
                             <img className="icon" src={userIcon} alt="this" />
                             <input
-                                placeholder={LanguageUtils.getMessageByKey(
-                                    "login.username",
-                                    lang
-                                )}
+                                // placeholder={LanguageUtils.getMessageByKey("login.username", lang)}
                                 id="username"
                                 name="username"
                                 type="text"
@@ -179,8 +176,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) =>
-            dispatch(actions.adminLoginSuccess(adminInfo)),
+        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
         adminLoginFail: () => dispatch(actions.adminLoginFail()),
     };
 };

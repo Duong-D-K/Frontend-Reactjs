@@ -3,7 +3,6 @@ import { FormattedMessage } from "react-intl";
 import * as actions from "../../../store/actions";
 import { connect } from "react-redux";
 import "./DoctorManagement.scss";
-import { createDoctorService } from "../../../services/userService";
 import { emitter } from "../../../utils/emitter";
 import CreateDoctorModal from "./CreateDoctorModal";
 import EditDoctorModal from "./EditDoctorModal";
@@ -47,42 +46,6 @@ class DoctorManagement extends Component {
         })
     }
 
-    createNewDoctor = async (data) => {
-        try {
-            let response = await createDoctorService({
-                email: data.email,
-                password: data.password,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                address: data.address,
-                phoneNumber: data.phoneNumber,
-                gender: data.selectedGender.value,
-                position: data.selectedPosition.value,
-                clinic: data.selectedClinic.value,
-                specialty: data.selectedSpecialty.value,
-                price: data.selectedPrice.value,
-                payment: data.selectedPayment.value,
-                image: data.image,
-            })
-
-            if (response && response.code !== 0) {
-                toast.error(response.message);
-            } else {
-                await this.props.getAllDoctorsRedux();
-
-                toast.success(response.message);
-
-                this.setState({
-                    isOpenCreateModalUser: false,
-                });
-
-                emitter.emit("EVENT_CLEAR_MODAL_DATA");//clear modal 
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     deleteDoctor = async (doctor) => {
         try {
             await this.props.deleteDoctorRedux(doctor.id);
@@ -93,23 +56,52 @@ class DoctorManagement extends Component {
 
     editDoctor = async (doctor) => {
         try {
-            this.props.updateDoctorRedux({
-                id: doctor.id,
-                email: doctor.email,
-                firstName: doctor.firstName,
-                lastName: doctor.lastName,
-                address: doctor.address,
-                phoneNumber: doctor.phoneNumber,
-                gender: doctor.selectedGender.value,
-                position: doctor.selectedPosition.value,
-                specialty: doctor.selectedSpecialty.value,
-                clinic: doctor.selectedClinic.value,
-                avatar: doctor.avatar,
-                price: doctor.selectedPrice.value,
-                payment: doctor.selectedPayment.value,
-            });
+            if (doctor.actions === "edit") {
+                this.props.updateDoctorRedux({
+                    id: doctor.id,
+                    email: doctor.email,
+                    firstName: doctor.firstName,
+                    lastName: doctor.lastName,
+                    provinceId: doctor.selectedProvince.value,
+                    phoneNumber: doctor.phoneNumber,
+                    gender: doctor.selectedGender.value,
+                    position: doctor.selectedPosition.value,
+                    specialty: doctor.selectedSpecialty.value,
+                    clinic: doctor.selectedClinic.value,
+                    image: doctor.image,
+                    price: doctor.selectedPrice.value,
+                    payment: doctor.selectedPayment.value,
+                    contentHTML: doctor.contentHTML,
+                    contentMarkdown: doctor.contentMarkdown,
+                    introduction: doctor.introduction,
+                    note: doctor.note,
+                });
 
-            this.setState({ isOpenEditModalDoctor: false });
+                this.setState({ isOpenEditModalDoctor: false });
+            } else if (doctor.actions === "create") {
+                await this.props.createDoctorRedux({
+                    email: doctor.email,
+                    password: doctor.password,
+                    firstName: doctor.firstName,
+                    lastName: doctor.lastName,
+                    provinceId: doctor.selectedProvince.value,
+                    phoneNumber: doctor.phoneNumber,
+                    gender: doctor.selectedGender.value,
+                    position: doctor.selectedPosition.value,
+                    clinic: doctor.selectedClinic.value,
+                    specialty: doctor.selectedSpecialty.value,
+                    price: doctor.selectedPrice.value,
+                    payment: doctor.selectedPayment.value,
+                    image: doctor.image,
+                    contentHTML: doctor.contentHTML,
+                    contentMarkdown: doctor.contentMarkdown,
+                    introduction: doctor.introduction,
+                    note: doctor.note,
+                });
+
+                this.setState({ isOpenEditModalDoctor: false });
+            }
+
         } catch (e) {
             console.log(e);
         }
@@ -120,11 +112,11 @@ class DoctorManagement extends Component {
 
         return (
             <div className="doctor-container container-fluid">
-                <CreateDoctorModal
+                {/* <CreateDoctorModal
                     isOpen={this.state.isOpenCreateModalUser}
                     toggleFromParent={this.toggleUserCreateModal}
                     createNewDoctor={this.createNewDoctor}
-                />
+                /> */}
                 {this.state.isOpenEditModalDoctor &&
                     <EditDoctorModal
                         isOpen={this.state.isOpenEditModalDoctor}
@@ -139,7 +131,7 @@ class DoctorManagement extends Component {
                 <div className="mx-1">
                     <button
                         className="btn btn-primary px-3"
-                        onClick={() => this.setState({ isOpenCreateModalUser: true })}
+                        onClick={() => this.setState({ isOpenEditModalDoctor: true, doctorEdit: { key: "create", data: "" } })}
                     >
                         <i className="fas fa-plus"></i><FormattedMessage id="admin.doctor.doctor-management.add-new" />
                     </button>
@@ -170,10 +162,10 @@ class DoctorManagement extends Component {
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
                                         <td>{item.phoneNumber}</td>
-                                        <td>{item.address}</td>
+                                        <td>{this.props.language === LANGUAGES.VI ? item.Province.nameVi : item.Province.nameEn}</td>
                                         <td>{this.props.language === LANGUAGES.VI ? item.genderData.valueVi : item.genderData.valueEn}</td>
                                         <td>{this.props.language === LANGUAGES.VI ? item.Specialty.nameVi : item.Specialty.nameEn}</td>
-                                        <td>{item.Clinic.name}</td>
+                                        <td>{item.Clinic.name && item.Clinic.name.substring(0, 15)}...</td>
                                         <td>{this.props.language === LANGUAGES.VI ? item.positionData.valueVi : item.positionData.valueEn}</td>
                                         <td>{this.props.language === LANGUAGES.VI ? `${item.priceData.valueVi} VND` : `${item.priceData.valueEn} USD`}</td>
                                         <td>{this.props.language === LANGUAGES.VI ? item.paymentData.valueVi : item.paymentData.valueEn}</td>
@@ -183,8 +175,10 @@ class DoctorManagement extends Component {
                                                 onClick={() => {
                                                     this.setState({
                                                         isOpenEditModalDoctor: true,
-                                                        doctorEdit: item,
-
+                                                        doctorEdit: {
+                                                            key: "edit",
+                                                            data: item,
+                                                        }
                                                     })
                                                 }}><FormattedMessage id="admin.doctor.doctor-management.edit" />
                                             </button>
@@ -213,6 +207,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getAllDoctorsRedux: () => { dispatch(actions.getAllDoctors()) },
         updateDoctorRedux: (data) => { dispatch(actions.updateDoctor(data)) },
+        createDoctorRedux: (data) => { dispatch(actions.createDoctor(data)) },
         deleteDoctorRedux: (doctorId) => { dispatch(actions.deleteDoctor(doctorId)) },
     };
 };

@@ -46,6 +46,10 @@
 }
 
 .doctor-modal-container {
+    max-width: 1800px !important;
+    width: 100% !important;
+    max-height: 1000px !important;
+
     .doctor-modal-body {
         display: flex;
         // gap: 15px;
@@ -53,18 +57,10 @@
         .input-container {
             display: flex;
             flex-direction: column;
-            // width: 49%;
-
-            &.max-width-input {
-                // width: 100%;
-            }
 
             input {
-                border-radius: 3px;
+                border-radius: 5px;
                 border: 1px solid #cccccc;
-                // height: 40px;
-                // outline: none;
-                // padding: 0 10px;
             }
         }
         .preview-img-container {
@@ -79,7 +75,7 @@
             }
             .prev-image {
                 height: 200px;
-                width: 200%;
+                width: 100%;
                 border: 1px solid #ddd;
                 background: center center no-repeat;
                 background-size: contain;

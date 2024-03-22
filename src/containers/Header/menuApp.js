@@ -5,23 +5,23 @@ export const adminMenu = [
             {
                 name: "admin.menu.admin.doctor-management", link: "/system/doctor-management",
             },
-            {
-                name: "admin.menu.admin.crud-redux", link: "/system/user-redux",
-            },
-            {
-                name: "admin.menu.admin.doctor-introduction", link: "/system/doctor-introduction",
-                // subMenus: [
-                //     {
-                //         name: "menu.system.system-administrator.user-manage",
-                //         link: "/system/user-manage",
-                //     },
-                //     {
-                //         name: "menu.system.system-administrator.user-redux",
-                //         link: "/system/user-redux",
-                //     },
+            // {
+            //     name: "admin.menu.admin.crud-redux", link: "/system/user-redux",
+            // },
+            // {
+            //     name: "admin.menu.admin.doctor-introduction", link: "/system/doctor-introduction",
+            //     subMenus: [
+            //         {
+            //             name: "menu.system.system-administrator.user-manage",
+            //             link: "/system/user-manage",
+            //         },
+            //         {
+            //             name: "menu.system.system-administrator.user-redux",
+            //             link: "/system/user-redux",
+            //         },
 
-                // ],
-            },
+            //     ],
+            // },
             {   //quản lý kế hoạch khám bệnh của bác sĩ
                 name: "admin.menu.doctor.schedule-management", link: "/doctor/schedule-management",
             },
@@ -58,9 +58,10 @@ export const adminMenu = [
         ],
     },
 ];
+
 export const doctorMenu = [
     {
-        name: "admin.menu.admin.manage-user",
+        name: "admin.menu.admin.doctor",
         menus: [
             { name: "admin.menu.doctor.schedule-management", link: "/doctor/schedule-management", },
             { name: "admin.menu.doctor.patient-management", link: "/doctor/patient-management", },

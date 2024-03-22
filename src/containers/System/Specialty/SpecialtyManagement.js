@@ -54,7 +54,7 @@ class SpecialtyManagement extends Component {
     editSpecialty = async (specialty) => {
         try {
             if (specialty.actions === "edit") {
-                this.props.updateSpecialtyrRedux({
+                this.props.updateSpecialtyRedux({
                     id: specialty.id,
                     nameVi: specialty.nameVi,
                     nameEn: specialty.nameEn,
@@ -184,7 +184,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllSpecialtiesRedux: () => dispatch(actions.getAllSpecialties()),
-        updateSpecialtyrRedux: (data) => { dispatch(actions.updateSpecialty(data)) },
+        updateSpecialtyRedux: (data) => { dispatch(actions.updateSpecialty(data)) },
         createSpecialtyRedux: (data) => { dispatch(actions.createSpecialty(data)) },
         deleteSpecialtyRedux: (specialtyId) => { dispatch(actions.deleteSpecialty(specialtyId)) },
     };

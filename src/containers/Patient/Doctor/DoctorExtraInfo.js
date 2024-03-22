@@ -18,32 +18,13 @@ class DoctorExtraInfo extends Component {
     }
 
     async componentDidMount() {
-        //bình thường khi detail doctor gọi tới component này, giá trị ban đầu của this.props.doctorIdFromParents là null,
-        // sau khi render xong sẽ chạy hàm componentDidUpdate, khi này nhận ra sự khác biệt của this.props.doctorIdFromParents nên sẽ tìm doctor theo id mới
-        //nhưng khi bên detail specialty gọi sang component này thì this.props.doctorIdFromParents đã có giá trị rồi và biến đấy k bị thay đổi
-        // cho nên hàm componentDidUpdate sẽ không được gọi và trả về giá trị. Vậy nên phải viết hàm getDoctorInformationById ở trong componentDidMount
-        if (this.props.doctorIdFromParents) {
 
-            let response = await getDoctorInformationById(this.props.doctorIdFromParents);
-
-            if (response?.code === 0) {
-                this.setState({
-                    doctorInfo: response.data,
-                });
-            }
-        }
+        this.setState({
+            doctorInfo: this.props.doctorFromParents
+        })
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.doctorIdFromParents !== prevProps.doctorIdFromParents) {
-            let response = await getDoctorInformationById(this.props.doctorIdFromParents);
-
-            if (response?.code === 0) {
-                this.setState({
-                    doctorInfo: response.data,
-                });
-            }
-        }
     }
 
     showDoctorInfo = (status) => {
@@ -64,10 +45,10 @@ class DoctorExtraInfo extends Component {
                         <FormattedMessage id="client.extra-info-doctor.examination-address" />
                     </div>
                     <div className="clinic-name">
-                        {doctorInfo && doctorInfo.clinicName ? doctorInfo.clinicName : ""}
+                        {doctorInfo?.Clinic?.name ? doctorInfo.Clinic.name : ""}
                     </div>
                     <div className="detail-address">
-                        {doctorInfo && doctorInfo.clinicAddress ? doctorInfo.clinicAddress : ""}
+                        {doctorInfo?.Clinic?.address ? doctorInfo.Clinic.address : ""}
                     </div>
                 </div>
                 <div className="content-down">
@@ -81,19 +62,15 @@ class DoctorExtraInfo extends Component {
                                     value={language === LANGUAGES.VI ? doctorInfo.priceData.valueVi : doctorInfo.priceData.valueEn}
                                     displayType="text"
                                     thousandSeparator={true}
-                                    suffix={language === LANGUAGES.VI ? "VND" : "USD"}
+                                    suffix={language === LANGUAGES.VI ? " VND" : " USD"}
                                 />
                             }
                             <span className="detail" onClick={() => this.showDoctorInfo(true)}>
                                 <FormattedMessage id="client.extra-info-doctor.see-details" />
-
                             </span>
                         </div>
                         :
                         <>
-                            <div className="title-price">
-                                <FormattedMessage id="client.extra-info-doctor.examination-price" />
-                            </div>
                             <div className="detail-info">
                                 <div className="price">
                                     <span className="left">
@@ -106,7 +83,7 @@ class DoctorExtraInfo extends Component {
                                                 value={language === LANGUAGES.VI ? doctorInfo.priceData.valueVi : doctorInfo.priceData.valueEn}
                                                 displayType="text"
                                                 thousandSeparator={true}
-                                                suffix={language === LANGUAGES.VI ? "VND" : "USD"}
+                                                suffix={language === LANGUAGES.VI ? " VND" : " USD"}
                                             />
                                         }
                                     </span>
@@ -115,10 +92,9 @@ class DoctorExtraInfo extends Component {
                                     {doctorInfo && doctorInfo.note ? doctorInfo.note : ""}
                                 </div>
                             </div>
-
                             <div className="payment">
                                 <FormattedMessage id="client.extra-info-doctor.payment" />
-                                {doctorInfo && doctorInfo.paymentData &&
+                                {doctorInfo?.paymentData &&
                                     language === LANGUAGES.VI ? doctorInfo.paymentData.valueVi : doctorInfo.paymentData.valueEn}
                             </div>
                             <div className="hide-price">

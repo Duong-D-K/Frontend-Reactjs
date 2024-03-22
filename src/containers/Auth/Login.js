@@ -33,15 +33,15 @@ class Login extends Component {
     handleLogin = async () => {
         this.setState({ errMessage: "" });
         try {
-            let data = await handleLoginApi(
+            let response = await handleLoginApi(
                 this.state.userName,
                 this.state.password
             );
-            if (data && data.code !== 0) {
-                this.setState({ errMessage: data.message });
+            if (response && response.code !== 0) {
+                this.setState({ errMessage: response.message });
             }
-            if (data && data.code === 0) {
-                this.props.userLoginSuccess(data.user);
+            if (response && response.code === 0) {
+                this.props.userLoginSuccess(response.data);
             }
         } catch (error) {
             if (error.response) {

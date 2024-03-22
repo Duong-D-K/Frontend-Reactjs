@@ -94,7 +94,8 @@
                 "close": "Close"
             },
             "edit-doctor-modal": {
-                "title": "Edit Doctor Information",
+                "edit-title": "Edit Doctor Information",
+                "create-title": "Create New Doctor Information",
                 "email": "Email",
                 "firstName": "First Name",
                 "lastName": "Last Name",
@@ -108,6 +109,7 @@
                 "gender": "Gender",
                 "image": "Image",
                 "upload-image": "Upload Image",
+                "confirm-edit": "Confirm Edit",
                 "save": "Save Doctor",
                 "close": "Close"
             },
@@ -167,6 +169,34 @@
                 "create": "Confirm Add New",
                 "edit": "Confirm Edit",
                 "close": "Close"
+            }
+        },
+        "clinic": {
+            "clinic-management": {
+                "title": "Medical Facility Management",
+                "add-new": "Add New Medical Facility",
+                "ordinal": "Ordinal",
+                "name": "Medical Facility Name",
+                "address": "Address",
+                "district": "District",
+                "province": "Province/City",
+                "contentHTML": "Content HTML",
+                "contentMarkdown": "Content Markdown",
+                "image": "Image",
+                "action": "Action",
+                "edit": "Edit",
+                "delete": "Delete"
+            },
+            "edit-clinic-modal": {
+                "add-new-title": "Add New Medical Facility",
+                "edit-title": "Edit Medical  Facility",
+                "name": "Medical Facility Name",
+                "province": "Province",
+                "district": "District",
+                "image": "Image",
+                "address": "Address",
+                "save": "Add New",
+                "confirm": "Confirm Edit"
             }
         }
     },

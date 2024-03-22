@@ -56,6 +56,7 @@ class ScheduleManagement extends Component {
                 listDoctors: dataSelect,
             });
         }
+
         if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
             let data = this.props.allScheduleTime;
 
@@ -68,8 +69,10 @@ class ScheduleManagement extends Component {
                 period: data,
             });
         }
+
         if (this.props.allSchedulesByDateAndDoctor !== prevProps.allSchedulesByDateAndDoctor) {
             let { allSchedulesByDateAndDoctor } = this.props;
+
             let { period } = this.state;
 
             let updatePeriod = period.map(item => {
@@ -83,8 +86,16 @@ class ScheduleManagement extends Component {
         }
     }
 
-    handleChange = async (selectedDoctor) => {
-        this.setState({ selectedDoctor: selectedDoctor });
+    handleChange = async (data) => {
+        await this.setState({ selectedDoctor: data });
+
+        let { selectedDoctor, selectedDate } = this.state;
+
+        if (selectedDate) {
+            await this.props.getAllSchedulesByDateAndDoctorIdRedux(selectedDoctor.value, selectedDate.getTime());
+        } else {
+            // toast.warning("Please Choose Date!");
+        }
     };
 
     handleOnChangeDatePicker = async (date) => {
@@ -106,7 +117,7 @@ class ScheduleManagement extends Component {
 
         if (period && period.length > 0) {
             period = period.map(item => {
-                if (item.id === time.id) {
+                if (item.keyMap === time.keyMap) {
                     item.isSelected = !item.isSelected;
                 }
                 return item;
@@ -160,8 +171,6 @@ class ScheduleManagement extends Component {
     render() {
         let { period } = this.state;
 
-        let { language } = this.props;
-
         return (
             <>
                 <div className="schedule-management-container">
@@ -169,7 +178,7 @@ class ScheduleManagement extends Component {
                         <FormattedMessage id="admin.doctor.schedule-management.title" />
                     </div>
                     <div className="container">
-                        <div className="row">
+                        <div className="row container-fluid">
                             <div className="col-6 form-group">
                                 <label>
                                     <FormattedMessage id="admin.doctor.schedule-management.select-doctor" />
@@ -180,7 +189,7 @@ class ScheduleManagement extends Component {
                                     options={this.state.listDoctors}
                                     isDisabled={this.props.user.roleId === "R2"}
                                     placeholder={this.props.user.roleId === "R2" ?
-                                        language === LANGUAGES.VI ?
+                                        this.props.language === LANGUAGES.VI ?
                                             `${this.props.user.lastName} ${this.props.user.firstName}` :
                                             `${this.props.user.firstName} ${this.props.user.lastName}`
                                         :
@@ -207,7 +216,7 @@ class ScheduleManagement extends Component {
                                             className={item.isSelected === true ? "btn btn-schedule active" : "btn btn-schedule"}
                                             onClick={() => this.handleClickBtnTime(item)}
                                         >
-                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                            {this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                         </button>
                                     )
                                 })
@@ -232,7 +241,7 @@ class ScheduleManagement extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user.userInfo,
-        isLoggedIn: state.user.isLoggedIn,
+        // isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
         doctorList: state.admin.allDoctors,
         allScheduleTime: state.admin.allScheduleTime,

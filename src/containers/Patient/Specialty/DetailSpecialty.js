@@ -21,9 +21,13 @@ const mdParser = new MarkdownIt();
 class DetailSpecialty extends Component {
     constructor(props) {
         super(props);
+
+        this.memoizedValueRef = React.createRef();
+
         this.state = {
-            specialtyInfo: [],
-            doctorInfo: [],
+            currentSpecialty: [],
+            listDoctor: [],
+
             listProvince: [],
             selectedProvince: "",
         };
@@ -33,41 +37,49 @@ class DetailSpecialty extends Component {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
 
-            await this.props.getAllDoctorInSpecialtyRedux({ id: id, location: "ALL" });
-            await this.props.getAllRequiredDoctorInfoRedux();
+            await this.props.getClinicByIdRedux(id);
+
+            await this.props.getAllDoctorBySpecialtyIdRedux({ id: id, location: "ALL" });
+
+            // await this.props.getAllRequiredDoctorInfoRedux();
+
+            await this.props.getAllProvinceRedux();
+
         }
     }
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.allDoctorsInSpecialty !== prevProps.allDoctorsInSpecialty) {
+        if (this.props.specialty !== prevProps.specialty) {
             this.setState({
-                doctorInfo: this.props.allDoctorsInSpecialty.updatedDoctors,
-                specialtyInfo: this.props.allDoctorsInSpecialty.specialty,
+                currentSpecialty: this.props.specialty,
             })
         }
 
+        if (this.props.allDoctorsBySpecialtyId !== prevProps.allDoctorsBySpecialtyId) {
+            this.setState({
+                listDoctor: this.props.allDoctorsBySpecialtyId,
+                // currentSpecialty: this.props.allDoctorsInSpecialty.specialty,
+            })
+        }
+
+        if (this.props.listProvinces !== prevProps.listProvinces) {
+            this.setState({
+                listProvince: this.buildDataReactSelect(this.props.listProvinces),
+            })
+        }
         if (prevProps.language !== this.props.language) {
-            let { responseProvince } = this.props.allRequiredDoctorInfo;
-
             this.setState({
-                listProvince: this.buildDataInputSelect(this.props.allRequiredDoctorInfo.responseProvince),
-            })
-        }
-
-        if (this.props.allRequiredDoctorInfo !== prevProps.allRequiredDoctorInfo) {
-            this.setState({
-                listProvince: this.buildDataInputSelect(this.props.allRequiredDoctorInfo.responseProvince),
+                listProvince: this.buildDataReactSelect(this.props.listProvinces),
             })
         }
     }
 
-    buildDataInputSelect = (inputData, type) => {
-
+    buildDataReactSelect = (inputData) => {
         let result = (inputData?.length > 0)
             ? inputData.map(item => ({
-                label: this.props.language === LANGUAGES.VI ? item.valueVi : item.valueEn,
-                value: item.keyMap,
+                label: this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn,
+                value: item.id,
             }))
             : [];
 
@@ -84,11 +96,11 @@ class DetailSpecialty extends Component {
             [name.name]: selectedOption,
         })
 
-        await this.props.getAllDoctorInSpecialtyRedux({ id: this.props.allDoctorsInSpecialty.specialty.id, location: selectedOption.value });
+        await this.props.getAllDoctorBySpecialtyIdRedux({ id: this.props.match.params.id, location: selectedOption.value });
     }
 
     render() {
-        let { doctorInfo, specialtyInfo, listProvince } = this.state;
+        let { listDoctor, currentSpecialty, listProvince } = this.state;
 
         return (
             <>
@@ -97,51 +109,52 @@ class DetailSpecialty extends Component {
                     <div className="detail-specialty-body m-5 px-5">
                         <div className="specialty-description">
                             <div className="specialty-name">
-                                <h2>{this.props.language === LANGUAGES.VI ? specialtyInfo.nameVi : specialtyInfo.nameEn}</h2>
+                                <h2>{this.props.language === LANGUAGES.VI ? currentSpecialty.nameVi : currentSpecialty.nameEn}</h2>
                             </div>
-                            {specialtyInfo && !_.isEmpty(specialtyInfo) ?
-                                <div dangerouslySetInnerHTML={{ __html: specialtyInfo.contentHTML }}>
+                            {currentSpecialty && !_.isEmpty(currentSpecialty) ?
+                                <div dangerouslySetInnerHTML={{ __html: currentSpecialty.contentHTML }}>
                                 </div>
                                 : "Hiện tại chưa có phần giới thiệu cho chuyên khoa này!"
                             }
                         </div>
+
                         <div className="find-doctor-by-location">
                             <Select
                                 value={this.state.selectedProvince}
                                 onChange={this.handleOnChangeSelect}
                                 options={this.state.listProvince}
-                                placeholder={<FormattedMessage id="admin.manage-doctor.province" />}
+                                placeholder={`chon tinh thanh`}
                                 name="selectedProvince"
                             />
                         </div>
-                        {doctorInfo?.length > 0 ? doctorInfo.map((item, index) => {
+
+                        {listDoctor?.length > 0 ? listDoctor.map((item, index) => {
                             return (
                                 <div className="each-doctor" key={index}>
                                     <div className="detail-content-left">
                                         <DoctorProfile
-                                            doctorId={item.doctorId}
-                                            image={item.User.image}
-                                            doctorName={{
-                                                firstName: item.User.firstName,
-                                                lastName: item.User.lastName,
+                                            dataFromParents={{
+                                                key: "detail_specialty",
+                                                time: "",
+                                                doctor: item,
                                             }}
-                                            doctorDescription={item.Markdown.description}
-                                            doctorPosition={item.User.positionData}
-                                            isShowDescriptionDoctor={true}
-                                            dataTime={""}
                                         />
                                     </div>
                                     <div className="detail-content-right">
                                         <div className="doctor-schedule">
-                                            <DoctorSchedule doctorIdFromParents={item.doctorId} />
+                                            <DoctorSchedule
+                                                doctorFromParents={{
+                                                    key: "detail_specialty",
+                                                    data: item,
+                                                }} />
                                         </div>
                                         <div className="doctor-extra-info">
-                                            <DoctorExtraInfo doctorIdFromParents={item.doctorId} />
+                                            <DoctorExtraInfo doctorFromParents={item} />
                                         </div>
                                     </div>
                                 </div>
                             )
-                        }) : "Hiện tại chưa có bác sĩ nào trong chuyên khoa này!"}
+                        }) : "Xin Lỗi! Không Có Bác Sĩ Nào Phù Hợp!"}
                     </div>
                 </div>
             </>
@@ -152,15 +165,23 @@ class DetailSpecialty extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
-        allDoctorsInSpecialty: state.admin.allDoctorsInSpecialty,
-        allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
+        specialty: state.admin.specialty,
+        allDoctorsBySpecialtyId: state.admin.allDoctorsBySpecialtyId,
+
+        listProvinces: state.admin.allProvinces,
+
+
+        // allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAllDoctorInSpecialtyRedux: (id) => { dispatch(actions.getAllDoctorInSpecialty(id)) },
-        getAllRequiredDoctorInfoRedux: () => dispatch(actions.getRequiredDoctorInfo()),
+        getClinicByIdRedux: (id) => dispatch(actions.getSpecialtyById(id)),
+
+        getAllDoctorBySpecialtyIdRedux: (id) => { dispatch(actions.getAllDoctorsBySpecialtyId(id)) },
+
+        getAllProvinceRedux: () => { dispatch(actions.getAllProvinces()) },
     };
 };
 

@@ -53,8 +53,12 @@ const createDoctorService = (data) => {
 const deleteDoctorSerive = (doctorId) => {
     return axios.delete(`/api/delete-doctor/${doctorId}`);
 }
-
-
+const getAllDoctorsBySpecialtyIdService = (data) => {
+    return axios.get(`/api/get-all-doctors-by-specialtyId?id=${data.id}&location=${data.location}`);
+}
+const getAllDoctorsByClinicIdService = (clinicId) => {
+    return axios.get(`/api/get-all-doctors-by-clinicId?clinicId=${clinicId}`);
+}
 
 
 const createBulkScheduleService = (data) => {
@@ -78,6 +82,7 @@ const createExaminationVerificationService = (data) => {
 }
 
 
+
 const createSpecialtyService = (data) => {
     return axios.post(`/api/create-specialty`, data);
 }
@@ -90,15 +95,12 @@ const updateSpecialtyService = (data) => {
 const deleteSpecialtySerive = (specialtyId) => {
     return axios.delete(`/api/delete-specialty/${specialtyId}`);
 }
-
-
-const getAllDoctorInSpecialtyService = (data) => {
-    return axios.get(`/api/get-all-doctors-in-specialty?id=${data.id}&location=${data.location}`);
+const getSpecialtyByIdService = (id) => {
+    return axios.get(`/api/get-specialty-by-id?id=${id}`);
 }
 
-const createClinicService = (data) => {
-    return axios.post(`/api/create-clinic`, data);
-}
+
+
 
 
 const getAllProvincesService = () => {
@@ -109,13 +111,24 @@ const getDistrictsByProvinceIdService = (provinceId) => {
 }
 
 
+
+const createClinicService = (data) => {
+    return axios.post(`/api/create-clinic`, data);
+}
 const getAllClinicsService = () => {
     return axios.get(`/api/get-all-clinics`);
 }
-
 const getClinicByIdService = (id) => {
     return axios.get(`/api/get-clinic-by-id?id=${id}`);
 }
+const updateClinicService = (data) => {
+    return axios.put(`/api/update-clinic`, data);
+}
+const deleteClinicSerive = (clinicId) => {
+    return axios.delete(`/api/delete-clinic/${clinicId}`);
+}
+
+
 
 const getAllPatientsByDateAndDoctorIdService = (doctorId, date) => {
     return axios.get(`/api/get-all-patients-by-date-and-doctorId?doctorId=${doctorId}&date=${date}`);
@@ -145,31 +158,43 @@ export {
     createDoctorService,
     updateDoctorService,
     deleteDoctorSerive,
-
     getDoctorByIdService,
+    getAllDoctorsBySpecialtyIdService,
+    getAllDoctorsByClinicIdService,
     getScheduleByDateService,
+
+
+
     getDoctorInformationById,
+
+
     createAppointmentBookingService,
     createExaminationVerificationService,
 
-    createSpecialtyService,
+
     getAllSpecialtiesService,
+    getSpecialtyByIdService,
+    createSpecialtyService,
     updateSpecialtyService,
     deleteSpecialtySerive,
 
-    getAllDoctorInSpecialtyService,
 
-
-    createClinicService,
-    getAllProvincesService,
-
-    getDistrictsByProvinceIdService,
     getAllClinicsService,
+    createClinicService,
+    updateClinicService,
     getClinicByIdService,
+    deleteClinicSerive,
+
+    getAllProvincesService,
+    getDistrictsByProvinceIdService,
+
+
     getAllPatientsByDateAndDoctorIdService,
     getAllSchedulesByDateAndDoctorIdService,
 
+
     createBulkScheduleService,
+
 
     sendPrescriptionService,
 };

@@ -80,7 +80,8 @@
                 "close": "Đóng"
             },
             "edit-doctor-modal": {
-                "title": "Thay Đổi Thông Tin Bác Sĩ",
+                "edit-title": "Thay Đổi Thông Tin Bác Sĩ",
+                "create-title": "Tạo Mới Thông Tin Bác Sĩ",
                 "email": "Email",
                 "firstName": "Tên",
                 "lastName": "Họ",
@@ -94,6 +95,7 @@
                 "gender": "Giới Tính",
                 "image": "Hình Ảnh",
                 "upload-image": "Tải Ảnh Lên",
+                "confirm-edit": "Xác Nhận Chỉnh Sửa",
                 "save": "Lưu Bác Sĩ",
                 "close": "Đóng"
             },
@@ -153,6 +155,34 @@
                 "create": "Tạo Mới Chuyên Khoa",
                 "edit": "Chỉnh Sửa Chuyên Khoa",
                 "close": "Đóng"
+            }
+        },
+        "clinic": {
+            "clinic-management": {
+                "title": "Quản Lý Cơ Sở Khám Bệnh",
+                "add-new": "Thêm Mới Cơ Sở",
+                "ordinal": "STT",
+                "name": "Tên Cơ Sở",
+                "address": "Địa Chỉ",
+                "district": "Quận/Huyện",
+                "province": "Tỉnh/Thành Phố",
+                "contentHTML": "Content HTML",
+                "contentMarkdown": "Content Markdown",
+                "image": "Hình Ảnh",
+                "action": "Thao Tác",
+                "edit": "Chỉnh Sửa",
+                "delete": "Xóa"
+            },
+            "edit-clinic-modal": {
+                "add-new-title": "Thêm Mới Cơ Sở Khám Chữa Bệnh",
+                "edit-title": "Chỉnh Sửa Thông Tin Cơ Sở Khám Chữa Bệnh",
+                "name": "Tên Cơ Sở Khám Chữa Bệnh",
+                "province": "Tỉnh/Thành Phố",
+                "district": "Quận/Huyện",
+                "image": "Hình Ảnh",
+                "address": "Địa Chỉ",
+                "save": "Lưu Cơ Sở",
+                "confirm": "Xác Nhận Thay Đổi"
             }
         }
     },

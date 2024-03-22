@@ -15,20 +15,27 @@ class DoctorSchedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentDoctor: [],
+
+            dataFromParents: "",
+
             allDays: [],
+
             allAvailableTime: [],
-            isOpenModalBooking: false,
+
+            openBookingModal: false,
+
             dataScheduleTimeModal: {},
         }
     }
 
-    getArrDays = language => {
+    getArrDays = () => {
         let allDays = [];
 
         for (let i = 0; i < 7; i++) {
             let object = {};
 
-            if (language === LANGUAGES.VI) {
+            if (this.props.language === LANGUAGES.VI) {
                 if (i === 0) {
                     object.label = `Hôm Nay - ${moment(new Date()).format("DD/MM")}`;
                 } else {
@@ -50,98 +57,96 @@ class DoctorSchedule extends Component {
     }
 
     async componentDidMount() {
-        let allDays = this.getArrDays(this.props.language);
+        let allDays = this.getArrDays();
 
         this.setState({
             allDays: allDays,
-            listDoctorId: this.props.doctorIdFromParents,
         })
 
-        if (this.props.doctorIdFromParents) {
-            //bình thường khi detail doctor gọi tới component này, giá trị ban đầu của this.props.doctorIdFromParents là null,
-            // sau khi render xong sẽ chạy hàm componentDidUpdate, khi này nhận ra sự khác biệt của this.props.doctorIdFromParents nên sẽ tìm doctor theo id mới
-            // nhưng khi bên detail specialty gọi sang component này thì this.props.doctorIdFromParents đã có giá trị rồi và biến đấy k bị thay đổi
-            // cho nên hàm componentDidUpdate sẽ không được gọi và trả về giá trị. Vậy nên phải viết hàm getDoctorInformationById ở trong componentDidMount
+        this.setState({ currentDoctor: this.props.doctorFromParents.data, });
 
-            // await this.props.getScheduleByDateRedux(this.props.doctorIdFromParents, allDays[0].value);
-            let response = await getScheduleByDateService(this.props.doctorIdFromParents, allDays[0].value);
+        let response = await getScheduleByDateService(this.props.doctorFromParents.data.id, allDays[0].value);
 
-            if (response?.code === 0) {
-                this.setState({
-                    allAvailableTime: response.data,
-                })
-            }
+        if (response?.code === 0) {
+            this.setState({
+                allAvailableTime: response.data,
+            })
         }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.language !== prevProps.language) {
             this.setState({
-                allDays: this.getArrDays(this.props.language),
+                allDays: this.getArrDays(),
             })
         }
 
-        if (this.props.doctorIdFromParents !== prevProps.doctorIdFromParents) {
-            let allDays = this.getArrDays(this.props.language);
+        if (this.props.doctorFromParents !== prevProps.doctorFromParents) {
+            this.setState({
+                allDays: this.getArrDays(),
+            })
+            if (this.props.doctorFromParents.key === "detail_specialty") {
+                this.setState({ currentDoctor: this.props.doctorFromParents.data });
 
-            // await this.props.getScheduleByDateRedux(this.props.doctorIdFromParents, allDays[0].value);
+                let allDays = this.getArrDays();
 
-            let response = await getScheduleByDateService(this.props.doctorIdFromParents, allDays[0].value);
+                let response = await getScheduleByDateService(this.props.doctorFromParents.data.id, allDays[0].value);
 
-            if (response?.code === 0) {
-                this.setState({
-                    allAvailableTime: response.data,
-                })
+                if (response?.code === 0) {
+                    this.setState({
+                        allAvailableTime: response.data,
+                    })
+                }
             }
         }
-
-        // if (this.props.schedule !== prevProps.schedule) {
-        //     this.setState({
-        //         allAvailableTime: this.props.schedule ? this.props.schedule : [],
-        //     })
-        // }
     }
 
     handleOnChangeSelect = async (event) => {
-        if (this.props.doctorIdFromParents && this.props.doctorIdFromParents !== -1) {
-            let doctorId = this.props.doctorIdFromParents;
+        if (this.props.doctorFromParents && this.props.doctorFromParents !== -1) {
+            let doctorId = this.props.doctorFromParents.data.id;
 
             let date = event.target.value;
 
-            // await this.props.getScheduleByDateRedux(doctorId, date);
+
             let response = await getScheduleByDateService(doctorId, date);
 
             if (response?.code === 0) {
                 this.setState({
                     allAvailableTime: response.data,
                 })
+
             }
         }
     }
 
 
-    handleViewDetailDoctor = (time) => {
-        // if (this.props.history) {
-        //     this.props.history.push(`/detail-booking/${item.id}`);
-        // }
-        this.setState({
-            isOpenModalBooking: true,
-            dataScheduleTimeModal: time,
-        })
-    }
+    // handleViewDetailDoctor = (time) => {
+    //     // if (this.props.history) {
+    //     //     this.props.history.push(`/detail-booking/${item.id}`);
+    //     // }
+    //     this.setState({
+    //         openBookingModal: true,
+    //         dataScheduleTimeModal: time,
+    //     })
+    // }
 
     closeBookingModal = () => {
         this.setState({
-            isOpenModalBooking: false,
+            openBookingModal: false,
         })
     }
     render() {
-        let { allDays, allAvailableTime, isOpenModalBooking, dataScheduleTimeModal } = this.state;
-
-        let { language } = this.props;
+        let { allDays, allAvailableTime, dataScheduleTimeModal } = this.state;
 
         return (
             <>
+                {this.state.openBookingModal &&
+                    <BookingModal
+                        openBookingModal={this.state.openBookingModal}
+                        closeBookingModal={this.closeBookingModal}
+                        dataFromParents={this.state.dataFromParents}
+                    />
+                }
                 <div className="doctor-schedule-container">
                     <div className="all-schedule">
                         <select onChange={(event) => this.handleOnChangeSelect(event)}>
@@ -169,12 +174,20 @@ class DoctorSchedule extends Component {
                                     <div className="time-content-btns">
                                         {
                                             allAvailableTime.map((item, index) => {
-                                                let diplayTime = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                                let diplayTime = this.props.language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
                                                 return (
                                                     <button
                                                         key={index}
-                                                        className={language === LANGUAGES.VI ? "btn-vi" : "btn-en"}
-                                                        onClick={() => this.handleViewDetailDoctor(item)}
+                                                        className={this.props.language === LANGUAGES.VI ? "btn-vi" : "btn-en"}
+                                                        // onClick={() => this.handleViewDetailDoctor(item)}
+                                                        onClick={() => this.setState({
+                                                            openBookingModal: true,
+                                                            dataFromParents: {
+                                                                key: "doctor_schedule",
+                                                                time: item,
+                                                                doctor: this.state.currentDoctor
+                                                            }
+                                                        })}
                                                     > {diplayTime}</button>
                                                 );
                                             })
@@ -194,12 +207,6 @@ class DoctorSchedule extends Component {
                         </div>
                     </div>
                 </div >
-
-                <BookingModal
-                    openBookingModal={isOpenModalBooking}
-                    closeBookingModal={this.closeBookingModal}
-                    dataTime={dataScheduleTimeModal}
-                />
             </>
         );
     }

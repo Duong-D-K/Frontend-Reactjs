@@ -11,11 +11,15 @@ const initialState = {
     topDoctors: [],
     allDoctors: [],
     doctor: [],
+    specialty: [],
+
+
     allScheduleTime: [],
     schedule: [],
     allSpecialties: [],
     examination_verification: {},
-    allDoctorsInSpecialty: [],
+    allDoctorsBySpecialtyId: [],
+    allDoctorsByClinicId: [],
 
     allSchedulesByDateAndDoctor: [],
 
@@ -188,16 +192,28 @@ const adminReducer = (state = initialState, action) => {
                 allSpecialties: [],
             };
 
-        case actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_SUCCEED:
+        case actionTypes.GET_ALL_DOCTORS_BY_SPECIALTYID_SUCCEED:
             return {
                 ...state,
-                allDoctorsInSpecialty: action.data,
+                allDoctorsBySpecialtyId: action.data,
             };
-        case actionTypes.GET_ALL_DOCTORS_IN_SPECIALTY_FAIL:
+        case actionTypes.GET_ALL_DOCTORS_BY_SPECIALTYID_FAIL:
             return {
                 ...state,
-                allDoctorsInSpecialty: [],
+                allDoctorsBySpecialtyId: [],
             };
+
+        case actionTypes.GET_ALL_DOCTORS_BY_CLINICID_SUCCEED:
+            return {
+                ...state,
+                allDoctorsByClinicId: action.data,
+            };
+        case actionTypes.GET_ALL_DOCTORS_BY_CLINICID_FAIL:
+            return {
+                ...state,
+                allDoctorsByClinicId: [],
+            };
+
 
         case actionTypes.GET_ALL_PROVINCES_SUCCEED:
             return {
@@ -263,6 +279,18 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allSchedulesByDateAndDoctor: [],
+            };
+
+
+        case actionTypes.GET_SPECIALTY_BY_ID_SUCCEED:
+            return {
+                ...state,
+                specialty: action.data,
+            };
+        case actionTypes.GET_SPECIALTY_BY_ID_FAIL:
+            return {
+                ...state,
+                specialty: [],
             };
 
         default:

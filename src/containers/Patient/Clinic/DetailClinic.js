@@ -22,7 +22,7 @@ class DetailClinic extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            doctorInfo: [],
+            allDoctors: [],
             clinic: [],
         };
     }
@@ -32,6 +32,7 @@ class DetailClinic extends Component {
             let id = this.props.match.params.id;
 
             await this.props.getClinicByIdRedux(id);
+            await this.props.getAllDoctorsByClinicIdRedux(id);
         }
     }
 
@@ -40,20 +41,18 @@ class DetailClinic extends Component {
         if (this.props.clinic !== prevProps.clinic) {
             this.setState({
                 clinic: this.props.clinic,
-                doctorInfo: this.props.clinic.doctor_info,
             })
         }
 
-        if (prevProps.language !== this.props.language) {
+        if (this.props.allDoctorsByClinicId !== prevProps.allDoctorsByClinicId) {
             this.setState({
-                doctorInfo: this.props.clinic.doctor_info,
+                allDoctors: this.props.allDoctorsByClinicId
             })
-
         }
     }
 
     render() {
-        let { doctorInfo, clinic } = this.state;
+        let { allDoctors, clinic } = this.state;
 
         return (
             <>
@@ -70,29 +69,27 @@ class DetailClinic extends Component {
                                 : "Hiện tại chưa có phần giới thiệu cho chuyên khoa này!"
                             }
                         </div>
-                        {doctorInfo?.length > 0 ? doctorInfo.map((item, index) => {
+                        {allDoctors?.length > 0 ? allDoctors.map((item, index) => {
                             return (
                                 <div className="each-doctor" key={index}>
                                     <div className="detail-content-left">
                                         <DoctorProfile
-                                            doctorId={item.doctorId}
-                                            image={item.extraInfo.users.image}
-                                            doctorName={{
-                                                firstName: item.extraInfo.users.firstName,
-                                                lastName: item.extraInfo.users.lastName,
+                                            dataFromParents={{
+                                                key: "detail_clinic",
+                                                time: "",
+                                                doctor: item,
                                             }}
-                                            doctorDescription={item.extraInfo.markdown.description}
-                                            doctorPosition={item.extraInfo.users.positionData}
-                                            isShowDescriptionDoctor={true}
-                                            dataTime={""}
                                         />
                                     </div>
                                     <div className="detail-content-right">
                                         <div className="doctor-schedule">
-                                            <DoctorSchedule doctorIdFromParents={item.doctorId} />
+                                            <DoctorSchedule doctorFromParents={{
+                                                key: "detail_clinic",
+                                                data: item,
+                                            }} />
                                         </div>
                                         <div className="doctor-extra-info">
-                                            <DoctorExtraInfo doctorIdFromParents={item.doctorId} />
+                                            <DoctorExtraInfo doctorFromParents={item} />
                                         </div>
                                     </div>
                                 </div>
@@ -108,8 +105,7 @@ class DetailClinic extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
-        allDoctorsInSpecialty: state.admin.allDoctorsInSpecialty,
-        allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
+        allDoctorsByClinicId: state.admin.allDoctorsByClinicId,
         clinic: state.admin.clinic,
     };
 };
@@ -117,6 +113,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getClinicByIdRedux: (id) => { dispatch(actions.getClinicById(id)) },
+        getAllDoctorsByClinicIdRedux: (id) => { dispatch(actions.getAllDoctorsByClinicId(id)) },
     };
 };
 
